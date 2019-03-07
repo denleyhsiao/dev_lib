@@ -6,7 +6,8 @@
 class GPIOComm
 {
 public:
-  GPIOComm(unsigned int pin) : pin(pin) {}
+  GPIOComm(unsigned int pin) : pin_(pin) {}
+  unsigned int pin() const { return pin_; }
   int init(int mode);
   void write(int value);
   int read() const;
@@ -17,7 +18,7 @@ public:
   
 private:
   int detected(unsigned int eventType, void (* callback)());
-  unsigned int pin;
+  unsigned int pin_;
 };
 
 #endif

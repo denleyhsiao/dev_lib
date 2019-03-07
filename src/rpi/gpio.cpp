@@ -1,5 +1,10 @@
 #include "dev_lib/rpi/gpio.h"
 
+unsigned int GPIO::pin() const
+{
+  return comm.pin();
+}
+
 bool GPIO::init(int mode)
 {
   return (comm.init(mode) == 0);

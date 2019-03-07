@@ -7,6 +7,7 @@ class GPIO
 {
 public:
   GPIO(unsigned int pin) : comm(pin) {}
+  unsigned int pin() const;
   bool init(int mode); 
   bool read() const;
   void write(bool isVih);

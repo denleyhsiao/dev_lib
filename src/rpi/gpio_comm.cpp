@@ -1,21 +1,26 @@
 #include "dev_lib/rpi/gpio_comm.h"
+
+unsigned int GPIOComm::pin() const
+{
+  return pin_;
+}
   
 int GPIOComm::init(int mode)
 {
   int result = wiringPiSetup();
   if (result == 0)
-    pinMode(pin, mode);
+    pinMode(pin_, mode);
   return result;
 }
 
 void GPIOComm::write(int value)
 {
-  digitalWrite(pin, value);
+  digitalWrite(pin_, value);
 }
 
 int GPIOComm::read() const
 {
-  return digitalRead(pin);
+  return digitalRead(pin_);
 }
 
 int GPIOComm::detectedRising(void (* callback)())
@@ -40,5 +45,5 @@ int GPIOComm::detectedSetup(void (* callback)())
 
 int GPIOComm::detected(unsigned int eventType, void (* callback)())
 {
-  return wiringPiISR(pin, eventType, callback);
+  return wiringPiISR(pin_, eventType, callback);
 }
