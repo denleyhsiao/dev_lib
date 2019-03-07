@@ -7,7 +7,7 @@ class GPIOComm
 {
 public:
   GPIOComm(unsigned int pin) : pin_(pin) {}
-  unsigned int pin() const { return pin_; }
+  unsigned int pin() const;
   int init(int mode);
   void write(int value);
   int read() const;
