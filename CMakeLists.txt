@@ -123,6 +123,7 @@ include_directories(
 
 ## Declare a C++ library
 add_library(${PROJECT_NAME}
+  src/dev_helper.cpp
   src/rpi/gpio.cpp
   src/rpi/gpio_comm.cpp
 )
@@ -150,6 +151,8 @@ add_library(${PROJECT_NAME}
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}
   wiringPi
+  crypt
+  rt
   ${catkin_LIBRARIES}
 )
 
