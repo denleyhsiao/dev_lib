@@ -2,14 +2,14 @@
 #include <boost/thread/thread_time.hpp>
 #include <boost/bind.hpp>
 
-DeadlineTimer::DeadlineTimer(boost::asio::io_service& io, long sleepSeconds, finish_func_type callbackFinish) 
-  : io(io), sleepDuration(boost::posix_time::seconds(sleepSeconds)), callbackFinish(callbackFinish), timer(NULL)
+DeadlineTimer::DeadlineTimer(boost::asio::io_service& io, double sleepSeconds, finish_func_type callbackFinish) 
+  : io(io), sleepDuration(boost::posix_time::milliseconds(sleepSeconds * 1000)), callbackFinish(callbackFinish), timer(NULL)
 {
 }
   
 bool DeadlineTimer::isSameTime() const
 {
-  return ((boost::get_system_time() - end).seconds() == 0);
+  return ((boost::get_system_time() - end).total_milliseconds() == 0);
 }
 
 void DeadlineTimer::init()
@@ -29,7 +29,6 @@ void DeadlineTimer::wakeUp()
   else
   {
     init();
-    print("create ");
   }
 }
 
@@ -46,5 +45,5 @@ void DeadlineTimer::async_wait()
 
 void DeadlineTimer::doPrint(const char* prefix)
 {
-  callbackFinish(prefix, (boost::get_system_time() - begin).seconds());
+  callbackFinish(prefix, (boost::get_system_time() - begin).total_milliseconds()/1000.0);
 }
