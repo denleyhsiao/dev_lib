@@ -15,7 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -126,6 +126,8 @@ add_library(${PROJECT_NAME}
   src/dev_helper.cpp
   src/rpi/gpio.cpp
   src/rpi/gpio_comm.cpp
+  src/boost/deadline_timer.cpp
+  src/boost/delay_deadline_timer.cpp
 )
 
 ## Add cmake target dependencies of the library
