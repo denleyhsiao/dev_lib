@@ -14,6 +14,7 @@ public:
   virtual ~DeadlineTimer() {}
   void init();
   void wakeUp();
+  void cancel();
   
 protected:
   bool isSameTime() const;

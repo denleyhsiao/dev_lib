@@ -24,13 +24,19 @@ void DeadlineTimer::wakeUp()
   if (timer)
   {
     end = boost::get_system_time();
-    timer->cancel();
+    cancel();
   }
   else
   {
     init();
     print("create ");
   }
+}
+
+void DeadlineTimer::cancel()
+{
+  if (timer)
+    timer->cancel();
 }
 
 void DeadlineTimer::async_wait()
