@@ -6,7 +6,8 @@
 class DelayDeadlineTimer : public DeadlineTimer
 {
 public:
-  DelayDeadlineTimer(boost::asio::io_service& io, long sleepSeconds) : DeadlineTimer(io, sleepSeconds) { }
+  typedef DeadlineTimer::finish_func_type finish_func_type;
+  DelayDeadlineTimer(boost::asio::io_service& io, long sleepSeconds, finish_func_type callbackFinish) : DeadlineTimer(io, sleepSeconds, callbackFinish) { }
   
 private:
   virtual void callback(const boost::system::error_code &err); 

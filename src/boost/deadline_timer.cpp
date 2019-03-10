@@ -1,10 +1,9 @@
 #include "dev_lib/boost/deadline_timer.h"
 #include <boost/thread/thread_time.hpp>
 #include <boost/bind.hpp>
-#include <iostream>
 
-DeadlineTimer::DeadlineTimer(boost::asio::io_service& io, long sleepSeconds) 
-  : io(io), sleepDuration(boost::posix_time::seconds(sleepSeconds)), timer(NULL)
+DeadlineTimer::DeadlineTimer(boost::asio::io_service& io, long sleepSeconds, finish_func_type callbackFinish) 
+  : io(io), sleepDuration(boost::posix_time::seconds(sleepSeconds)), callbackFinish(callbackFinish), timer(NULL)
 {
 }
   
@@ -41,5 +40,5 @@ void DeadlineTimer::async_wait()
 
 void DeadlineTimer::doPrint(const char* prefix)
 {
-  std::cout << prefix << (boost::get_system_time() - begin).seconds() << std::endl;
+  callbackFinish(prefix, (boost::get_system_time() - begin).seconds());
 }
