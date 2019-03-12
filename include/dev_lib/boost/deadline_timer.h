@@ -9,26 +9,27 @@ class DeadlineTimer
 {
 public:
   typedef std::shared_ptr<boost::asio::deadline_timer> timer_type;
-  typedef std::function<void (const char* prefix, float seconds)> finish_func_type;
+  typedef std::function<void ()> finish_func_type;
   DeadlineTimer(boost::asio::io_service& io, float sleepSeconds, finish_func_type callbackFinish);
-  virtual ~DeadlineTimer() {}
+  virtual ~DeadlineTimer();
   void init();
   void wakeUp();
-  void cancel();
   
 protected:
-  bool isSameTime() const;
-  void async_wait();
   void doPrint(const char* prefix);
   timer_type timer;
   boost::posix_time::time_duration sleepDuration;
+  boost::posix_time::ptime end;
   
 private:
-  virtual void callback(const boost::system::error_code &err) = 0;
+  virtual bool isPaused(const boost::system::error_code &err) const = 0;
+  virtual void pause() = 0;
   virtual void print(const char* prefix) = 0;
+  void callback(const boost::system::error_code &err);
+  void async_wait();
+  bool stopped;
   boost::asio::io_service& io;  
   boost::posix_time::ptime begin;
-  boost::posix_time::ptime end;
   finish_func_type callbackFinish;
 };
 

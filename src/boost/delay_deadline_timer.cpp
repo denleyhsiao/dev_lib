@@ -1,19 +1,21 @@
 #include "dev_lib/boost/delay_deadline_timer.h"
+#include <boost/thread/thread_time.hpp>
 #include "boost/format.hpp"
 
-void DelayDeadlineTimer::callback(const boost::system::error_code &err)  
+bool DelayDeadlineTimer::isPaused(const boost::system::error_code &err) const
+{
+  return (err || isSameTime());
+}
+  
+bool DelayDeadlineTimer::isSameTime() const
+{
+  return ((boost::get_system_time() - end).total_milliseconds() == 0);
+}
+
+void DelayDeadlineTimer::pause()  
 {  
-  if (err || isSameTime())
-  {
-    print("received wakeup");
-    timer->expires_from_now(sleepDuration);  
-    async_wait();
-  }
-  else
-  {
-    timer.reset();
-    print("finished");
-  }
+  print("received wakeup");
+  timer->expires_from_now(sleepDuration);  
 }  
 
 void DelayDeadlineTimer::print(const char* prefix)

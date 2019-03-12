@@ -10,8 +10,10 @@ public:
   DelayDeadlineTimer(boost::asio::io_service& io, float sleepSeconds, finish_func_type callbackFinish) : DeadlineTimer(io, sleepSeconds, callbackFinish) { }
   
 private:
-  virtual void callback(const boost::system::error_code &err); 
+  virtual bool isPaused(const boost::system::error_code &err) const;
+  virtual void pause(); 
   virtual void print(const char* prefix);
+  bool isSameTime() const;
 };
 
 #endif
