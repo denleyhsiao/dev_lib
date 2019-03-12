@@ -2,7 +2,7 @@
 #include <boost/thread/thread_time.hpp>
 #include <boost/bind.hpp>
 
-DeadlineTimer::DeadlineTimer(boost::asio::io_service& io, double sleepSeconds, finish_func_type callbackFinish) 
+DeadlineTimer::DeadlineTimer(boost::asio::io_service& io, float sleepSeconds, finish_func_type callbackFinish) 
   : io(io), sleepDuration(boost::posix_time::milliseconds(sleepSeconds * 1000)), callbackFinish(callbackFinish), timer(NULL)
 {
 }

@@ -9,8 +9,8 @@ class DeadlineTimer
 {
 public:
   typedef std::shared_ptr<boost::asio::deadline_timer> timer_type;
-  typedef std::function<void (const char* prefix, double seconds)> finish_func_type;
-  DeadlineTimer(boost::asio::io_service& io, double sleepSeconds, finish_func_type callbackFinish);
+  typedef std::function<void (const char* prefix, float seconds)> finish_func_type;
+  DeadlineTimer(boost::asio::io_service& io, float sleepSeconds, finish_func_type callbackFinish);
   virtual ~DeadlineTimer() {}
   void init();
   void wakeUp();
