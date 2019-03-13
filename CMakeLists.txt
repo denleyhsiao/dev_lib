@@ -126,8 +126,6 @@ add_library(${PROJECT_NAME}
   src/dev_helper.cpp
   src/rpi/gpio.cpp
   src/rpi/gpio_comm.cpp
-  src/boost/deadline_timer.cpp
-  src/boost/delay_deadline_timer.cpp
 )
 
 ## Add cmake target dependencies of the library
