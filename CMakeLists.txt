@@ -192,6 +192,7 @@ install(DIRECTORY include/${PROJECT_NAME}/
 ## Add gtest based cpp test target and link libraries
 catkin_add_gtest(${PROJECT_NAME}_test 
   test/test_decimal_comparer.cpp
+  test/test_dev_helper.cpp
   test/main.cpp)
 if(TARGET ${PROJECT_NAME}_test)
   target_link_libraries(${PROJECT_NAME}_test ${PROJECT_NAME})
