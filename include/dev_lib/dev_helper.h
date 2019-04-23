@@ -8,7 +8,7 @@ class DevHelper
 {
 public:
   static std::string format(const char* fmt, ...);
-  
+
 private:
   static int vscprintf(const char * format, va_list args);
 };

@@ -5,7 +5,7 @@
 
 class DecimalComparer
 {
-public:  
+public:
   template <typename T>
   static bool isEqual(T rhs, T lhs, float eps = EPS);
   template <typename T>

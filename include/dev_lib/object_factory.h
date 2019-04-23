@@ -4,7 +4,7 @@
 #include <map>
 #include <cassert>
 
-template <typename K, typename V> 
+template <typename K, typename V>
 class ObjectFactoryT
 {
 public:
@@ -23,7 +23,7 @@ public:
     assert(has(key));
     return data.find(key)->second;
   }
-  
+
 private:
   std::map<K,V> data;
 };
