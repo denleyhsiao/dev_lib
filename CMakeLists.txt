@@ -123,6 +123,7 @@ include_directories(
 
 ## Declare a C++ library
 add_library(${PROJECT_NAME}
+  src/escape_time.cpp
   src/decimal_comparer.cpp
   src/dev_helper.cpp
 )
@@ -190,7 +191,7 @@ install(DIRECTORY include/${PROJECT_NAME}/
 #############
 
 ## Add gtest based cpp test target and link libraries
-catkin_add_gtest(${PROJECT_NAME}_test 
+catkin_add_gtest(${PROJECT_NAME}_test
   test/test_decimal_comparer.cpp
   test/test_dev_helper.cpp
   test/main.cpp)
