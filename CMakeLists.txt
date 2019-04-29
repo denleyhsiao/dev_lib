@@ -126,6 +126,7 @@ add_library(${PROJECT_NAME}
   src/escape_time.cpp
   src/decimal_comparer.cpp
   src/dev_helper.cpp
+  src/deadline_time.cpp
 )
 
 ## Add cmake target dependencies of the library
