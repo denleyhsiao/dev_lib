@@ -1,5 +1,10 @@
 #include "dev_lib/dev_helper.h"
-#include <vector>
+#include <sstream>
+#include <iterator>
+#include <algorithm>
+#include <unistd.h>
+#include <limits.h>
+#include <cassert>
 
 int DevHelper::vscprintf(const char * format, va_list args)
 {
@@ -23,4 +28,31 @@ std::string DevHelper::format(const char* fmt, ...)
   }
   va_end(args);
   return result;
+}
+
+std::string DevHelper::getLine(std::istream& is)
+{
+  std::string result("");
+  if (!std::getline(is, result))
+    return "";
+  return result;
+}
+
+std::string DevHelper::getModuleFileName()
+{
+  char result[PATH_MAX + 1] = {0};
+  int retValue = readlink(format("/proc/%d/exe", getpid()).c_str(), result, PATH_MAX);
+  assert(retValue != -1);
+  return result;
+}
+
+std::vector<float> DevHelper::split(const std::string& value, const char delimiter /* = ',' */)
+{
+  static const char SPACE_FLAG = ' ';
+  std::string source = value;
+  if (delimiter != SPACE_FLAG)
+    std::replace(source.begin(), source.end(), delimiter, SPACE_FLAG);
+
+  std::istringstream iss(source);
+  return std::vector<float>((std::istream_iterator<float>(iss)), std::istream_iterator<float>());
 }
