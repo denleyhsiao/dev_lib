@@ -8,10 +8,11 @@
 class DevHelper
 {
 public:
+  typedef std::vector<float>  floats_type;
   static std::string format(const char* fmt, ...);
   static std::string getLine(std::istream& is);
   static std::string getModuleFileName();
-  static std::vector<float> split(const std::string& value, const char delimiter = ',');
+  static floats_type split(const char* value, const char delimiter = ',');
 
 private:
   static int vscprintf(const char * format, va_list args);

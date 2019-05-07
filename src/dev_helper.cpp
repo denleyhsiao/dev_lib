@@ -1,4 +1,5 @@
 #include "dev_lib/dev_helper.h"
+#include <boost/lexical_cast.hpp>
 #include <sstream>
 #include <iterator>
 #include <algorithm>
@@ -46,13 +47,17 @@ std::string DevHelper::getModuleFileName()
   return result;
 }
 
-std::vector<float> DevHelper::split(const std::string& value, const char delimiter /* = ',' */)
+DevHelper::floats_type DevHelper::split(const char* value, const char delimiter /* = ',' */)
 {
   static const char SPACE_FLAG = ' ';
+  floats_type result = floats_type();
   std::string source = value;
   if (delimiter != SPACE_FLAG)
     std::replace(source.begin(), source.end(), delimiter, SPACE_FLAG);
 
   std::istringstream iss(source);
-  return std::vector<float>((std::istream_iterator<float>(iss)), std::istream_iterator<float>());
+  std::vector<std::string> values((std::istream_iterator<std::string>(iss)), std::istream_iterator<std::string>());
+  for (std::string value: values)
+    result.push_back(boost::lexical_cast<float>(value));
+  return result;
 }
