@@ -198,6 +198,7 @@ install(DIRECTORY include/${PROJECT_NAME}/
 catkin_add_gtest(${PROJECT_NAME}_test
   test/test_decimal_comparer.cpp
   test/test_dev_helper.cpp
+  test/test_boost_helper.cpp
   test/test_escape_time.cpp
   test/main.cpp)
 if(TARGET ${PROJECT_NAME}_test)
