@@ -12,7 +12,7 @@ int DevHelper::vscprintf(const char * format, va_list args)
 {
   va_list tempArgs;
   va_copy(tempArgs, args);
-  int result = vsnprintf(NULL, 0, format, tempArgs);
+  int result = vsnprintf(nullptr, 0, format, tempArgs);
   va_end(tempArgs);
   return result;
 }
