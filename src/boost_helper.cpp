@@ -1,17 +1,17 @@
 #include "dev_lib/boost_helper.h"
+#include "dev_lib/dev_helper.h"
 #include <boost/lexical_cast.hpp>
 #include <iterator>
 #include <algorithm>
 
 BoostHelper::floats_type BoostHelper::split(const char* value, const char delimiter /* = ',' */)
 {
-  static const char SPACE_FLAG = ' ';
+  floats_type result = floats_type();
   std::string source = value;
-  if (delimiter != SPACE_FLAG)
-    std::replace(source.begin(), source.end(), delimiter, SPACE_FLAG);
+  if (delimiter != DevHelper::SPACE_FLAG)
+    std::replace(source.begin(), source.end(), delimiter, DevHelper::SPACE_FLAG);
 
   std::istringstream iss(source);
-  floats_type result = floats_type();
   std::for_each(std::istream_iterator<std::string>(iss), std::istream_iterator<std::string>(),
     [&result](const std::string& value){ result.push_back(boost::lexical_cast<float>(value)); });
   return result;

@@ -31,6 +31,7 @@ public:
 
 public:
   static const float inf;
+  static const char SPACE_FLAG;
 private:
   static int vscprintf(const char * format, va_list args);
 };

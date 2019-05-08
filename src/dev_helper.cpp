@@ -6,6 +6,7 @@
 #include <cassert>
 
 const float DevHelper::inf = std::numeric_limits<float>::infinity();
+const char DevHelper::SPACE_FLAG = ' ';
 
 int DevHelper::vscprintf(const char * format, va_list args)
 {
