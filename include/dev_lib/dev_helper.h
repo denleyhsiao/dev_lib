@@ -3,6 +3,7 @@
 
 #include <stdarg.h>
 #include <string>
+#include <sstream>
 #include <vector>
 
 class DevHelper

@@ -1,6 +1,5 @@
 #include "dev_lib/dev_helper.h"
 #include <boost/lexical_cast.hpp>
-#include <sstream>
 #include <iterator>
 #include <algorithm>
 #include <unistd.h>
@@ -34,9 +33,7 @@ std::string DevHelper::format(const char* fmt, ...)
 std::string DevHelper::getLine(std::istream& is)
 {
   std::string result("");
-  if (!std::getline(is, result))
-    return "";
-  return result;
+  return (std::getline(is, result) ? result : "");
 }
 
 std::string DevHelper::getModuleFileName()
