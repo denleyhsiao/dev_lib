@@ -1,5 +1,8 @@
 #include "dev_lib/dev_helper.h"
 #include <vector>
+#include <iomanip>
+#include <algorithm>
+#include <cassert>
 
 int DevHelper::vscprintf(const char * format, va_list args)
 {
@@ -29,6 +32,33 @@ std::string DevHelper::getLine(std::istream& is)
 {
   std::string result("");
   return (std::getline(is, result) ? result : "");
+}
+
+std::string DevHelper::toString(float value, size_t precision /* = 1*/)
+{
+  std::stringstream ss;
+  ss << std::fixed << std::setprecision(precision) << value;
+  return ss.str();
+}
+
+std::string DevHelper::toString(const uints_type& value, char flag /* = ',' */)
+{
+  assert(!value.empty());
+  return std::accumulate(std::next(value.begin()), value.end(),
+                                  std::to_string(value[0]), // 以首元素开始
+                                  [flag](std::string a, uint8_t b) {
+                                    return a + std::string(1, flag) + std::to_string(b);
+                                  });
+}
+
+std::string DevHelper::toString(const floats_type& value, size_t precision /* = 1 */, char flag /* = ',' */)
+{
+  assert(!value.empty());
+  return std::accumulate(std::next(value.begin()), value.end(),
+                                  toString(value[0], precision), // 以首元素开始
+                                  [precision, flag](std::string a, float b) {
+                                    return a + std::string(1, flag) + toString(b, precision);
+                                  });
 }
 
 std::string DevHelper::getArg(unsigned int argc, char** argv, unsigned int index, const char* defaultValue /* = "" */)
