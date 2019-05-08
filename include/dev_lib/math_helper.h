@@ -1,6 +1,8 @@
 #ifndef __DEV_LIB_MATH_HELPER_H__
 #define __DEV_LIB_MATH_HELPER_H__
 
+#include <cmath>
+
 class MathHelper
 {
 public:
@@ -25,7 +27,7 @@ inline T MathHelper::distance(T startX, T startY, T endX, T endY, T rad)
 template <typename T>
 inline T MathHelper::distance(T offsetX, T offsetY, T rad)
 {
-  return sqrt(offsetX * offsetX + offsetY * offsetY - 2 * offsetX * offsetY * cos(rad));
+  return std::sqrt(offsetX * offsetX + offsetY * offsetY - 2 * offsetX * offsetY * cos(rad));
 }
 
 #endif
