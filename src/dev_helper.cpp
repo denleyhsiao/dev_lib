@@ -1,8 +1,11 @@
 #include "dev_lib/dev_helper.h"
+#include <numeric>
 #include <vector>
 #include <iomanip>
 #include <algorithm>
 #include <cassert>
+
+const float DevHelper::inf = std::numeric_limits<float>::infinity();
 
 int DevHelper::vscprintf(const char * format, va_list args)
 {
@@ -32,6 +35,31 @@ std::string DevHelper::getLine(std::istream& is)
 {
   std::string result("");
   return (std::getline(is, result) ? result : "");
+}
+
+unsigned int DevHelper::sum(const uints_type& value)
+{
+  return std::accumulate(value.begin(), value.end(), 0);
+}
+
+size_t DevHelper::count(const floats_type& source, float value, size_t start, size_t end)
+{
+  return std::count(std::next(source.begin(), start), std::next(source.begin(), end), value);
+}
+
+std::tuple<bool, size_t> DevHelper::find(const floats_type& source, float value, size_t start /* = 0*/)
+{
+  auto pos = std::find(std::next(source.begin(), start), source.end(), value);
+  bool hasFind = (pos != source.end());
+  size_t result = hasFind ? std::distance(source.begin(), pos) : 0;
+  return std::make_tuple(hasFind, result);
+}
+
+DevHelper::uints_type& DevHelper::append(const uints_type& source, uints_type& target)
+{
+  target.reserve(target.size() + source.size());
+  target.insert(target.end(), source.begin(), source.end());
+  return target;
 }
 
 std::string DevHelper::toString(float value, size_t precision /* = 1*/)
