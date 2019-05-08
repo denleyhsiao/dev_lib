@@ -128,6 +128,7 @@ add_library(${PROJECT_NAME}
   src/deadline_time.cpp
   src/dev_helper.cpp
   src/boost_helper.cpp
+  src/math_helper.cpp
   src/linux_os_helper.cpp
 )
 
