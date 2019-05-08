@@ -1,10 +1,5 @@
 #include "dev_lib/dev_helper.h"
-#include <boost/lexical_cast.hpp>
-#include <iterator>
-#include <algorithm>
-#include <unistd.h>
-#include <limits.h>
-#include <cassert>
+#include <vector>
 
 int DevHelper::vscprintf(const char * format, va_list args)
 {
@@ -34,27 +29,4 @@ std::string DevHelper::getLine(std::istream& is)
 {
   std::string result("");
   return (std::getline(is, result) ? result : "");
-}
-
-std::string DevHelper::getModuleFileName()
-{
-  char result[PATH_MAX + 1] = {0};
-  int retValue = readlink(format("/proc/%d/exe", getpid()).c_str(), result, PATH_MAX);
-  assert(retValue != -1);
-  return result;
-}
-
-DevHelper::floats_type DevHelper::split(const char* value, const char delimiter /* = ',' */)
-{
-  static const char SPACE_FLAG = ' ';
-  floats_type result = floats_type();
-  std::string source = value;
-  if (delimiter != SPACE_FLAG)
-    std::replace(source.begin(), source.end(), delimiter, SPACE_FLAG);
-
-  std::istringstream iss(source);
-  std::vector<std::string> values((std::istream_iterator<std::string>(iss)), std::istream_iterator<std::string>());
-  for (std::string value: values)
-    result.push_back(boost::lexical_cast<float>(value));
-  return result;
 }
