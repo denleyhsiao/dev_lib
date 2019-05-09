@@ -9,6 +9,7 @@ class BoostHelper
 public:
   typedef std::vector<float>  floats_type;
   static floats_type split(const char* value, const char delimiter = ',');
+  static void sleep(long msTime);
 };
 
 #endif
