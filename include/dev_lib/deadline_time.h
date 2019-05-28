@@ -9,7 +9,7 @@ class DeadlineTime
 {
 public:
   static bool isZero(const boost::posix_time::time_duration& duration);
-  DeadlineTime(float durationSeconds);
+  DeadlineTime(boost::asio::io_service& io, float durationSeconds);
   virtual ~DeadlineTime() {}
   void init();
   void destroy();
@@ -26,8 +26,7 @@ private:
   virtual void finishCountDown() = 0;
   bool hasSyncCancel() const;
   void callback(const boost::system::error_code &ec);
-  boost::asio::io_service io;
-  boost::asio::io_service::work work;
+  boost::asio::io_service& io;
   boost::posix_time::ptime end;
   boost::posix_time::time_duration powerDuration;
   boost::asio::deadline_timer powerTimer;

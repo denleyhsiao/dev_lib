@@ -5,7 +5,7 @@ boost::posix_time::time_duration DeadlineTime::duration(float seconds)
   return boost::posix_time::milliseconds(seconds * 1000);
 }
 
-DeadlineTime::DeadlineTime(float durationSeconds) : work(io), end(boost::get_system_time()), powerTimer(io, powerDuration), thread(std::shared_ptr<boost::thread>(NULL))
+DeadlineTime::DeadlineTime(boost::asio::io_service& io, float durationSeconds) : io(io), end(boost::get_system_time()), powerTimer(io, powerDuration), thread(std::shared_ptr<boost::thread>(NULL))
 {
   reset(durationSeconds);
 }
