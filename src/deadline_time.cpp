@@ -15,6 +15,12 @@ void DeadlineTime::init()
   thread = std::shared_ptr<boost::thread>(new boost::thread(boost::bind(&boost::asio::io_service::run, &io)));
 }
 
+void DeadlineTime::join()
+{
+  if (thread)
+    thread->join();
+}
+
 void DeadlineTime::reset(float durationSeconds)
 {
   powerDuration = duration(durationSeconds);
@@ -24,8 +30,7 @@ void DeadlineTime::destroy()
 {
   powerTimer.cancel();
   doDestroy();
-  if (thread)
-    thread->join();
+  join();
 }
 
 void DeadlineTime::cancel()

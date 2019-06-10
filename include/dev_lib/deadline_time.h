@@ -15,6 +15,7 @@ public:
   void destroy();
   void cancel();
   void countDown();
+  void join();
 
 protected:
   static boost::posix_time::time_duration duration(float seconds);
