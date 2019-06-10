@@ -32,6 +32,7 @@ void DeadlineTime::cancel()
 {
   end = boost::get_system_time();
   powerTimer.cancel();
+  doCancel();
 }
 
 void DeadlineTime::countDown()

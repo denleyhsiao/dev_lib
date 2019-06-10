@@ -22,8 +22,9 @@ protected:
   void reset(float durationSeconds);
 
 private:
-  virtual void doDestroy() = 0;
-  virtual void finishCountDown() = 0;
+  virtual void doCancel() {}
+  virtual void doDestroy() {}
+  virtual void finishCountDown() {};
   bool hasSyncCancel() const;
   void callback(const boost::system::error_code &ec);
   boost::asio::io_service io;
