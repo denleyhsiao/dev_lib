@@ -19,6 +19,7 @@ public:
   static size_t count(const floats_type& source, float value, size_t start, size_t end);
   static std::tuple<bool, size_t> find(const floats_type& source, float value, size_t start = 0);
   static uints_type& append(const uints_type& source, uints_type& target);
+  static uints_type& removeSame(uints_type& values);
 
   static std::string toString(float value, size_t precision = 1);
   static std::string toString(const uints_type& value, char flag = ',');

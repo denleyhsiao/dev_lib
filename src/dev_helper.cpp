@@ -63,6 +63,13 @@ DevHelper::uints_type& DevHelper::append(const uints_type& source, uints_type& t
   return target;
 }
 
+DevHelper::uints_type& DevHelper::removeSame(uints_type& values)
+{
+  std::sort( values.begin(), values.end() );
+  values.erase( std::unique( values.begin(), values.end() ), values.end() );
+  return values;
+}
+
 std::string DevHelper::toString(float value, size_t precision /* = 1*/)
 {
   std::stringstream ss;
