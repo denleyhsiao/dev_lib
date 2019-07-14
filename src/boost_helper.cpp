@@ -4,6 +4,7 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/lexical_cast.hpp>
 #include <iterator>
+#include <sstream>
 #include <algorithm>
 
 BoostHelper::floats_type BoostHelper::split(const char* value, const char delimiter /* = ',' */)
@@ -22,4 +23,13 @@ BoostHelper::floats_type BoostHelper::split(const char* value, const char delimi
 void BoostHelper::sleep(long msTime)
 {
   boost::thread::sleep(boost::get_system_time() + boost::posix_time::milliseconds(msTime));
+}
+
+std::string BoostHelper::currentDateTime(const char* format /* = "%Y-%m-%d %H:%M:%S" */)
+{
+  std::ostringstream oss;
+  static std::locale loc(oss.getloc(), new boost::posix_time::time_facet(format));
+  oss.imbue(loc);
+  oss << boost::get_system_time() + boost::posix_time::hours(8);
+  return oss.str();
 }
