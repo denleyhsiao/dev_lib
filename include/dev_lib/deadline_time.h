@@ -11,6 +11,7 @@ public:
   static bool isZero(const boost::posix_time::time_duration& duration);
   DeadlineTime(float durationSeconds);
   virtual ~DeadlineTime() {}
+  virtual void finishCountDown() {};
   void init();
   void destroy();
   void cancel();
@@ -25,7 +26,6 @@ protected:
 private:
   virtual void doCancel() {}
   virtual void doDestroy() {}
-  virtual void finishCountDown() {};
   bool hasSyncCancel() const;
   void callback(const boost::system::error_code &ec);
   boost::asio::io_service io;
