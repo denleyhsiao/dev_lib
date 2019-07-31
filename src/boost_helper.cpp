@@ -39,5 +39,8 @@ std::string BoostHelper::currentDateTime(const char* format /* = "%Y-%m-%d %H:%M
 
 std::string BoostHelper::createUUID()
 {
-  return boost::uuids::to_string(boost::uuids::random_generator()());
+  std::string result = boost::uuids::to_string(boost::uuids::random_generator()());
+  std::string::iterator begin = std::remove_if(result.begin(), result.end(), [](char ch){ return (ch == '-'); });
+  result.erase(begin, result.end());
+  return result;
 }
