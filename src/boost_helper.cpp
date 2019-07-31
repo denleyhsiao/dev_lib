@@ -3,6 +3,9 @@
 #include <boost/thread.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_io.hpp>
+#include <boost/uuid/uuid_generators.hpp>
 #include <iterator>
 #include <sstream>
 #include <algorithm>
@@ -32,4 +35,9 @@ std::string BoostHelper::currentDateTime(const char* format /* = "%Y-%m-%d %H:%M
   oss.imbue(loc);
   oss << boost::get_system_time() + boost::posix_time::hours(8);
   return oss.str();
+}
+
+std::string BoostHelper::createUUID()
+{
+  return boost::uuids::to_string(boost::uuids::random_generator()());
 }
