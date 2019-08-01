@@ -37,6 +37,13 @@ std::string BoostHelper::currentDateTime(const char* format /* = "%Y-%m-%d %H:%M
   return oss.str();
 }
 
+std::string BoostHelper::currentTimestamp()
+{
+  boost::posix_time::ptime epoch(boost::gregorian::date(1970, boost::gregorian::Jan, 1));
+  boost::posix_time::time_duration time_from_epoch = boost::posix_time::microsec_clock::local_time() - epoch;
+  return DevHelper::format("%ld", time_from_epoch.total_milliseconds());
+}
+
 std::string BoostHelper::createUUID()
 {
   std::string result = boost::uuids::to_string(boost::uuids::random_generator()());
