@@ -6,6 +6,7 @@
 #include <sstream>
 #include <vector>
 #include <tuple>
+#include <typeinfo>
 
 class DevHelper
 {
@@ -30,11 +31,21 @@ public:
   static float getArg(unsigned int argc, char** argv, unsigned int index, float defaultValue = 0.0f);
   static bool getArg(unsigned int argc, char** argv, unsigned int index, bool defaultValue = false);
 
+  template <typename T>
+  static std::string getType(const T& value);
+
 public:
   static const float inf;
   static const char SPACE_FLAG;
 private:
   static int vscprintf(const char * format, va_list args);
 };
+
+template <typename T>
+inline std::string DevHelper::getType(const T& value)
+{
+  std::string result(typeid(value).name());
+  return result.substr(result.find_first_not_of("0123456789"));
+}
 
 #endif
