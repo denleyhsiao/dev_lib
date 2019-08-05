@@ -96,23 +96,3 @@ std::string DevHelper::toString(const floats_type& value, size_t precision /* = 
                                     return a + std::string(1, flag) + toString(b, precision);
                                   });
 }
-
-std::string DevHelper::getArg(unsigned int argc, char** argv, unsigned int index, const char* defaultValue /* = "" */)
-{
-  return (argc > index ? argv[index] : defaultValue);
-}
-
-unsigned int DevHelper::getArg(unsigned int argc, char** argv, unsigned int index, unsigned int defaultValue /* = 0 */)
-{
-  return (argc > index ? atoi(argv[index]) : defaultValue);
-}
-
-float DevHelper::getArg(unsigned int argc, char** argv, unsigned int index, float defaultValue /*= 0.0f */)
-{
-  return (argc > index ? atof(argv[index]) : defaultValue);
-}
-
-bool DevHelper::getArg(unsigned int argc, char** argv, unsigned int index, bool defaultValue /*= false */)
-{
-  return getArg(argc, argv, index, defaultValue ? "true" : "false") == "true";
-}

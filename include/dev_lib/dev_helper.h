@@ -26,11 +26,6 @@ public:
   static std::string toString(const uints_type& value, char flag = ',');
   static std::string toString(const floats_type& value, size_t precision = 1, char flag = ',');
 
-  static std::string getArg(unsigned int argc, char** argv, unsigned int index, const char* defaultValue = "");
-  static unsigned int getArg(unsigned int argc, char** argv, unsigned int index, unsigned int defaultValue = 0);
-  static float getArg(unsigned int argc, char** argv, unsigned int index, float defaultValue = 0.0f);
-  static bool getArg(unsigned int argc, char** argv, unsigned int index, bool defaultValue = false);
-
   template <typename T>
   static std::string getType(const T& value);
 
