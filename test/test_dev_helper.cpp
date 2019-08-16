@@ -21,7 +21,7 @@ TEST(DevHelper, sum)
 TEST(DevHelperTest, floatToString)
 {
   static const float source = 13.14159;
-  ASSERT_EQ("13.1", DevHelper::toString(source));
+  ASSERT_EQ("13.1", DevHelper::toString(source, 1));
   ASSERT_EQ("13.14", DevHelper::toString(source, 2));
   ASSERT_EQ("13.142", DevHelper::toString(source, 3));
   ASSERT_EQ("13.1416", DevHelper::toString(source, 4));

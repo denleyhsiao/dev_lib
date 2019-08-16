@@ -22,7 +22,11 @@ public:
   static uints_type& append(const uints_type& source, uints_type& target);
   static uints_type& removeSame(uints_type& values);
 
-  static std::string toString(float value, size_t precision = 1);
+  static std::string toString(float value);
+  static std::string toString(bool value);
+  static std::string toString(int value);
+  static std::string toString(unsigned int value);
+  static std::string toString(float value, size_t precision);
   static std::string toString(const uints_type& value, char flag = ',');
   static std::string toString(const floats_type& value, size_t precision = 1, char flag = ',');
 

@@ -70,7 +70,27 @@ DevHelper::uints_type& DevHelper::removeSame(uints_type& values)
   return values;
 }
 
-std::string DevHelper::toString(float value, size_t precision /* = 1*/)
+std::string DevHelper::toString(float value)
+{
+  return toString(value, 3);
+}
+
+std::string DevHelper::toString(bool value)
+{
+  return (value ? "true" : "false");
+}
+
+std::string DevHelper::toString(int value)
+{
+  return format("%d", value);
+}
+
+std::string DevHelper::toString(unsigned int value)
+{
+  return toString(static_cast<int>(value));
+}
+
+std::string DevHelper::toString(float value, size_t precision)
 {
   std::stringstream ss;
   ss << std::fixed << std::setprecision(precision) << value;
