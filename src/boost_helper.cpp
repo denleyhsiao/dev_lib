@@ -10,16 +10,25 @@
 #include <sstream>
 #include <algorithm>
 
-BoostHelper::floats_type BoostHelper::split(const char* value, const char delimiter /* = ',' */)
+BoostHelper::floats_type BoostHelper::splitToFloat(const char* value, const char delimiter /* = ',' */)
 {
   floats_type result = floats_type();
+  strings_type values = splitToString(value, delimiter);
+  for(const auto& value: values)
+    result.push_back(boost::lexical_cast<float>(value));
+  return result;
+}
+
+BoostHelper::strings_type BoostHelper::splitToString(const char* value, const char delimiter /* = ',' */)
+{
+  strings_type result = strings_type();
   std::string source = value;
   if (delimiter != DevHelper::SPACE_FLAG)
     std::replace(source.begin(), source.end(), delimiter, DevHelper::SPACE_FLAG);
 
   std::istringstream iss(source);
   std::for_each(std::istream_iterator<std::string>(iss), std::istream_iterator<std::string>(),
-    [&result](const std::string& value){ result.push_back(boost::lexical_cast<float>(value)); });
+    [&result](const std::string& value){ result.push_back(value); });
   return result;
 }
 
