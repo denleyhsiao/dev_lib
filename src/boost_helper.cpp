@@ -13,6 +13,11 @@ std::string BoostHelper::toString(const boost::posix_time::time_duration& time)
   return boost::posix_time::to_simple_string(time);
 }
 
+boost::posix_time::time_duration BoostHelper::getTime(const std::string& time)
+{
+  return boost::posix_time::duration_from_string(time);
+}
+
 BoostHelper::floats_type BoostHelper::splitToFloat(const char* value, const char delimiter /* = ',' */)
 {
   floats_type result = floats_type();
