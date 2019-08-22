@@ -1,4 +1,6 @@
 #include "dev_lib/dev_helper.h"
+#include <iterator>
+#include <sstream>
 #include <numeric>
 #include <vector>
 #include <iomanip>
@@ -115,4 +117,22 @@ std::string DevHelper::toString(const floats_type& value, size_t precision /* = 
                                   [precision, flag](std::string a, float b) {
                                     return a + std::string(1, flag) + toString(b, precision);
                                   });
+}
+
+DevHelper::strings_type DevHelper::split(const char* value, const char delimiter /* = ',' */)
+{
+  strings_type result = strings_type();
+  std::string source = value;
+  if (delimiter != SPACE_FLAG)
+    std::replace(source.begin(), source.end(), delimiter, DevHelper::SPACE_FLAG);
+
+  std::istringstream iss(source);
+  std::for_each(std::istream_iterator<std::string>(iss), std::istream_iterator<std::string>(),
+    [&result](const std::string& value){ result.push_back(value); });
+  return result;
+}
+
+std::string DevHelper::merge(const char* begin, const char* end, const char delimiter /* = '~' */)
+{
+  return format("%s%c%s", begin, delimiter, end);
 }

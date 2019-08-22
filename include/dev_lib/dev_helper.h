@@ -13,6 +13,7 @@ class DevHelper
 public:
   typedef std::vector<unsigned char>  uints_type;
   typedef std::vector<float>          floats_type;
+  typedef std::vector<std::string>    strings_type;
 
   static std::string format(const char* fmt, ...);
   static std::string getLine(std::istream& is);
@@ -29,6 +30,8 @@ public:
   static std::string toString(float value, size_t precision);
   static std::string toString(const uints_type& value, char flag = ',');
   static std::string toString(const floats_type& value, size_t precision = 1, char flag = ',');
+  static strings_type split(const char* value, const char delimiter = ',');
+  static std::string merge(const char* begin, const char* end, const char delimiter = '~');
 
   template <typename T>
   static std::string getType(const T& value);

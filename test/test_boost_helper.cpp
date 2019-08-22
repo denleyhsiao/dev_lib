@@ -3,12 +3,6 @@
 #include <gtest/gtest.h>
 
 typedef BoostHelper::floats_type floats_type;
-typedef BoostHelper::strings_type strings_type;
-
-TEST(BoostHelper, splitToString)
-{
-  ASSERT_EQ(strings_type({"7:30", "8:30"}), BoostHelper::splitToString("7:30~8:30", '~'));
-}
 
 TEST(BoostHelper, splitToFloat)
 {
