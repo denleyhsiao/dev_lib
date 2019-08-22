@@ -1,13 +1,17 @@
 #include "dev_lib/boost_helper.h"
 #include "dev_lib/dev_helper.h"
 #include <boost/thread.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <sstream>
 #include <algorithm>
+
+std::string BoostHelper::toString(const boost::posix_time::time_duration& time)
+{
+  return boost::posix_time::to_simple_string(time);
+}
 
 BoostHelper::floats_type BoostHelper::splitToFloat(const char* value, const char delimiter /* = ',' */)
 {
@@ -28,8 +32,23 @@ std::string BoostHelper::currentDateTime(const char* format /* = "%Y-%m-%d %H:%M
   std::ostringstream oss;
   static std::locale loc(oss.getloc(), new boost::posix_time::time_facet(format));
   oss.imbue(loc);
-  oss << boost::get_system_time() + boost::posix_time::hours(8);
+  oss << getCurrentDateTime();
   return oss.str();
+}
+
+std::string BoostHelper::currentTime()
+{
+  return toString(getCurrentTime());
+}
+
+boost::posix_time::time_duration BoostHelper::getCurrentTime()
+{
+  return getCurrentDateTime().time_of_day();
+}
+
+boost::posix_time::ptime BoostHelper::getCurrentDateTime()
+{
+  return boost::get_system_time() + boost::posix_time::hours(8);
 }
 
 std::string BoostHelper::currentTimestamp()

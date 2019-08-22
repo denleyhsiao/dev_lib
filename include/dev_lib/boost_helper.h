@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <boost/date_time/posix_time/posix_time.hpp>
 
 class BoostHelper
 {
@@ -12,8 +13,14 @@ public:
   static floats_type splitToFloat(const char* value, const char delimiter = ',');
   static void sleep(long msTime);
   static std::string currentDateTime(const char* format = "%Y-%m-%d %H:%M:%S");
+  static std::string currentTime();
   static std::string currentTimestamp();
   static std::string createUUID();
+  static std::string toString(const boost::posix_time::time_duration& time);
+  static boost::posix_time::time_duration getCurrentTime();
+
+private:
+  static boost::posix_time::ptime getCurrentDateTime();
 };
 
 #endif
