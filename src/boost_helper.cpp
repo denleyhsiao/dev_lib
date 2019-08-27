@@ -60,7 +60,7 @@ std::string BoostHelper::currentTimestamp()
 {
   boost::posix_time::ptime epoch(boost::gregorian::date(1970, boost::gregorian::Jan, 1));
   boost::posix_time::time_duration time_from_epoch = boost::posix_time::microsec_clock::local_time() - epoch;
-  return DevHelper::format("%ld", time_from_epoch.total_milliseconds());
+  return DevHelper::format("%ld000", time_from_epoch.total_seconds());
 }
 
 std::string BoostHelper::createUUID()
