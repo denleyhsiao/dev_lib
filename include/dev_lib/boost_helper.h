@@ -11,7 +11,7 @@ public:
   typedef std::vector<float>  floats_type;
   typedef std::vector<std::string>  strings_type;
   static floats_type splitToFloat(const char* value, const char delimiter = ',');
-  static void sleep(long msTime);
+  static void sleep(float seconds);
   static std::string currentDateTime(const char* format = "%Y-%m-%d %H:%M:%S");
   static std::string currentTime();
   static std::string currentTimestamp();
