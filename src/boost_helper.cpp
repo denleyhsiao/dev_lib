@@ -13,6 +13,21 @@ std::string BoostHelper::toString(const boost::posix_time::time_duration& time)
   return boost::posix_time::to_simple_string(time);
 }
 
+unsigned int BoostHelper::toUint(const std::string& value)
+{
+  return atoi(value.c_str());
+}
+
+bool BoostHelper::toBool(const std::string& value)
+{
+  return (value == "true");
+}
+
+float BoostHelper::toFloat(const std::string& value)
+{
+  return atof(value.c_str());
+}
+
 boost::posix_time::time_duration BoostHelper::getTime(const std::string& time)
 {
   return boost::posix_time::duration_from_string(time);

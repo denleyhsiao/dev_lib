@@ -17,6 +17,9 @@ public:
   static std::string currentTimestamp();
   static std::string createUUID();
   static std::string toString(const boost::posix_time::time_duration& time);
+  static unsigned int toUint(const std::string& value);
+  static bool toBool(const std::string& value);
+  static float toFloat(const std::string& value);
   static boost::posix_time::time_duration getTime(const std::string& time);
   static boost::posix_time::time_duration getCurrentTime();
 
