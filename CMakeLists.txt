@@ -130,6 +130,7 @@ add_library(${PROJECT_NAME}
   src/boost_helper.cpp
   src/math_helper.cpp
   src/linux_os_helper.cpp
+  src/serial_port.cpp
 )
 
 ## Add cmake target dependencies of the library
