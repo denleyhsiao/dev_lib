@@ -1,6 +1,6 @@
 #include "dev_lib/serial_port.h"
 
-SerialPort::SerialPort(log_function logFunction) : work(io), impl(io), logFunction(logFunction)
+SerialPort::SerialPort(log_cb_function logCallback) : work(io), impl(io), logCallback(logCallback)
 {
 
 }
@@ -11,7 +11,7 @@ void SerialPort::init(const char* port, unsigned int baudrate)
   impl.open(port, ec);
   if (ec)
   {
-    logFunction(LOG_ERROR, ec.message().c_str());
+    logCallback(LOG_ERROR, ec.message().c_str());
     return ;
   }
   setOption(baudrate, 8);
@@ -27,9 +27,10 @@ void SerialPort::setOption(unsigned int baudrate, unsigned characterSize)
   impl.set_option(serial_port::character_size(characterSize));
 }
 
-void SerialPort::run()
+void SerialPort::run(read_cb_function readCallback, const char* prevfix, const char* postfix)
 {
   thread = std::shared_ptr<boost::thread>(new boost::thread(boost::bind(&boost::asio::io_service::run, &io)));
+  read(readCallback, prevfix, postfix);
 }
 
 void SerialPort::join()
@@ -49,7 +50,9 @@ void SerialPort::destroy()
   join();
 }
 
-void SerialPort::read(read_function readFunction)
+void SerialPort::read(read_cb_function readCallback, const char* prevfix, const char* postfix)
 {
-  // impl.async_read_some();
+  std::string result = std::string();
+  // impl.async_read();
+  readCallback(result);
 }
