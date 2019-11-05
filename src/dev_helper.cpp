@@ -65,10 +65,16 @@ DevHelper::uints_type& DevHelper::append(const uints_type& source, uints_type& t
   return target;
 }
 
+DevHelper::uints_type& DevHelper::sort(uints_type& values)
+{
+  std::sort(values.begin(), values.end());
+  return values;
+}
+
 DevHelper::uints_type& DevHelper::removeSame(uints_type& values)
 {
-  std::sort( values.begin(), values.end() );
-  values.erase( std::unique( values.begin(), values.end() ), values.end() );
+  sort(values);
+  values.erase(std::unique(values.begin(), values.end()), values.end());
   return values;
 }
 
