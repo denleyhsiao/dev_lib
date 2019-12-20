@@ -27,10 +27,10 @@ void SerialPort::setOption(unsigned int baudrate, unsigned characterSize)
   impl.set_option(serial_port::character_size(characterSize));
 }
 
-void SerialPort::run(read_cb_function readCallback, const char* prevfix, const char* postfix)
+void SerialPort::run(read_cb_function readCallback)
 {
   thread = std::shared_ptr<boost::thread>(new boost::thread(boost::bind(&boost::asio::io_service::run, &io)));
-  read(readCallback, prevfix, postfix);
+  read(readCallback);
 }
 
 void SerialPort::join()
@@ -50,7 +50,7 @@ void SerialPort::destroy()
   join();
 }
 
-void SerialPort::read(read_cb_function readCallback, const char* prevfix, const char* postfix)
+void SerialPort::read(read_cb_function readCallback)
 {
   std::string result = std::string();
   // impl.async_read();

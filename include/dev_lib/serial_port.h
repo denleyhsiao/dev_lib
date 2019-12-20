@@ -13,13 +13,13 @@ public:
   typedef std::function<void (const std::string&)> read_cb_function;
   SerialPort(log_cb_function logCallback);
   void init(const char* port, unsigned int baudrate);
-  void run(read_cb_function readCallback, const char* prevfix, const char* postfix);
+  void run(read_cb_function readCallback);
   void join();
   void cancel();
   void destroy();
 
 private:
-  void read(read_cb_function readCallback, const char* prevfix, const char* postfix);
+  void read(read_cb_function readCallback);
   void setOption(unsigned int baudrate, unsigned characterSize);
   boost::asio::io_service io;
   boost::asio::io_service::work work;
