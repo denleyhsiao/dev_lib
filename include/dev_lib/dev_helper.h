@@ -32,6 +32,8 @@ public:
   static std::string toString(float value, size_t precision);
   static std::string toString(const uints_type& value, char flag = ',');
   static std::string toString(const floats_type& value, size_t precision = 1, char flag = ',');
+  static std::string convertToHex(const uints_type& source);
+  static std::string convertToHex(const std::string& source);
   static strings_type split(const char* value, const char delimiter = ',');
   static std::string merge(const char* begin, const char* end, const char delimiter = '~');
 

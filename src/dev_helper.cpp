@@ -144,3 +144,30 @@ std::string DevHelper::merge(const char* begin, const char* end, const char deli
 {
   return format("%s%c%s", begin, delimiter, end);
 }
+
+
+std::string DevHelper::convertToHex(const uints_type& source)
+{
+  char result[128] = {0x00};
+  size_t size = source.size();
+  for (size_t index = 0; index < size; ++index)
+  {
+    sprintf(&result[2*index], "%02X", source[index]);
+  }
+  return result;
+}
+
+std::string DevHelper::convertToHex(const std::string& source)
+{
+  static const char* const lut = "0123456789ABCDEF";
+  size_t len = source.length();
+  std::string result;
+  result.reserve(2 * len);
+  for (size_t index = 0; index < len; ++index)
+  {
+    const unsigned char c = source[index];
+    result.push_back(lut[c >> 4]);
+    result.push_back(lut[c & 15]);
+  }
+  return result;
+}
