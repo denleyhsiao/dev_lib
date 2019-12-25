@@ -1,7 +1,7 @@
 #ifndef __DEV_LIB_SERIAL_PORT_H__
 #define __DEV_LIB_SERIAL_PORT_H__
 
-#include "dev_lib/log.h"
+#include "dev_lib/log/log.h"
 #include <boost/asio/serial_port.hpp>
 #include <boost/thread.hpp>
 #include <functional>

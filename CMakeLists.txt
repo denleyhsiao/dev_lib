@@ -131,6 +131,7 @@ add_library(${PROJECT_NAME}
   src/math_helper.cpp
   src/linux_os_helper.cpp
   src/serial_port.cpp
+  src/log/console_log.cpp
 )
 
 ## Add cmake target dependencies of the library
