@@ -16,6 +16,7 @@ public:
   typedef std::vector<std::string>    strings_type;
 
   static std::string format(const char* fmt, ...);
+  static std::string formatEx(const char * fmt, va_list& args);
   static std::string getLine(std::istream& is);
   static unsigned int sum(const uints_type& value);
   static size_t count(const floats_type& source, float value, size_t start, size_t end);
@@ -41,7 +42,7 @@ public:
   static const float inf;
   static const char SPACE_FLAG;
 private:
-  static int vscprintf(const char * format, va_list args);
+  static unsigned int getLength(const char * fmt, va_list& args);
 };
 
 template <typename T>

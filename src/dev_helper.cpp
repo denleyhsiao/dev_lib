@@ -10,27 +10,29 @@
 const float DevHelper::inf = std::numeric_limits<float>::infinity();
 const char DevHelper::SPACE_FLAG = ' ';
 
-int DevHelper::vscprintf(const char * format, va_list args)
+std::string DevHelper::format(const char* fmt, ...)
 {
-  va_list tempArgs;
-  va_copy(tempArgs, args);
-  int result = vsnprintf(nullptr, 0, format, tempArgs);
-  va_end(tempArgs);
+  va_list args;
+  va_start(args, fmt);
+  std::string result = formatEx(fmt, args);
+  va_end(args);
   return result;
 }
 
-std::string DevHelper::format(const char* fmt, ...)
+std::string DevHelper::formatEx(const char * fmt, va_list& args)
 {
-  std::string result = "";
-  va_list args;
-  va_start(args, fmt);
-  {
-    int nLength = vscprintf(fmt, args) + 1;
-    std::vector<char> temp(nLength);
-    vsnprintf(temp.data(), nLength, fmt, args);
-    result.assign(temp.data());
-  }
-  va_end(args);
+  int length = getLength(fmt, args) + 1;
+  std::vector<char> result(length);
+  vsnprintf(result.data(), length, fmt, args);
+  return result.data();
+}
+
+unsigned int DevHelper::getLength(const char * fmt, va_list& args)
+{
+  va_list tempArgs;
+  va_copy(tempArgs, args);
+  unsigned int result = vsnprintf(nullptr, 0, fmt, tempArgs);
+  va_end(tempArgs);
   return result;
 }
 
