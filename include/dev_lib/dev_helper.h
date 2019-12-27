@@ -1,6 +1,7 @@
 #ifndef __DEV_LIB_DEV_HELPER_H__
 #define __DEV_LIB_DEV_HELPER_H__
 
+#include <stdint.h>
 #include <stdarg.h>
 #include <string>
 #include <sstream>
@@ -37,14 +38,22 @@ public:
   static strings_type split(const char* value, const char delimiter = ',');
   static std::string merge(const char* begin, const char* end, const char delimiter = '~');
 
+  static uint8_t getHigh(uint16_t value);
+  static uint8_t getLow(uint16_t value);
+  static uint8_t mergeToBit(uint8_t high, uint8_t low);
+  static uint16_t merge(uint8_t high, uint8_t low);
+
   template <typename T>
   static std::string getType(const T& value);
 
 public:
   static const float inf;
   static const char SPACE_FLAG;
+
 private:
   static unsigned int getLength(const char * fmt, va_list& args);
+  template <typename T>
+  static T doMerge(uint8_t high, uint8_t low, uint8_t bitNum);
 };
 
 template <typename T>
@@ -52,6 +61,12 @@ inline std::string DevHelper::getType(const T& value)
 {
   std::string result(typeid(value).name());
   return result.substr(result.find_first_not_of("0123456789"));
+}
+
+template <typename T>
+inline T DevHelper::doMerge(uint8_t high, uint8_t low, uint8_t bitNum)
+{
+  return (high << bitNum) | low ;
 }
 
 #endif

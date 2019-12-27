@@ -171,3 +171,24 @@ std::string DevHelper::convertToHex(const std::string& source)
   }
   return result;
 }
+
+uint8_t DevHelper::getHigh(uint16_t value)
+{
+   return static_cast<uint8_t>(value >> 8);
+}
+
+uint8_t DevHelper::getLow(uint16_t value)
+{
+  return static_cast<uint8_t>(value & 0xFF);
+}
+
+uint8_t DevHelper::mergeToBit(uint8_t high, uint8_t low)
+{
+  assert(high < 0x10 && low < 0x10);
+  return doMerge<uint8_t>(high, low, 4);
+}
+
+uint16_t DevHelper::merge(uint8_t high, uint8_t low)
+{
+  return doMerge<uint16_t>(high, low, 8);
+}
