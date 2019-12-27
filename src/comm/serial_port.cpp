@@ -1,6 +1,5 @@
 #include "dev_lib/comm/serial_port.h"
 #include "dev_lib/dev_helper.h"
-#include "dev_lib/boost_helper.h"
 #include "dev_lib/log/log.h"
 
 std::shared_ptr<Comm> SerialPort::create(std::shared_ptr<Log> log)
@@ -64,11 +63,4 @@ void SerialPort::doWrite(const data_type& data)
 SerialPort::data_type SerialPort::read(size_t size) const
 {
   return data_type();
-}
-
-SerialPort::data_type SerialPort::read(size_t size, bool needSleep) const
-{
-  if (needSleep)
-    BoostHelper::sleep(0.003);
-  return read(size);
 }

@@ -12,7 +12,6 @@ public:
   virtual bool hasInit() const { return true; }
   virtual bool init(const char* serialPort, unsigned int serialBaudrate);
   virtual data_type read(size_t size) const;
-  virtual data_type read(size_t size, bool needSleep) const;
 
 private:
   MockComm(std::shared_ptr<Log> log) : Comm(log) { }

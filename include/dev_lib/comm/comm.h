@@ -15,7 +15,6 @@ public:
   virtual bool hasInit() const = 0;
   virtual bool init(const char* serialPort, unsigned int serialBaudrate) = 0;
   virtual data_type read(size_t size) const = 0;
-  virtual data_type read(size_t size, bool needSleep) const = 0;
   void write(const data_type& data);
 
 protected:

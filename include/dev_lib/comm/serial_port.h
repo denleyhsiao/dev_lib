@@ -13,7 +13,6 @@ public:
   virtual bool hasInit() const;
   virtual bool init(const char* serialPort, unsigned int serialBaudrate);
   virtual data_type read(size_t size) const;
-  virtual data_type read(size_t size, bool needSleep) const;
 
 private:
   SerialPort(std::shared_ptr<Log> log);

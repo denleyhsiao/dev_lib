@@ -14,8 +14,3 @@ MockComm::data_type MockComm::read(size_t size) const
 {
   return data_type();
 }
-
-MockComm::data_type MockComm::read(size_t size, bool needSleep) const
-{
-  return data_type();
-}
