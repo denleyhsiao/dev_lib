@@ -40,8 +40,8 @@ public:
 
   static uint8_t getHigh(uint16_t value);
   static uint8_t getLow(uint16_t value);
-  static uint8_t mergeToBit(uint8_t high, uint8_t low);
-  static uint16_t merge(uint8_t high, uint8_t low);
+  static uint8_t mergeTo8(uint8_t high, uint8_t low);
+  static uint16_t mergeTo16(uint8_t high, uint8_t low);
 
   template <typename T>
   static std::string getType(const T& value);

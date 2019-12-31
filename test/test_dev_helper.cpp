@@ -60,17 +60,17 @@ TEST(DevHelperTest, stringConvertToHex)
   ASSERT_EQ("343139", DevHelper::convertToHex("419"));
 }
 
-TEST(DevHelperTest, merge)
+TEST(DevHelperTest, mergeTo16)
 {
   static const uint8_t low = 0x56;
   static const uint8_t high = 0xFF;
   static const uint16_t expectedValue = 0xFF56;
-  ASSERT_EQ(expectedValue, DevHelper::merge(high, low));
+  ASSERT_EQ(expectedValue, DevHelper::mergeTo16(high, low));
   ASSERT_EQ(high, DevHelper::getHigh(expectedValue));
   ASSERT_EQ(low, DevHelper::getLow(expectedValue));
 }
 
-TEST(DevHelperTest, mergeToBit)
+TEST(DevHelperTest, mergeTo8)
 {
-  ASSERT_EQ(0x56, DevHelper::mergeToBit(0x05, 0x06));
+  ASSERT_EQ(0x56, DevHelper::mergeTo8(0x05, 0x06));
 }
