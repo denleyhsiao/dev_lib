@@ -95,6 +95,7 @@ void SerialPort::doRead(size_t size, const data_type& delim, cb_read_type cbRead
     boost::asio::streambuf::const_buffers_type content = readContent.data();
     data_type result(boost::asio::buffers_begin(content) + bytes_transferred - size, boost::asio::buffers_begin(content) + bytes_transferred);
     cbRead(result);
+    readContent.consume(bytes_transferred);
   }
   asyncRead(size, delim, cbRead);
 }
