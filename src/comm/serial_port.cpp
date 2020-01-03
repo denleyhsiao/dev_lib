@@ -90,7 +90,6 @@ void SerialPort::doRead(size_t size, const data_type& delim, cb_read_type cbRead
     log->error(ec.message());
   else
   {
-    log->debug(DevHelper::format("Read length: %d", bytes_transferred));
     assert(bytes_transferred >= size);
     boost::asio::streambuf::const_buffers_type content = readContent.data();
     data_type result(boost::asio::buffers_begin(content) + bytes_transferred - size, boost::asio::buffers_begin(content) + bytes_transferred);
