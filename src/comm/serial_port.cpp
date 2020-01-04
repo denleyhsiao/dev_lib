@@ -3,7 +3,6 @@
 #include "dev_lib/log/log.h"
 #include <boost/asio/read_until.hpp>
 #include <boost/bind.hpp>
-#include <cassert>
 
 std::shared_ptr<Comm> SerialPort::create(std::shared_ptr<Log> log)
 {
@@ -84,17 +83,16 @@ void SerialPort::asyncRead(size_t size, const data_type& delim, cb_read_type cbR
     boost::bind(&SerialPort::doRead, shared_from_this(), size, delim, cbRead, _1, _2));
 }
 
-void SerialPort::doRead(size_t size, const data_type& delim, cb_read_type cbRead, boost::system::error_code ec, std::size_t bytes_transferred)
+void SerialPort::doRead(size_t size, const data_type& delim, cb_read_type cbRead, boost::system::error_code ec, std::size_t readSize)
 {
   if (ec)
     log->error(ec.message());
   else
   {
-    assert(bytes_transferred >= size);
     boost::asio::streambuf::const_buffers_type content = readContent.data();
-    data_type result(boost::asio::buffers_begin(content) + bytes_transferred - size, boost::asio::buffers_begin(content) + bytes_transferred);
-    cbRead(result);
-    readContent.consume(bytes_transferred);
+    data_type result(boost::asio::buffers_begin(content), boost::asio::buffers_begin(content) + readSize);
+    readSize == size ? cbRead(result) : log->error(DevHelper::format("Read error: %s", DevHelper::convertToHex(result).c_str()));
+    readContent.consume(readSize);
   }
   asyncRead(size, delim, cbRead);
 }

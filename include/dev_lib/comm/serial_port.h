@@ -22,7 +22,7 @@ public:
 private:
   SerialPort(std::shared_ptr<Log> log);
   virtual void doWrite(const data_type& data);
-  void doRead(size_t size, const data_type& delim, cb_read_type cbRead, boost::system::error_code ec, std::size_t bytes_transferred);
+  void doRead(size_t size, const data_type& delim, cb_read_type cbRead, boost::system::error_code ec, std::size_t readSize);
   void setOption(unsigned int baudrate, unsigned characterSize);
   void cancel();
   void close();
