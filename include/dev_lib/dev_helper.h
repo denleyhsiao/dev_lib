@@ -38,6 +38,8 @@ public:
   static strings_type split(const char* value, const char delimiter = ',');
   static std::string merge(const char* begin, const char* end, const char delimiter = '~');
 
+  static uint8_t getHigh(uint8_t value);
+  static uint8_t getLow(uint8_t value);
   static uint8_t getHigh(uint16_t value);
   static uint8_t getLow(uint16_t value);
   static uint8_t mergeTo8(uint8_t high, uint8_t low);

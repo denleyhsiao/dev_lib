@@ -172,6 +172,16 @@ std::string DevHelper::convertToHex(const std::string& source)
   return result;
 }
 
+uint8_t DevHelper::getHigh(uint8_t value)
+{
+  return value >> 4;
+}
+
+uint8_t DevHelper::getLow(uint8_t value)
+{
+  return value & 0x0F;
+}
+
 uint8_t DevHelper::getHigh(uint16_t value)
 {
    return static_cast<uint8_t>(value >> 8);
