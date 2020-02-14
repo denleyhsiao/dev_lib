@@ -13,7 +13,7 @@ public:
   virtual bool hasInit() const { return true; }
   virtual bool init(const char* serialPort, unsigned int serialBaudrate);
   virtual data_type read(size_t size) const;
-  virtual void asyncRead(size_t size, const data_type& delim, cb_read_type cbRead) { }
+  virtual void asyncRead(cb_read_type cbRead, const data_type& delim) { }
 
 private:
   MockComm(std::shared_ptr<Log> log) : Comm(log) { }

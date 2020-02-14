@@ -77,13 +77,13 @@ SerialPort::data_type SerialPort::read(size_t size) const
   return data_type();
 }
 
-void SerialPort::asyncRead(size_t size, const data_type& delim, cb_read_type cbRead)
+void SerialPort::asyncRead(cb_read_type cbRead, const data_type& delim)
 {
   boost::asio::async_read_until(impl, readContent, std::string(delim.begin(), delim.end()),
-    boost::bind(&SerialPort::doRead, shared_from_this(), size, delim, cbRead, _1, _2));
+    boost::bind(&SerialPort::doRead, shared_from_this(), cbRead, delim, _1, _2));
 }
 
-void SerialPort::doRead(size_t size, const data_type& delim, cb_read_type cbRead, boost::system::error_code ec, std::size_t readSize)
+void SerialPort::doRead(cb_read_type cbRead, const data_type& delim, boost::system::error_code ec, std::size_t readSize)
 {
   if (ec)
     log->error(ec.message());
@@ -91,10 +91,10 @@ void SerialPort::doRead(size_t size, const data_type& delim, cb_read_type cbRead
   {
     boost::asio::streambuf::const_buffers_type content = readContent.data();
     data_type result(boost::asio::buffers_begin(content), boost::asio::buffers_begin(content) + readSize);
-    readSize == size ? cbRead(result) : log->error(DevHelper::format("Read error: %s", DevHelper::convertToHex(result).c_str()));
+    cbRead(result);
     readContent.consume(readSize);
   }
-  asyncRead(size, delim, cbRead);
+  asyncRead(cbRead, delim);
 }
 
 void SerialPort::cancel()

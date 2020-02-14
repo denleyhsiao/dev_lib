@@ -17,12 +17,12 @@ public:
   virtual bool hasInit() const;
   virtual bool init(const char* serialPort, unsigned int serialBaudrate);
   virtual data_type read(size_t size) const;
-  virtual void asyncRead(size_t size, const data_type& delim, cb_read_type cbRead);
+  virtual void asyncRead(cb_read_type cbRead, const data_type& delim);
 
 private:
   SerialPort(std::shared_ptr<Log> log);
   virtual void doWrite(const data_type& data);
-  void doRead(size_t size, const data_type& delim, cb_read_type cbRead, boost::system::error_code ec, std::size_t readSize);
+  void doRead(cb_read_type cbRead, const data_type& delim, boost::system::error_code ec, std::size_t readSize);
   void setOption(unsigned int baudrate, unsigned characterSize);
   void cancel();
   void close();
