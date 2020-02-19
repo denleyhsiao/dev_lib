@@ -15,6 +15,7 @@ public:
   typedef std::vector<unsigned char>  uints_type;
   typedef std::vector<float>          floats_type;
   typedef std::vector<std::string>    strings_type;
+  typedef uints_type::const_iterator  const_iterator;
 
   static std::string format(const char* fmt, ...);
   static std::string formatEx(const char * fmt, va_list& args);
@@ -22,6 +23,7 @@ public:
   static unsigned int sum(const uints_type& value);
   static size_t count(const floats_type& source, float value, size_t start, size_t end);
   static std::tuple<bool, size_t> find(const floats_type& source, float value, size_t start = 0);
+  static const_iterator find(const uints_type& source, const uints_type& child);
   static uints_type& append(const uints_type& source, uints_type& target);
   static uints_type& sort(uints_type& values);
   static uints_type& removeSame(uints_type& values);
