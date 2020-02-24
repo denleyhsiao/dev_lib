@@ -12,3 +12,13 @@ float MathHelper::degree2Rad(float degree)
 {
   return (degree * PI / 180.) ;
 }
+
+float MathHelper::getX(float range, float azimuthRad)
+{
+  return range * cos(azimuthRad);
+}
+
+float MathHelper::getY(float range, float azimuthRad)
+{
+  return range * sin(azimuthRad);
+}

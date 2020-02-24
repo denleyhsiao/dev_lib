@@ -17,6 +17,8 @@ public:
   static T velocity(T startX, T startY, T endX, T endY, float escapeTime);
   static float rad2Degree(float rad);
   static float degree2Rad(float degree);
+  static float getX(float range, float azimuthRad);
+  static float getY(float range, float azimuthRad);
 
 public:
   static const float PI;
