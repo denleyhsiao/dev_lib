@@ -52,7 +52,7 @@ inline T MathHelper::yaw(T startX, T startY, T endX, T endY)
 }
 
 template <typename T>
-T MathHelper::velocity(T startX, T startY, T endX, T endY, float escapeTime)
+inline T MathHelper::velocity(T startX, T startY, T endX, T endY, float escapeTime)
 {
   T motionDistance = distance(startX, startY, endX, endY, PI2);
   return motionDistance / escapeTime;
