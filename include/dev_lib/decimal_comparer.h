@@ -16,6 +16,8 @@ public:
   static bool isGreatEqual(T rhs, T lhs, float eps = EPS);
   template <typename T>
   static bool isLessEqual(T rhs, T lhs, float eps = EPS);
+  template <typename T>
+  static bool isSame(T rhsX, T rhsY, T lhsX, T lhsY, float eps = EPS);
 private:
   static const float EPS;
 };
@@ -48,6 +50,12 @@ template <typename T>
 inline bool DecimalComparer::isLessEqual(T rhs, T lhs, float eps /*= EPS */)
 {
   return (rhs - lhs < eps);
+}
+
+template <typename T>
+inline bool DecimalComparer::isSame(T rhsX, T rhsY, T lhsX, T lhsY, float eps /*= EPS */)
+{
+  return isEqual(rhsX, lhsX, eps) && isEqual(rhsY, lhsY, eps);
 }
 
 #endif
