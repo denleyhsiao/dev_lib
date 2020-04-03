@@ -1,6 +1,7 @@
 #include "dev_lib/comm/serial_port.h"
 #include "dev_lib/dev_helper.h"
 #include "dev_lib/log/log.h"
+#include <boost/asio/read.hpp>
 #include <boost/asio/read_until.hpp>
 #include <boost/bind.hpp>
 
@@ -74,7 +75,26 @@ void SerialPort::doWrite(const data_type& data)
 
 SerialPort::data_type SerialPort::read(size_t size) const
 {
-  return data_type();
+  boost::system::error_code ec;
+  std::size_t readSize = 0;
+  do
+  {
+    readSize += boost::asio::read(impl, readContent, boost::asio::transfer_exactly(1), ec);
+    if (ec)
+      break;
+  } while(readSize < size);
+
+  data_type result = data_type();
+  if(ec)
+    log->error(ec.message());
+  else
+  {
+    boost::asio::streambuf::const_buffers_type content = readContent.data();
+    result = data_type(boost::asio::buffers_begin(content), boost::asio::buffers_begin(content) + size);
+    readContent.consume(readSize);
+  }
+
+  return result;
 }
 
 void SerialPort::asyncRead(cb_read_type cbRead, const data_type& delim)

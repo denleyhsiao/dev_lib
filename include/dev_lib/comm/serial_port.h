@@ -28,8 +28,8 @@ private:
   void close();
   boost::asio::io_service io;
   boost::asio::io_service::work work;
-  boost::asio::serial_port impl;
-  boost::asio::streambuf readContent;
+  mutable boost::asio::serial_port impl;
+  mutable boost::asio::streambuf readContent;
   std::shared_ptr<boost::thread> thread;
 };
 
