@@ -15,7 +15,7 @@ std::string BoostHelper::toString(const boost::posix_time::time_duration& time)
 
 std::string BoostHelper::toString(const tm& time)
 {
-  return toString(boost::posix_time::ptime_from_tm(time).time_of_day());
+  return boost::posix_time::to_simple_string(boost::posix_time::ptime_from_tm(time));
 }
 
 unsigned int BoostHelper::toUint(const std::string& value)
