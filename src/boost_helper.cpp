@@ -38,6 +38,11 @@ float BoostHelper::toFloat(const std::string& value)
   return atof(value.c_str());
 }
 
+boost::posix_time::ptime BoostHelper::getTime(const time_t& time)
+{
+  return boost::posix_time::from_time_t(time);
+}
+
 boost::posix_time::time_duration BoostHelper::getTime(const std::string& time)
 {
   return boost::posix_time::duration_from_string(time);

@@ -22,6 +22,7 @@ public:
   static unsigned int toUint(const std::string& value);
   static bool toBool(const std::string& value);
   static float toFloat(const std::string& value);
+  static boost::posix_time::ptime getTime(const time_t& time);
   static boost::posix_time::time_duration getTime(const std::string& time);
   static boost::posix_time::time_duration getCurrentTime();
 
