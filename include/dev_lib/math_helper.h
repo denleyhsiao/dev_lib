@@ -19,6 +19,7 @@ public:
   static float degree2Rad(float degree);
   static float getX(float range, float azimuthRad);
   static float getY(float range, float azimuthRad);
+  static float getMid(float start, float end);
 
 public:
   static const float PI;

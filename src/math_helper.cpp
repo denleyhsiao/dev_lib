@@ -22,3 +22,8 @@ float MathHelper::getY(float range, float azimuthRad)
 {
   return range * sin(azimuthRad);
 }
+
+float MathHelper::getMid(float start, float end)
+{
+  return (start + end) / 2.0;
+}
