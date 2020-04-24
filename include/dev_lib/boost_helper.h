@@ -19,6 +19,7 @@ public:
   static std::string toString(const boost::posix_time::time_duration& time);
   static std::string toString(const boost::posix_time::ptime& time);
   static std::string toString(const tm& time);
+  static std::string toString(unsigned int value);
   static unsigned int toUint(const std::string& value);
   static bool toBool(const std::string& value);
   static float toFloat(const std::string& value);

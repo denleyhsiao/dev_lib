@@ -23,6 +23,11 @@ std::string BoostHelper::toString(const tm& time)
   return toString(boost::posix_time::ptime_from_tm(time));
 }
 
+std::string BoostHelper::toString(unsigned int value)
+{
+  return toString(boost::posix_time::from_time_t(value));
+}
+
 unsigned int BoostHelper::toUint(const std::string& value)
 {
   return atoi(value.c_str());
