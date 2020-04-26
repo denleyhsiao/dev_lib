@@ -23,9 +23,9 @@ std::string BoostHelper::toString(const tm& time)
   return toString(boost::posix_time::ptime_from_tm(time));
 }
 
-std::string BoostHelper::toString(unsigned int value)
+std::string BoostHelper::toString(unsigned int time)
 {
-  return toString(boost::posix_time::from_time_t(value));
+  return toString(boost::posix_time::from_time_t(time));
 }
 
 unsigned int BoostHelper::toUint(const std::string& value)
@@ -43,9 +43,14 @@ float BoostHelper::toFloat(const std::string& value)
   return atof(value.c_str());
 }
 
-boost::posix_time::ptime BoostHelper::getTime(const time_t& time)
+boost::posix_time::ptime BoostHelper::getTime(unsigned int time)
 {
   return boost::posix_time::from_time_t(time);
+}
+
+unsigned int BoostHelper::getTime(boost::posix_time::ptime time)
+{
+  return boost::posix_time::to_time_t(time);
 }
 
 boost::posix_time::time_duration BoostHelper::getTime(const std::string& time)
