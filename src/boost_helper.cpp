@@ -53,7 +53,7 @@ unsigned int BoostHelper::getTime(boost::posix_time::ptime time)
   return boost::posix_time::to_time_t(time);
 }
 
-boost::posix_time::time_duration BoostHelper::getTime(const std::string& time)
+boost::posix_time::time_duration BoostHelper::getTimeDuration(const std::string& time)
 {
   return boost::posix_time::duration_from_string(time);
 }
@@ -83,10 +83,10 @@ std::string BoostHelper::currentDateTime(const char* format /* = "%Y-%m-%d %H:%M
 
 std::string BoostHelper::currentTime()
 {
-  return toString(getCurrentTime());
+  return toString(getCurrentTimeDuration());
 }
 
-boost::posix_time::time_duration BoostHelper::getCurrentTime()
+boost::posix_time::time_duration BoostHelper::getCurrentTimeDuration()
 {
   return getCurrentDateTime().time_of_day();
 }
