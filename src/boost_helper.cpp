@@ -48,6 +48,11 @@ boost::posix_time::ptime BoostHelper::getTime(unsigned int time)
   return boost::posix_time::from_time_t(time);
 }
 
+boost::posix_time::ptime BoostHelper::getTime(const std::string& time)
+{
+  return boost::posix_time::time_from_string(time);
+}
+
 unsigned int BoostHelper::getTime(boost::posix_time::ptime time)
 {
   return boost::posix_time::to_time_t(time);

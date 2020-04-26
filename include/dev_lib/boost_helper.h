@@ -25,10 +25,11 @@ public:
   static float toFloat(const std::string& value);
   static unsigned int getTime(boost::posix_time::ptime time);
   static boost::posix_time::ptime getTime(unsigned int time);
+  static boost::posix_time::ptime getTime(const std::string& time);
   static boost::posix_time::time_duration getTimeDuration(const std::string& time);
   static boost::posix_time::time_duration getCurrentTimeDuration();
 
-public:
+private:
   static boost::posix_time::ptime getCurrentDateTime();
 };
 
