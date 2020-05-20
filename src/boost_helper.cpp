@@ -58,6 +58,16 @@ unsigned int BoostHelper::getTime(boost::posix_time::ptime time)
   return boost::posix_time::to_time_t(time);
 }
 
+unsigned int BoostHelper::getTime(boost::posix_time::time_duration time)
+{
+  return time.total_milliseconds();
+}
+
+unsigned int BoostHelper::getCurrentTime()
+{
+  return getTime(getCurrentTimeStamp());
+}
+
 boost::posix_time::time_duration BoostHelper::getTimeDuration(const std::string& time)
 {
   return boost::posix_time::duration_from_string(time);
@@ -96,6 +106,12 @@ boost::posix_time::time_duration BoostHelper::getCurrentTimeDuration()
   return getCurrentDateTime().time_of_day();
 }
 
+boost::posix_time::time_duration BoostHelper::getCurrentTimeStamp()
+{
+  boost::posix_time::ptime epoch(boost::gregorian::date(1970, boost::gregorian::Jan, 1));
+  return (boost::posix_time::microsec_clock::local_time() - epoch);
+}
+
 boost::posix_time::ptime BoostHelper::getCurrentDateTime()
 {
   return boost::get_system_time() + boost::posix_time::hours(8);
@@ -103,9 +119,7 @@ boost::posix_time::ptime BoostHelper::getCurrentDateTime()
 
 std::string BoostHelper::currentTimestamp()
 {
-  boost::posix_time::ptime epoch(boost::gregorian::date(1970, boost::gregorian::Jan, 1));
-  boost::posix_time::time_duration time_from_epoch = boost::posix_time::microsec_clock::local_time() - epoch;
-  return DevHelper::format("%ld000", time_from_epoch.total_seconds());
+  return DevHelper::format("%ld000", getCurrentTimeStamp().total_seconds());
 }
 
 std::string BoostHelper::createUUID()

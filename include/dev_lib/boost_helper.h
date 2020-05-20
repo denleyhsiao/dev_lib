@@ -24,12 +24,15 @@ public:
   static bool toBool(const std::string& value);
   static float toFloat(const std::string& value);
   static unsigned int getTime(boost::posix_time::ptime time);
+  static unsigned int getTime(boost::posix_time::time_duration time);
+  static unsigned int getCurrentTime();
   static boost::posix_time::ptime getTime(unsigned int time);
   static boost::posix_time::ptime getTime(const std::string& time);
   static boost::posix_time::time_duration getTimeDuration(const std::string& time);
   static boost::posix_time::time_duration getCurrentTimeDuration();
 
 private:
+  static boost::posix_time::time_duration getCurrentTimeStamp();
   static boost::posix_time::ptime getCurrentDateTime();
 };
 

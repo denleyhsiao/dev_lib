@@ -19,3 +19,11 @@ TEST(BoostHelper, splitWithInf)
   float inf = DevHelper::inf;
   ASSERT_EQ(floats_type({1.2,3.4,inf,5.6,7.8,9.0,inf}), BoostHelper::splitToFloat("1.2,3.4,inf,5.6,7.8,9.0,inf"));
 }
+
+TEST(BoostHelper, getTime)
+{
+  static const unsigned int HOUR = 1, MINUTE = 2, START_SECOND = 3, ESCAPE_SECOND = 4;
+  boost::posix_time::time_duration start(HOUR, MINUTE, START_SECOND);
+  boost::posix_time::time_duration end(HOUR, MINUTE, START_SECOND + ESCAPE_SECOND);
+  ASSERT_EQ(BoostHelper::getTime(start) + ESCAPE_SECOND * 1000, BoostHelper::getTime(end));
+}
