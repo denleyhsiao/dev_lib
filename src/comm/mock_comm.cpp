@@ -2,7 +2,7 @@
 
 std::shared_ptr<Comm> MockComm::create(std::shared_ptr<Log> log)
 {
-  return std::shared_ptr<Comm>(new MockComm(log));
+  return std::make_shared<MockComm>(log);
 }
 
 bool MockComm::init(const char* serialPort, unsigned int serialBaudrate)

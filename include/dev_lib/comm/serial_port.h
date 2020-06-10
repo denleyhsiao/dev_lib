@@ -13,6 +13,7 @@ public:
   typedef Comm::data_type data_type;
   typedef Comm::cb_read_type cb_read_type;
   static std::shared_ptr<Comm> create(std::shared_ptr<Log> log);
+  SerialPort(std::shared_ptr<Log> log);
   ~SerialPort();
   virtual bool hasInit() const;
   virtual bool init(const char* serialPort, unsigned int serialBaudrate);
@@ -20,7 +21,6 @@ public:
   virtual void asyncRead(cb_read_type cbRead, const data_type& delim);
 
 private:
-  SerialPort(std::shared_ptr<Log> log);
   virtual void doWrite(const data_type& data);
   void doRead(cb_read_type cbRead, const data_type& delim, boost::system::error_code ec, std::size_t readSize);
   void setOption(unsigned int baudrate, unsigned characterSize);

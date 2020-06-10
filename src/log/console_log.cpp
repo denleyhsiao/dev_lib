@@ -3,7 +3,7 @@
 
 std::shared_ptr<Log> ConsoleLog::create()
 {
-  return std::shared_ptr<Log>(new ConsoleLog());
+  return std::make_shared<ConsoleLog>();
 }
 
 void ConsoleLog::debug(const std::string& message, const char* fileName /* = __FILE__ */, unsigned int line /* = __LINE__ */)

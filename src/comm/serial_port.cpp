@@ -7,7 +7,7 @@
 
 std::shared_ptr<Comm> SerialPort::create(std::shared_ptr<Log> log)
 {
-  return std::shared_ptr<Comm>(new SerialPort(log));
+  return std::make_shared<SerialPort>(log);
 }
 
 SerialPort::SerialPort(std::shared_ptr<Log> log) : Comm(log), work(io), impl(io), thread(std::shared_ptr<boost::thread>(nullptr))
