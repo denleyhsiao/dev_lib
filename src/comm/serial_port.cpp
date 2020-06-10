@@ -47,7 +47,7 @@ bool SerialPort::init(const char* serialPort, unsigned int serialBaudrate)
   result = hasInit();
   if (result)
   {
-    thread = std::shared_ptr<boost::thread>(new boost::thread(boost::bind(&boost::asio::io_service::run, &io)));
+    thread = std::make_shared<boost::thread>(boost::bind(&boost::asio::io_service::run, &io));
     log->info("Serial port initialized");
   }
   else

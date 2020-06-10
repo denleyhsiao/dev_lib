@@ -12,7 +12,7 @@ DeadlineTime::DeadlineTime(float durationSeconds) : work(io), end(boost::get_sys
 
 void DeadlineTime::init()
 {
-  thread = std::shared_ptr<boost::thread>(new boost::thread(boost::bind(&boost::asio::io_service::run, &io)));
+  thread = std::make_shared<boost::thread>(boost::bind(&boost::asio::io_service::run, &io));
 }
 
 void DeadlineTime::join()
