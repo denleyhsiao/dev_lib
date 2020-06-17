@@ -1,8 +1,9 @@
 #include "dev_lib/deadline_time.h"
+#include "dev_lib/boost_helper.h"
 
 boost::posix_time::time_duration DeadlineTime::duration(float seconds)
 {
-  return boost::posix_time::milliseconds(seconds * 1000);
+  return BoostHelper::getTimeDuration(seconds);
 }
 
 DeadlineTime::DeadlineTime(float durationSeconds) : work(io), end(boost::get_system_time()), powerTimer(io, powerDuration), thread(std::shared_ptr<boost::thread>(nullptr))

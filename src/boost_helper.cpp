@@ -84,7 +84,7 @@ BoostHelper::floats_type BoostHelper::splitToFloat(const char* value, const char
 
 void BoostHelper::sleep(float seconds)
 {
-  boost::thread::sleep(boost::get_system_time() + boost::posix_time::milliseconds(seconds*1000));
+  boost::thread::sleep(boost::get_system_time() + getTimeDuration(seconds));
 }
 
 std::string BoostHelper::currentDateTime(const char* format /* = "%Y-%m-%d %H:%M:%S" */)
@@ -99,6 +99,12 @@ std::string BoostHelper::currentDateTime(const char* format /* = "%Y-%m-%d %H:%M
 std::string BoostHelper::currentTime()
 {
   return toString(getCurrentTimeDuration());
+}
+
+boost::posix_time::time_duration BoostHelper::getTimeDuration(float seconds)
+{
+  long result = std::ceil(seconds * 1000);
+  return boost::posix_time::milliseconds(result);
 }
 
 boost::posix_time::time_duration BoostHelper::getCurrentTimeDuration()

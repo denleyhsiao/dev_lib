@@ -28,6 +28,7 @@ public:
   static unsigned int getCurrentTime();
   static boost::posix_time::ptime getTime(unsigned int time);
   static boost::posix_time::ptime getTime(const std::string& time);
+  static boost::posix_time::time_duration getTimeDuration(float seconds);
   static boost::posix_time::time_duration getTimeDuration(const std::string& time);
   static boost::posix_time::time_duration getCurrentTimeDuration();
 

@@ -4,6 +4,7 @@
 #include "dev_lib/comm/comm.h"
 #include <boost/thread.hpp>
 #include <boost/asio/streambuf.hpp>
+#include <boost/asio/io_service.hpp>
 #include <boost/asio/serial_port.hpp>
 #include <memory>
 
