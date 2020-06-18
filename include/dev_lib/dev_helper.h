@@ -12,6 +12,8 @@
 class DevHelper
 {
 public:
+  typedef std::vector<uint8_t>        data_type;
+  typedef data_type::size_type        size_type;
   typedef std::vector<unsigned char>  uints_type;
   typedef std::vector<float>          floats_type;
   typedef std::vector<std::string>    strings_type;
@@ -27,6 +29,7 @@ public:
   static uints_type& append(const uints_type& source, uints_type& target);
   static uints_type& sort(uints_type& values);
   static uints_type& removeSame(uints_type& values);
+  static data_type getChild(const data_type& source, size_type start, size_type length);
 
   static std::string toString(float value);
   static std::string toString(bool value);
@@ -46,6 +49,7 @@ public:
   static uint8_t getLow(uint16_t value);
   static uint8_t mergeTo8(uint8_t high, uint8_t low);
   static uint16_t mergeTo16(uint8_t high, uint8_t low);
+  static uint16_t crc16(const data_type& data);
 
   template <typename T>
   static std::string getType(const T& value);
@@ -58,6 +62,7 @@ private:
   static unsigned int getLength(const char * fmt, va_list& args);
   template <typename T>
   static T doMerge(uint8_t high, uint8_t low, uint8_t bitNum);
+  static const std::vector<uint16_t> CRC_ABS_TBL;
 };
 
 template <typename T>

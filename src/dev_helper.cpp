@@ -9,6 +9,10 @@
 
 const float DevHelper::inf = std::numeric_limits<float>::infinity();
 const char DevHelper::SPACE_FLAG = ' ';
+const std::vector<uint16_t> DevHelper::CRC_ABS_TBL = {
+	0x0000, 0xCC01, 0xD801, 0x1400, 0xF001, 0x3C00, 0x2800, 0xE401,
+	0xA001, 0x6C00, 0x7800, 0xB401, 0x5000, 0x9C01, 0x8801, 0x4400
+};
 
 std::string DevHelper::format(const char* fmt, ...)
 {
@@ -83,6 +87,11 @@ DevHelper::uints_type& DevHelper::removeSame(uints_type& values)
   sort(values);
   values.erase(std::unique(values.begin(), values.end()), values.end());
   return values;
+}
+
+DevHelper::data_type DevHelper::getChild(const data_type& source, size_type start, size_type length)
+{
+  return data_type(source.begin() + start, source.begin() + start + length);
 }
 
 std::string DevHelper::toString(float value)
@@ -206,4 +215,14 @@ uint8_t DevHelper::mergeTo8(uint8_t high, uint8_t low)
 uint16_t DevHelper::mergeTo16(uint8_t high, uint8_t low)
 {
   return doMerge<uint16_t>(high, low, 8);
+}
+
+uint16_t DevHelper::crc16(const data_type& data)
+{
+	uint16_t result = 0xFFFF;
+	for (const auto& child : data) {
+		result = CRC_ABS_TBL[(child ^ result) & 15] ^ (result >> 4);
+		result = CRC_ABS_TBL[((child >> 4) ^ result) & 15] ^ (result >> 4);
+	}
+	return result;
 }
