@@ -33,7 +33,7 @@ target_link_libraries(${PROJECT_NAME}
   ${Boost_LIBRARIES}
 )
 
-add_executable(${PROJECT_NAME}_test
+add_executable(${PROJECT_NAME}-test
   test/test_decimal_comparer.cpp
   test/test_dev_helper.cpp
   test/test_boost_helper.cpp
@@ -41,7 +41,7 @@ add_executable(${PROJECT_NAME}_test
   test/main.cpp
 )
 
-target_link_libraries(${PROJECT_NAME}_test
+target_link_libraries(${PROJECT_NAME}-test
   PRIVATE
   ${PROJECT_NAME}
   ${GTEST_BOTH_LIBRARIES}
