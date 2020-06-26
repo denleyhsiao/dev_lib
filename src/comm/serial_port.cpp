@@ -35,6 +35,17 @@ bool SerialPort::init(const char* serialPort, unsigned int serialBaudrate)
     return result;
   }
 
+  result = open(serialPort, serialBaudrate);
+  if (result)
+    thread = std::make_shared<boost::thread>(boost::bind(&boost::asio::io_service::run, &io));
+  return result;
+}
+
+bool SerialPort::open(const char* serialPort, unsigned int serialBaudrate)
+{
+  this->serialPort = serialPort;
+  this->serialBaudrate = serialBaudrate;
+
   boost::system::error_code ec;
   impl.open(serialPort, ec);
   if (ec)
@@ -44,12 +55,9 @@ bool SerialPort::init(const char* serialPort, unsigned int serialBaudrate)
   }
   setOption(serialBaudrate, 8);
 
-  result = hasInit();
+  bool result = hasInit();
   if (result)
-  {
-    thread = std::make_shared<boost::thread>(boost::bind(&boost::asio::io_service::run, &io));
     log->info("Serial port initialized");
-  }
   else
     log->error("Serial port can't open");
   return result;
@@ -63,6 +71,13 @@ void SerialPort::setOption(unsigned int baudrate, unsigned characterSize)
   impl.set_option(serial_port::parity(serial_port::parity::none));
   impl.set_option(serial_port::stop_bits(serial_port::stop_bits::one));
   impl.set_option(serial_port::character_size(characterSize));
+}
+
+void SerialPort::reopen()
+{
+  if (hasInit())
+    close();
+  open(serialPort.c_str(), serialBaudrate);
 }
 
 void SerialPort::doWrite(const data_type& data)

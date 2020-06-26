@@ -13,6 +13,7 @@ public:
   MockComm(std::shared_ptr<Log> log) : Comm(log) { }
   virtual bool hasInit() const { return true; }
   virtual bool init(const char* serialPort, unsigned int serialBaudrate);
+  virtual void reopen() { }
   virtual data_type read(size_t size) const;
   virtual void asyncRead(cb_read_type cbRead, const data_type& delim) { }
 

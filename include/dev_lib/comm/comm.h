@@ -16,6 +16,7 @@ public:
   virtual ~Comm() {}
   virtual bool hasInit() const = 0;
   virtual bool init(const char* serialPort, unsigned int serialBaudrate) = 0;
+  virtual void reopen() = 0;
   virtual data_type read(size_t size) const = 0;
   virtual void asyncRead(cb_read_type cbRead, const data_type& delim) = 0;
   void write(const data_type& data);
