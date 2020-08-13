@@ -10,6 +10,7 @@ class BoostHelper
 public:
   typedef std::vector<float>  floats_type;
   typedef std::vector<std::string>  strings_type;
+  static bool readFile(const char* fileName, std::string& target);
   static floats_type splitToFloat(const char* value, const char delimiter = ',');
   static void sleep(float seconds);
   static std::string currentDateTime(const char* format = "%Y-%m-%d %H:%M:%S");

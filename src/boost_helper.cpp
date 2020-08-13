@@ -8,6 +8,11 @@
 #include <sstream>
 #include <algorithm>
 
+bool BoostHelper::readFile(const char* fileName, std::string& target)
+{
+  return false;
+}
+
 std::string BoostHelper::toString(const boost::posix_time::time_duration& time)
 {
   return boost::posix_time::to_simple_string(time);
