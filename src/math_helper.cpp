@@ -27,3 +27,10 @@ float MathHelper::getMid(float start, float end)
 {
   return (start + end) / 2.0;
 }
+
+std::pair<float, float> MathHelper::convert(float x, float y, float azimuthRad)
+{
+  float tempX = getY(x, azimuthRad) - getX(y, azimuthRad);
+  float tempY = getX(x, azimuthRad) + getY(y, azimuthRad);
+  return std::make_pair(tempX, tempY);
+}

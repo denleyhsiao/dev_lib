@@ -2,6 +2,7 @@
 #define __DEV_LIB_MATH_HELPER_H__
 
 #include "dev_lib/decimal_comparer.h"
+#include <utility>
 #include <cmath>
 
 class MathHelper
@@ -20,6 +21,7 @@ public:
   static float getX(float range, float azimuthRad);
   static float getY(float range, float azimuthRad);
   static float getMid(float start, float end);
+  static std::pair<float, float> convert(float x, float y, float azimuthRad);
 
 public:
   static const float PI;
