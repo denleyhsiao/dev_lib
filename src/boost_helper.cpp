@@ -5,12 +5,21 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_generators.hpp>
+#include <fstream>
+#include <streambuf>
 #include <sstream>
 #include <algorithm>
 
 bool BoostHelper::readFile(const char* fileName, std::string& target)
 {
-  return false;
+  bool result = false;
+  std::ifstream ifs(fileName, std::ios::in | std::ios::binary);
+  if (ifs)
+  {
+    result = !result;
+    target.assign(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>());
+}
+  return result;
 }
 
 std::string BoostHelper::toString(const boost::posix_time::time_duration& time)
