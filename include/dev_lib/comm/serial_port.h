@@ -13,7 +13,6 @@ class SerialPort : public Comm, public std::enable_shared_from_this<SerialPort>
 public:
   typedef Comm::data_type data_type;
   typedef Comm::cb_read_type cb_read_type;
-  static std::shared_ptr<Comm> create(std::shared_ptr<Log> log);
   SerialPort(std::shared_ptr<Log> log);
   ~SerialPort();
   virtual void reopen();

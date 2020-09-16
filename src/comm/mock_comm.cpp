@@ -1,10 +1,5 @@
 #include "dev_lib/comm/mock_comm.h"
 
-std::shared_ptr<Comm> MockComm::create(std::shared_ptr<Log> log)
-{
-  return std::make_shared<MockComm>(log);
-}
-
 bool MockComm::init(const char* serialPort, unsigned int serialBaudrate)
 {
   return true;
