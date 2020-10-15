@@ -16,7 +16,6 @@ include_directories(
 )
 
 add_library(${PROJECT_NAME}
-  src/escape_time.cpp
   src/decimal_comparer.cpp
   src/deadline_time.cpp
   src/dev_helper.cpp
@@ -37,7 +36,6 @@ add_executable(${PROJECT_NAME}-test
   test/test_decimal_comparer.cpp
   test/test_dev_helper.cpp
   test/test_boost_helper.cpp
-  test/test_escape_time.cpp
   test/main.cpp
 )
 
