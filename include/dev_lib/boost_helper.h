@@ -8,8 +8,10 @@
 class BoostHelper
 {
 public:
-  typedef std::vector<float>  floats_type;
+  typedef std::vector<uint8_t>      uints_type;
+  typedef std::vector<float>        floats_type;
   typedef std::vector<std::string>  strings_type;
+  static uint16_t crc16(const uints_type& source);
   static bool readFile(const char* fileName, std::string& target);
   static floats_type splitToFloat(const char* value, const char delimiter = ',');
   static void sleep(float seconds);

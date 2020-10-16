@@ -1,5 +1,6 @@
 #include "dev_lib/boost_helper.h"
 #include "dev_lib/dev_helper.h"
+#include <boost/crc.hpp>
 #include <boost/thread.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/uuid/uuid.hpp>
@@ -9,6 +10,14 @@
 #include <streambuf>
 #include <sstream>
 #include <algorithm>
+
+uint16_t BoostHelper::crc16(const uints_type& source)
+{
+  boost::crc_optimal<16, 0x8005, 0xFFFF, 0, true, true> crc;
+  if (!source.empty())
+    crc.process_bytes(&source.at(0), source.size());
+  return crc.checksum();
+}
 
 bool BoostHelper::readFile(const char* fileName, std::string& target)
 {

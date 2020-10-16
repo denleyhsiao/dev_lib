@@ -48,7 +48,6 @@ public:
   static uint8_t getLow(uint16_t value);
   static uint8_t mergeTo8(uint8_t high, uint8_t low);
   static uint16_t mergeTo16(uint8_t high, uint8_t low);
-  static uint16_t crc16(const uints_type& data);
 
   template <typename T>
   static std::string getType(const T& value);
@@ -59,7 +58,6 @@ public:
 
 private:
   static unsigned int getLength(const char * fmt, va_list& args);
-  static uint16_t& doCRC16(uint8_t source, uint16_t& inout);
   template <typename T>
   static T doMerge(uint8_t high, uint8_t low, uint8_t bitNum);
 };

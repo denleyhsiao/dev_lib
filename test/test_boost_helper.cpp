@@ -27,3 +27,11 @@ TEST(BoostHelper, getTime)
   boost::posix_time::time_duration end(HOUR, MINUTE, START_SECOND + ESCAPE_SECOND);
   ASSERT_EQ(BoostHelper::getTime(start) + ESCAPE_SECOND * 1000, BoostHelper::getTime(end));
 }
+
+TEST(BoostHelper, crc16)
+{
+  ASSERT_EQ(0xFFFF, BoostHelper::crc16({}));
+  ASSERT_EQ(0x8240, BoostHelper::crc16({0x3, 0x7}));
+  ASSERT_EQ(0xA80D, BoostHelper::crc16({0x10, 0x20}));
+  ASSERT_EQ(0x1A3C, BoostHelper::crc16({0x50, 0x98}));
+}

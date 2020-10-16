@@ -212,20 +212,3 @@ uint16_t DevHelper::mergeTo16(uint8_t high, uint8_t low)
 {
   return doMerge<uint16_t>(high, low, 8);
 }
-
-uint16_t DevHelper::crc16(const uints_type& data)
-{
-	uint16_t result = 0xFFFF;
-	for (const auto& child : data)
-    doCRC16(child >> 4, doCRC16(child, result));
-	return result;
-}
-
-uint16_t& DevHelper::doCRC16(uint8_t source, uint16_t& inout)
-{
-  static const std::vector<uint16_t> CRC_ABS_TBL = {
-  	0x0000, 0xCC01, 0xD801, 0x1400, 0xF001, 0x3C00, 0x2800, 0xE401,
-  	0xA001, 0x6C00, 0x7800, 0xB401, 0x5000, 0x9C01, 0x8801, 0x4400
-  };
-	return (inout = CRC_ABS_TBL[(source ^ inout) & 15] ^ (inout >> 4));
-}
