@@ -89,9 +89,9 @@ DevHelper::uints_type& DevHelper::removeSame(uints_type& values)
   return values;
 }
 
-DevHelper::data_type DevHelper::getChild(const data_type& source, size_type start, size_type length)
+DevHelper::uints_type DevHelper::getChild(const uints_type& source, size_type start, size_type length)
 {
-  return data_type(source.begin() + start, source.begin() + start + length);
+  return uints_type(source.begin() + start, source.begin() + start + length);
 }
 
 std::string DevHelper::toString(float value)
@@ -217,7 +217,7 @@ uint16_t DevHelper::mergeTo16(uint8_t high, uint8_t low)
   return doMerge<uint16_t>(high, low, 8);
 }
 
-uint16_t DevHelper::crc16(const data_type& data)
+uint16_t DevHelper::crc16(const uints_type& data)
 {
 	uint16_t result = 0xFFFF;
 	for (const auto& child : data) {
