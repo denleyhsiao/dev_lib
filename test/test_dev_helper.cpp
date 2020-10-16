@@ -74,3 +74,10 @@ TEST(DevHelperTest, mergeTo8)
 {
   ASSERT_EQ(0x56, DevHelper::mergeTo8(0x05, 0x06));
 }
+
+TEST(DevHelperTest, crc16)
+{
+  ASSERT_EQ(0xFFFF, DevHelper::crc16({}));
+  ASSERT_EQ(0x8240, DevHelper::crc16({0x3, 0x7}));
+  ASSERT_EQ(0xA80D, DevHelper::crc16({0x10, 0x20}));
+}
