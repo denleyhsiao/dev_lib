@@ -59,9 +59,9 @@ public:
 
 private:
   static unsigned int getLength(const char * fmt, va_list& args);
+  static uint16_t& doCRC16(uint8_t source, uint16_t& inout);
   template <typename T>
   static T doMerge(uint8_t high, uint8_t low, uint8_t bitNum);
-  static const std::vector<uint16_t> CRC_ABS_TBL;
 };
 
 template <typename T>
