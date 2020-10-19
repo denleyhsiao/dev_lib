@@ -26,6 +26,7 @@ add_library(${PROJECT_NAME}
   src/comm/comm.cpp
   src/comm/mock_comm.cpp
   src/comm/serial_port.cpp
+  src/message_loop/boost_message_loop.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}
