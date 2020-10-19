@@ -1,16 +1,16 @@
-#ifndef __DEV_LIB_DEADLINE_TIME_H__
-#define __DEV_LIB_DEADLINE_TIME_H__
+#ifndef __DEV_LIB_DEADLINE_TIMER_H__
+#define __DEV_LIB_DEADLINE_TIMER_H__
 
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
-class DeadlineTime
+class DeadlineTimer
 {
 public:
   static bool isZero(const boost::posix_time::time_duration& duration);
-  DeadlineTime(float durationSeconds);
-  virtual ~DeadlineTime() {}
+  DeadlineTimer(float durationSeconds);
+  virtual ~DeadlineTimer() {}
   virtual void finishCountDown() {};
   void init();
   void destroy();
@@ -20,7 +20,6 @@ public:
 
 protected:
   static boost::posix_time::time_duration duration(float seconds);
-  bool isZero() const;
   void reset(float durationSeconds);
 
 private:
@@ -32,7 +31,7 @@ private:
   boost::asio::io_service::work work;
   boost::posix_time::ptime end;
   boost::posix_time::time_duration powerDuration;
-  boost::asio::deadline_timer powerTimer;
+  boost::asio::deadline_timer timer;
   std::shared_ptr<boost::thread> thread;
 };
 
