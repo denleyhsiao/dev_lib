@@ -52,9 +52,9 @@ bool SerialPort::open(const char* serialPort, unsigned int serialBaudrate)
 
   bool result = hasInit();
   if (result)
-    log->info("Serial port initialized");
+    log->info(DevHelper::format("Serial port initialized: %s(%d)", serialPort, serialBaudrate));
   else
-    log->error("Serial port can't open");
+    log->error(DevHelper::format("Serial port can't open: %s(%d)", serialPort, serialBaudrate));
   return result;
 }
 
