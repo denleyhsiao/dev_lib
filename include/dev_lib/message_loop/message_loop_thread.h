@@ -10,15 +10,15 @@ class MessageLoopThread : public T
 {
 public:
   typedef typename T::quit_t quit_t;
-  MessageLoopThread(std::shared_ptr<Log> log, bool isSync = true) : T(log), thread(nullptr), isSync(isSync) {}
+  MessageLoopThread(std::shared_ptr<Log> log, quit_t quit, bool isSync = true) : T(log, quit), thread(nullptr), isSync(isSync) {}
   ~MessageLoopThread()
   {
     T::stop();
     join();
   }
-  virtual void run(quit_t quit)
+  virtual void run()
   {
-    thread = std::make_shared<boost::thread>(&T::doRun, this, quit);
+    thread = std::make_shared<boost::thread>(&T::doRun, this);
     if (isSync)
       join();
   }

@@ -3,14 +3,18 @@
 
 #include "dev_lib/message_loop/message_loop.h"
 #include <boost/asio/io_service.hpp>
+#include <functional>
+#include <memory>
 
+class Log;
 class BoostMessageLoop : public MessageLoop
 {
 public:
-  BoostMessageLoop(std::shared_ptr<Log> log);
+  using quit_t = std::function<void(std::shared_ptr<Log> log, int number)>;
+  BoostMessageLoop(std::shared_ptr<Log> log, quit_t quit);
   ~BoostMessageLoop();
-  virtual void run(quit_t quit) override;
-  void doRun(quit_t quit);
+  virtual void run() override;
+  void doRun();
 
 protected:
   void stop();
@@ -19,6 +23,7 @@ protected:
 private:
   void doStop();
   boost::asio::io_service io;
+  quit_t quit;
 };
 
 #endif

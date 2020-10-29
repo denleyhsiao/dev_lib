@@ -3,7 +3,7 @@
 #include <boost/asio.hpp>
 #include <cassert>
 
-BoostMessageLoop::BoostMessageLoop(std::shared_ptr<Log> log) : log(log)
+BoostMessageLoop::BoostMessageLoop(std::shared_ptr<Log> log, quit_t quit) : log(log), quit(quit)
 {
 
 }
@@ -13,17 +13,17 @@ BoostMessageLoop::~BoostMessageLoop()
   stop();
 }
 
-void BoostMessageLoop::run(quit_t quit)
+void BoostMessageLoop::run()
 {
-  doRun(quit);
+  doRun();
 }
 
-void BoostMessageLoop::doRun(quit_t quit)
+void BoostMessageLoop::doRun()
 {
   boost::asio::signal_set signal_set(io, SIGINT);
-  signal_set.async_wait([this, quit](const boost::system::error_code& ec, int number) {
+  signal_set.async_wait([this](const boost::system::error_code& ec, int number) {
     this->doStop();
-    quit(this->log, number);
+    this->quit(this->log, number);
   });
   io.run();
 }
