@@ -30,6 +30,7 @@ void MessageLoops::quit(int number) const
 
 void MessageLoops::add(float delaySeconds, MessageHandlerCallback messageHandler)
 {
+  log->info(DevHelper::format("Add message after %.3f second(s)", delaySeconds));
   slaveMessageLoop->add(delaySeconds, messageHandler);
 }
 
