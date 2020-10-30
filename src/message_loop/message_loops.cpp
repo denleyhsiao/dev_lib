@@ -29,9 +29,9 @@ void MessageLoops::quit(int number) const
 }
 
 std::tuple<MessageLoops::CancelMessage, MessageLoops::RedoMessage>
-  MessageLoops::add(float delaySeconds, HandleMessage handleMessage)
+  MessageLoops::add(const char* tip, float delaySeconds, HandleMessage handleMessage)
 {
-  log->info(DevHelper::format("Add message after %.3f second(s)", delaySeconds));
+  log->info(DevHelper::format("Add message of %s: %.3f second(s)", tip, delaySeconds));
   return slaveMessageLoop->add(delaySeconds, handleMessage);
 }
 
