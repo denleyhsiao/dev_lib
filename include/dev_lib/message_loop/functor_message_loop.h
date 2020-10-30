@@ -8,7 +8,7 @@ class FunctorMessageLoop : public MessageLoop
 {
 public:
   using HandleCallback = std::function<void()>;
-  FunctorMessageLoop(bool isMaster, HandleCallback callback);
+  FunctorMessageLoop(HandleCallback callback, bool isMaster = false);
   virtual void run() override;
 
 private:

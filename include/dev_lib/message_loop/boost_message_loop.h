@@ -11,7 +11,7 @@ class BoostMessageLoop : public MessageLoop
 {
 public:
   using quit_t = std::function<void(std::shared_ptr<Log> log, int number)>;
-  BoostMessageLoop(bool isMaster, std::shared_ptr<Log> log, quit_t quit);
+  BoostMessageLoop(std::shared_ptr<Log> log, quit_t quit, bool isMaster = false);
   ~BoostMessageLoop();
   virtual void run() override;
   void doRun();

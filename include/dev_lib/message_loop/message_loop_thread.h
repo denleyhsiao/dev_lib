@@ -10,7 +10,7 @@ class MessageLoopThread : public T
 {
 public:
   typedef typename T::quit_t quit_t;
-  MessageLoopThread(bool isMaster, std::shared_ptr<Log> log, quit_t quit) : T(isMaster, log, quit), thread(nullptr) {}
+  MessageLoopThread(std::shared_ptr<Log> log, quit_t quit, bool isMaster = false) : T(log, quit, isMaster), thread(nullptr) {}
   ~MessageLoopThread()
   {
     T::stop();

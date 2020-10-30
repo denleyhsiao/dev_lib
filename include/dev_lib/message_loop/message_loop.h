@@ -4,7 +4,7 @@
 class MessageLoop
 {
 public:
-  MessageLoop(bool isMaster) : thisIsMaster(isMaster) {}
+  MessageLoop(bool isMaster = false) : thisIsMaster(isMaster) {}
   bool isMaster() const { return thisIsMaster; }
   virtual ~MessageLoop() {}
   virtual void run() = 0;

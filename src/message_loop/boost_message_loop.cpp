@@ -3,7 +3,7 @@
 #include <boost/asio.hpp>
 #include <cassert>
 
-BoostMessageLoop::BoostMessageLoop(bool isMaster, std::shared_ptr<Log> log, quit_t quit)
+BoostMessageLoop::BoostMessageLoop(std::shared_ptr<Log> log, quit_t quit, bool isMaster /* = false */)
   : MessageLoop(isMaster), log(log), quit(quit)
 {
 
