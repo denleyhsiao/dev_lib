@@ -4,13 +4,12 @@
 #include <boost/thread.hpp>
 #include <memory>
 
-class Log;
 template <typename T>
 class MessageLoopThread : public T
 {
 public:
   typedef typename T::quit_t quit_t;
-  MessageLoopThread(std::shared_ptr<Log> log, quit_t quit, bool isMaster = false) : T(log, quit, isMaster), thread(nullptr) {}
+  MessageLoopThread(quit_t quit, bool isMaster = false) : T(quit, isMaster), thread(nullptr) {}
   ~MessageLoopThread()
   {
     T::stop();
