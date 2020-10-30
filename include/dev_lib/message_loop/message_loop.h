@@ -6,12 +6,12 @@
 class MessageLoop
 {
 public:
-  using MessageHandlerRedoCallback = std::function<void()>;
-  using MessageHandlerCallback = std::function<void(MessageHandlerRedoCallback)>;
+  using RedoMessage = std::function<void()>;
+  using HandleMessage = std::function<void(RedoMessage)>;
   MessageLoop(bool isMaster = false) : thisIsMaster(isMaster) {}
   bool isMaster() const { return thisIsMaster; }
   virtual ~MessageLoop() {}
-  virtual void add(float delaySeconds, MessageHandlerCallback messageHandler) = 0;
+  virtual void add(float delaySeconds, HandleMessage handleMessage) = 0;
   virtual void run() = 0;
 
 private:

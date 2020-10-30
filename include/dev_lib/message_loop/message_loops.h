@@ -8,12 +8,12 @@ class Log;
 class MessageLoops
 {
 public:
-  using MessageHandlerRedoCallback = MessageLoop::MessageHandlerRedoCallback;
-  using MessageHandlerCallback = MessageLoop::MessageHandlerCallback;
+  using RedoMessage = MessageLoop::RedoMessage;
+  using HandleMessage = MessageLoop::HandleMessage;
   MessageLoops();
   void init(std::shared_ptr<MessageLoop> messageLoop, std::shared_ptr<Log> log);
   bool hasInit() const;
-  void add(float delaySeconds, MessageHandlerCallback messageHandler);
+  void add(float delaySeconds, HandleMessage handleMessage);
   void run(const char* appName);
 
 private:

@@ -19,28 +19,28 @@ BoostMessageLoop::~BoostMessageLoop()
   stop();
 }
 
-void BoostMessageLoop::add(float delaySeconds, MessageHandlerCallback messageHandler)
+void BoostMessageLoop::add(float delaySeconds, HandleMessage handleMessage)
 {
   boost::posix_time::time_duration delay = boost::posix_time::milliseconds(toMilliseconds(delaySeconds));
   auto timer = std::make_shared<deadline_timer>(io, delay);
-  asyncWait(timer, messageHandler);
+  asyncWait(timer, handleMessage);
   timers[timer] = delay;
 }
 
-void BoostMessageLoop::asyncWait(std::shared_ptr<deadline_timer> timer, MessageHandlerCallback messageHandler)
+void BoostMessageLoop::asyncWait(std::shared_ptr<deadline_timer> timer, HandleMessage handleMessage)
 {
-  timer->async_wait([timer, messageHandler, this](const boost::system::error_code& ec) {
+  timer->async_wait([timer, handleMessage, this](const boost::system::error_code& ec) {
     if (ec)
       return ;
 
-    messageHandler(std::bind(&BoostMessageLoop::redo, this, timer, messageHandler));
+    handleMessage(std::bind(&BoostMessageLoop::redo, this, timer, handleMessage));
   });
 }
 
-void BoostMessageLoop::redo(std::shared_ptr<deadline_timer> timer, MessageHandlerCallback messageHandler)
+void BoostMessageLoop::redo(std::shared_ptr<deadline_timer> timer, HandleMessage handleMessage)
 {
   timer->expires_from_now(timers[timer]);
-  asyncWait(timer, messageHandler);
+  asyncWait(timer, handleMessage);
 }
 
 void BoostMessageLoop::run()

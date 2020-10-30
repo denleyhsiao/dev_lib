@@ -28,10 +28,10 @@ void MessageLoops::quit(int number) const
   log->info(DevHelper::format("Received quit with signal %d", number));
 }
 
-void MessageLoops::add(float delaySeconds, MessageHandlerCallback messageHandler)
+void MessageLoops::add(float delaySeconds, HandleMessage handleMessage)
 {
   log->info(DevHelper::format("Add message after %.3f second(s)", delaySeconds));
-  slaveMessageLoop->add(delaySeconds, messageHandler);
+  slaveMessageLoop->add(delaySeconds, handleMessage);
 }
 
 void MessageLoops::run(const char* appName)

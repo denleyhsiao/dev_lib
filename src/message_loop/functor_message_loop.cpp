@@ -7,7 +7,7 @@ FunctorMessageLoop::FunctorMessageLoop(HandleCallback callback, bool isMaster /*
 
 }
 
-void FunctorMessageLoop::add(float delaySeconds, MessageHandlerCallback messageHandler)
+void FunctorMessageLoop::add(float delaySeconds, HandleMessage handleMessage)
 {
   assert(false);
 }

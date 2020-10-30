@@ -15,7 +15,7 @@ public:
   using quit_t = std::function<void(int number)>;
   BoostMessageLoop(quit_t quit, bool isMaster = false);
   ~BoostMessageLoop();
-  virtual void add(float delaySeconds, MessageHandlerCallback messageHandler) override;
+  virtual void add(float delaySeconds, HandleMessage handleMessage) override;
   virtual void run() override;
   void doRun();
 
@@ -23,8 +23,8 @@ protected:
   void stop();
 
 private:
-  void redo(std::shared_ptr<deadline_timer> timer, MessageHandlerCallback messageHandler);
-  void asyncWait(std::shared_ptr<deadline_timer> timer, MessageHandlerCallback messageHandler);
+  void redo(std::shared_ptr<deadline_timer> timer, HandleMessage handleMessage);
+  void asyncWait(std::shared_ptr<deadline_timer> timer, HandleMessage handleMessage);
   void doStop();
   static long toMilliseconds(float seconds);
   io_service io;
