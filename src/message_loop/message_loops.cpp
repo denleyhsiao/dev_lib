@@ -28,6 +28,11 @@ void MessageLoops::quit(int number) const
   log->info(DevHelper::format("Received quit with signal %d", number));
 }
 
+void MessageLoops::add(float delaySeconds, MessageHandlerCallback messageHandler)
+{
+  slaveMessageLoop->add(delaySeconds, messageHandler);
+}
+
 void MessageLoops::run(const char* appName)
 {
   assert(hasInit());
