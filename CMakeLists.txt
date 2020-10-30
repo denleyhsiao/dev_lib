@@ -28,6 +28,7 @@ add_library(${PROJECT_NAME}
   src/comm/serial_port.cpp
   src/message_loop/boost_message_loop.cpp
   src/message_loop/functor_message_loop.cpp
+  src/message_loop/message_loops.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}
