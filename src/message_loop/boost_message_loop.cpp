@@ -19,12 +19,18 @@ BoostMessageLoop::~BoostMessageLoop()
   stop();
 }
 
-void BoostMessageLoop::add(float delaySeconds, HandleMessage handleMessage)
+std::tuple<BoostMessageLoop::CancelMessage, BoostMessageLoop::RedoMessage>
+  BoostMessageLoop::add(float delaySeconds, HandleMessage handleMessage)
 {
   boost::posix_time::time_duration delay = boost::posix_time::milliseconds(toMilliseconds(delaySeconds));
   auto timer = std::make_shared<deadline_timer>(io, delay);
   asyncWait(timer, handleMessage);
   timers[timer] = delay;
+  return std::make_tuple(
+    [timer]() {
+      timer->cancel();
+    },
+    std::bind(&BoostMessageLoop::redo, this, timer, handleMessage));
 }
 
 void BoostMessageLoop::asyncWait(std::shared_ptr<deadline_timer> timer, HandleMessage handleMessage)

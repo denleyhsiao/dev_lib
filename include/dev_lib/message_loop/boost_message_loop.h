@@ -15,7 +15,7 @@ public:
   using quit_t = std::function<void(int number)>;
   BoostMessageLoop(quit_t quit, bool isMaster = false);
   ~BoostMessageLoop();
-  virtual void add(float delaySeconds, HandleMessage handleMessage) override;
+  virtual std::tuple<CancelMessage, RedoMessage> add(float delaySeconds, HandleMessage handleMessage) override;
   virtual void run() override;
   void doRun();
 

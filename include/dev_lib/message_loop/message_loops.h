@@ -8,12 +8,13 @@ class Log;
 class MessageLoops
 {
 public:
+  using CancelMessage = MessageLoop::CancelMessage;
   using RedoMessage = MessageLoop::RedoMessage;
   using HandleMessage = MessageLoop::HandleMessage;
   MessageLoops();
   void init(std::shared_ptr<MessageLoop> messageLoop, std::shared_ptr<Log> log);
   bool hasInit() const;
-  void add(float delaySeconds, HandleMessage handleMessage);
+  std::tuple<CancelMessage, RedoMessage> add(float delaySeconds, HandleMessage handleMessage);
   void run(const char* appName);
 
 private:
