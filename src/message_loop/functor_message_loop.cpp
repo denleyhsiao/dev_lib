@@ -7,11 +7,10 @@ FunctorMessageLoop::FunctorMessageLoop(HandleCallback callback, bool isMaster /*
 
 }
 
-std::tuple<FunctorMessageLoop::CancelMessage, FunctorMessageLoop::RedoMessage>
-  FunctorMessageLoop::add(float delaySeconds, HandleMessage handleMessage)
+std::shared_ptr<Message> FunctorMessageLoop::add(float delaySeconds, HandleMessage handleMessage)
 {
   assert(false);
-  return std::make_tuple(nullptr, nullptr);
+  return nullptr;
 }
 
 void FunctorMessageLoop::run()

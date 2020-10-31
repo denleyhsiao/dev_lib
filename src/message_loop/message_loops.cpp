@@ -28,8 +28,7 @@ void MessageLoops::quit(int number) const
   log->info(DevHelper::format("Received quit with signal %d", number));
 }
 
-std::tuple<MessageLoops::CancelMessage, MessageLoops::RedoMessage>
-  MessageLoops::add(const char* tip, float delaySeconds, HandleMessage handleMessage)
+std::shared_ptr<Message> MessageLoops::add(const char* tip, float delaySeconds, HandleMessage handleMessage)
 {
   log->info(DevHelper::format("Add message of %s: %.3f second(s)", tip, delaySeconds));
   return slaveMessageLoop->add(delaySeconds, handleMessage);

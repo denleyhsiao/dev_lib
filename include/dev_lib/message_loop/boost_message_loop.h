@@ -6,7 +6,6 @@
 #include <boost/asio/deadline_timer.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <map>
-#include <memory>
 using namespace boost::asio;
 
 class BoostMessageLoop : public MessageLoop
@@ -15,7 +14,7 @@ public:
   using quit_t = std::function<void(int number)>;
   BoostMessageLoop(quit_t quit, bool isMaster = false);
   ~BoostMessageLoop();
-  virtual std::tuple<CancelMessage, RedoMessage> add(float delaySeconds, HandleMessage handleMessage) override;
+  virtual std::shared_ptr<Message> add(float delaySeconds, HandleMessage handleMessage) override;
   virtual void run() override;
   void doRun();
 
