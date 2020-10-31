@@ -1,7 +1,7 @@
-#ifndef __DEV_LIB_MESSAGE_LOOP_BOOST_MESSAGE_LOOP_H__
-#define __DEV_LIB_MESSAGE_LOOP_BOOST_MESSAGE_LOOP_H__
+#ifndef __DEV_LIB_MESSAGE_BOOST_MESSAGE_LOOP_H__
+#define __DEV_LIB_MESSAGE_BOOST_MESSAGE_LOOP_H__
 
-#include "dev_lib/message_loop/message_loop.h"
+#include "dev_lib/message/message_loop.h"
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/deadline_timer.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>

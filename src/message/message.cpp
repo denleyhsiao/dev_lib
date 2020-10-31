@@ -1,4 +1,4 @@
-#include "dev_lib/message_loop/message.h"
+#include "dev_lib/message/message.h"
 
 Message::Message(HandleMessage handleMessage, RedoMessage redoMessage, CancelMessage cancelMessage)
   : handleMessage(handleMessage), redoMessage(redoMessage), cancelMessage(cancelMessage)

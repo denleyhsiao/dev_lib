@@ -1,7 +1,7 @@
-#ifndef __DEV_LIB_MESSAGE_LOOP_MESSAGE_LOOP_H__
-#define __DEV_LIB_MESSAGE_LOOP_MESSAGE_LOOP_H__
+#ifndef __DEV_LIB_MESSAGE_MESSAGE_LOOP_H__
+#define __DEV_LIB_MESSAGE_MESSAGE_LOOP_H__
 
-#include "dev_lib/message_loop/message.h"
+#include "dev_lib/message/message.h"
 #include <functional>
 #include <memory>
 

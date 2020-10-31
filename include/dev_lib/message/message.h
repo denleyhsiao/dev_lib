@@ -1,5 +1,5 @@
-#ifndef __DEV_LIB_MESSAGE_LOOP_MESSAGE_H__
-#define __DEV_LIB_MESSAGE_LOOP_MESSAGE_H__
+#ifndef __DEV_LIB_MESSAGE_MESSAGE_H__
+#define __DEV_LIB_MESSAGE_MESSAGE_H__
 
 #include <functional>
 

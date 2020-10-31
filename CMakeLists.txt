@@ -26,10 +26,10 @@ add_library(${PROJECT_NAME}
   src/comm/comm.cpp
   src/comm/mock_comm.cpp
   src/comm/serial_port.cpp
-  src/message_loop/message.cpp
-  src/message_loop/boost_message_loop.cpp
-  src/message_loop/functor_message_loop.cpp
-  src/message_loop/message_loops.cpp
+  src/message/message.cpp
+  src/message/boost_message_loop.cpp
+  src/message/functor_message_loop.cpp
+  src/message/message_loops.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}

@@ -1,7 +1,7 @@
-#ifndef __DEV_LIB_MESSAGE_LOOP_FUNCTOR_MESSAGE_LOOP_H__
-#define __DEV_LIB_MESSAGE_LOOP_FUNCTOR_MESSAGE_LOOP_H__
+#ifndef __DEV_LIB_MESSAGE_FUNCTOR_MESSAGE_LOOP_H__
+#define __DEV_LIB_MESSAGE_FUNCTOR_MESSAGE_LOOP_H__
 
-#include "dev_lib/message_loop/message_loop.h"
+#include "dev_lib/message/message_loop.h"
 
 class FunctorMessageLoop : public MessageLoop
 {

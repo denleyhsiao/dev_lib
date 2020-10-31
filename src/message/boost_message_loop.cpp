@@ -1,5 +1,5 @@
-#include "dev_lib/message_loop/boost_message_loop.h"
-#include "dev_lib/message_loop/message.h"
+#include "dev_lib/message/boost_message_loop.h"
+#include "dev_lib/message/message.h"
 #include <boost/asio/signal_set.hpp>
 #include <boost/system/error_code.hpp>
 #include <cassert>

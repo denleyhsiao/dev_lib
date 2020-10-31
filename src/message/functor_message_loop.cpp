@@ -1,4 +1,4 @@
-#include "dev_lib/message_loop/functor_message_loop.h"
+#include "dev_lib/message/functor_message_loop.h"
 #include <cassert>
 
 FunctorMessageLoop::FunctorMessageLoop(HandleCallback callback, bool isMaster /* = false */)
