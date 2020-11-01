@@ -11,13 +11,12 @@ public:
   using RedoMessage = MessageLoop::RedoMessage;
   using HandleMessage = MessageLoop::HandleMessage;
   MessageLoops();
-  void init(std::shared_ptr<MessageLoop> messageLoop, std::shared_ptr<Log> log);
+  void init(std::shared_ptr<Log> log, std::shared_ptr<MessageLoop> first, std::shared_ptr<MessageLoop> second);
   bool hasInit() const;
   std::shared_ptr<Message> add(const char* tip, float delaySeconds, HandleMessage handleMessage);
   void run(const char* appName);
 
 private:
-  void quit(int number) const;
   std::shared_ptr<MessageLoop> masterMessageLoop;
   std::shared_ptr<MessageLoop> slaveMessageLoop;
   std::shared_ptr<Log> log;
