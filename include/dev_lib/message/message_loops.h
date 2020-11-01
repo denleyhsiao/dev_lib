@@ -2,6 +2,7 @@
 #define __DEV_LIB_MESSAGE_MESSAGE_LOOPS_H__
 
 #include "dev_lib/message/message_loop.h"
+#include <map>
 #include <memory>
 
 class Log;
@@ -17,9 +18,11 @@ public:
   void run(const char* appName);
 
 private:
-  std::shared_ptr<MessageLoop> masterMessageLoop;
-  std::shared_ptr<MessageLoop> slaveMessageLoop;
+  bool hasOnlyOne() const;
+  void set(std::shared_ptr<MessageLoop> value);
+  std::map<bool, std::shared_ptr<MessageLoop> > messageLoops;
   std::shared_ptr<Log> log;
+  bool isAddOnMaster;
 };
 
 #endif

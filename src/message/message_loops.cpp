@@ -4,34 +4,47 @@
 #include "dev_lib/dev_helper.h"
 #include <cassert>
 
-MessageLoops::MessageLoops() : masterMessageLoop(nullptr), slaveMessageLoop(nullptr), log(nullptr)
+MessageLoops::MessageLoops() : log(nullptr), isAddOnMaster(false)
 {
 }
 
 void MessageLoops::init(std::shared_ptr<Log> log, std::shared_ptr<MessageLoop> first, std::shared_ptr<MessageLoop> second)
 {
-  assert(first->isMaster());
-  slaveMessageLoop = second;
-  masterMessageLoop = first;
   this->log = log;
+  set(first);
+  set(second);
+  if (hasOnlyOne())
+    isAddOnMaster = messageLoops.begin()->first;
+}
+
+void MessageLoops::set(std::shared_ptr<MessageLoop> value)
+{
+  if (value)
+    messageLoops[value->isMaster()] = value;
 }
 
 bool MessageLoops::hasInit() const
 {
-  return (masterMessageLoop != nullptr && slaveMessageLoop != nullptr);
+  return !messageLoops.empty();
+}
+
+bool MessageLoops::hasOnlyOne() const
+{
+  return (messageLoops.size() == 1);
 }
 
 std::shared_ptr<Message> MessageLoops::add(const char* tip, float delaySeconds, HandleMessage handleMessage)
 {
   log->info(DevHelper::format("Add message of %s: %.3f second(s)", tip, delaySeconds));
-  return slaveMessageLoop->add(delaySeconds, handleMessage);
+  return messageLoops[isAddOnMaster]->add(delaySeconds, handleMessage);
 }
 
 void MessageLoops::run(const char* appName)
 {
   assert(hasInit());
   log->info(DevHelper::format("%s is running......", appName));
-  slaveMessageLoop->run();
-  masterMessageLoop->run();
+  messageLoops[isAddOnMaster]->run();
+  if (!hasOnlyOne())
+    messageLoops[!isAddOnMaster]->run();
   log->info(DevHelper::format("%s quit", appName));
 }
