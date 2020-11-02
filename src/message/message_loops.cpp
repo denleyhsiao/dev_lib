@@ -1,5 +1,5 @@
 #include "dev_lib/message/message_loops.h"
-#include "dev_lib/message/message_loop.h"
+#include "dev_lib/message/message_loop_thread.h"
 #include "dev_lib/log/log.h"
 #include "dev_lib/dev_helper.h"
 #include <cassert>
@@ -20,7 +20,10 @@ void MessageLoops::init(std::shared_ptr<Log> log, std::shared_ptr<MessageLoop> f
 void MessageLoops::set(std::shared_ptr<MessageLoop> value)
 {
   if (value)
-    messageLoops[value->isMaster()] = value;
+  {
+    bool isMaster = value->isMaster();
+    messageLoops[isMaster] = (isMaster ? value : std::make_shared<MessageLoopThread>(value));
+  }
 }
 
 bool MessageLoops::hasInit() const

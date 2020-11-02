@@ -17,3 +17,8 @@ void FunctorMessageLoop::run()
 {
   callback();
 }
+
+void FunctorMessageLoop::stop()
+{
+
+}

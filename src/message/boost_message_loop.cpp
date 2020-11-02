@@ -51,11 +51,6 @@ void BoostMessageLoop::redo(std::shared_ptr<deadline_timer> timer, HandleMessage
 
 void BoostMessageLoop::run()
 {
-  doRun();
-}
-
-void BoostMessageLoop::doRun()
-{
   signal_set signal_set(io, SIGINT);
   signal_set.async_wait([this](const boost::system::error_code& ec, int number) {
     this->doStop();

@@ -16,10 +16,7 @@ public:
   ~BoostMessageLoop();
   virtual std::shared_ptr<TimerMessage> addTimer(float delaySeconds, HandleMessage handleMessage) override;
   virtual void run() override;
-  void doRun();
-
-protected:
-  void stop();
+  virtual void stop() override;
 
 private:
   void redo(std::shared_ptr<deadline_timer> timer, HandleMessage handleMessage);

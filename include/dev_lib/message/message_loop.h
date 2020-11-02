@@ -15,6 +15,7 @@ public:
   virtual ~MessageLoop() {}
   virtual std::shared_ptr<TimerMessage> addTimer(float delaySeconds, HandleMessage handleMessage) = 0;
   virtual void run() = 0;
+  virtual void stop() = 0;
 
 private:
   bool thisIsMaster;

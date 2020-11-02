@@ -1,33 +1,21 @@
 #ifndef __DEV_LIB_MESSAGE_MESSAGE_LOOP_THREAD_H__
 #define __DEV_LIB_MESSAGE_MESSAGE_LOOP_THREAD_H__
 
+#include "dev_lib/message/message_loop.h"
 #include <boost/thread.hpp>
-#include <memory>
 
-template <typename T>
-class MessageLoopThread : public T
+class MessageLoopThread : public MessageLoop
 {
 public:
-  typedef typename T::quit_t quit_t;
-  MessageLoopThread(quit_t quit, bool isMaster = false) : T(quit, isMaster), thread(nullptr) {}
-  ~MessageLoopThread()
-  {
-    T::stop();
-    join();
-  }
-  virtual void run()
-  {
-    thread = std::make_shared<boost::thread>(&T::doRun, this);
-    if (T::isMaster())
-      join();
-  }
+  MessageLoopThread(std::shared_ptr<MessageLoop> messageLoop);
+  ~MessageLoopThread();
+  virtual std::shared_ptr<TimerMessage> addTimer(float delaySeconds, HandleMessage handleMessage) override;
+  virtual void run() override;
+  virtual void stop() override;
 
 private:
-  void join()
-  {
-    if (thread && thread->joinable())
-      thread->join();
-  }
+  void join();
+  std::shared_ptr<MessageLoop> messageLoop;
   std::shared_ptr<boost::thread> thread;
 };
 

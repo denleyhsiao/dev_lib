@@ -10,6 +10,7 @@ public:
   FunctorMessageLoop(HandleCallback callback, bool isMaster = false);
   virtual std::shared_ptr<TimerMessage> addTimer(float delaySeconds, HandleMessage handleMessage) override;
   virtual void run() override;
+  virtual void stop() override;
 
 private:
   HandleCallback callback;
