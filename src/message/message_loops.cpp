@@ -33,7 +33,7 @@ bool MessageLoops::hasOnlyOne() const
   return (messageLoops.size() == 1);
 }
 
-std::shared_ptr<Message> MessageLoops::add(const char* tip, float delaySeconds, HandleMessage handleMessage)
+std::shared_ptr<TimerMessage> MessageLoops::add(const char* tip, float delaySeconds, HandleMessage handleMessage)
 {
   log->info(DevHelper::format("Add message of %s: %.3f second(s)", tip, delaySeconds));
   return messageLoops[isAddOnMaster]->add(delaySeconds, handleMessage);

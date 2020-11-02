@@ -1,5 +1,5 @@
 #include "dev_lib/message/boost_message_loop.h"
-#include "dev_lib/message/message.h"
+#include "dev_lib/message/timer_message.h"
 #include <boost/asio/signal_set.hpp>
 #include <boost/system/error_code.hpp>
 #include <cassert>
@@ -20,13 +20,13 @@ BoostMessageLoop::~BoostMessageLoop()
   stop();
 }
 
-std::shared_ptr<Message> BoostMessageLoop::add(float delaySeconds, HandleMessage handleMessage)
+std::shared_ptr<TimerMessage> BoostMessageLoop::add(float delaySeconds, HandleMessage handleMessage)
 {
   boost::posix_time::time_duration delay = boost::posix_time::milliseconds(toMilliseconds(delaySeconds));
   auto timer = std::make_shared<deadline_timer>(io, delay);
   asyncWait(timer, handleMessage);
   timers[timer] = delay;
-  return std::make_shared<Message>(handleMessage,
+  return std::make_shared<TimerMessage>(handleMessage,
     std::bind(&BoostMessageLoop::redo, this, timer, handleMessage),
     [timer]() {
       timer->cancel();

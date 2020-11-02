@@ -1,15 +1,15 @@
-#ifndef __DEV_LIB_MESSAGE_MESSAGE_H__
-#define __DEV_LIB_MESSAGE_MESSAGE_H__
+#ifndef __DEV_LIB_MESSAGE_TIMER_MESSAGE_H__
+#define __DEV_LIB_MESSAGE_TIMER_MESSAGE_H__
 
 #include <functional>
 
-class Message
+class TimerMessage
 {
 public:
   using RedoMessage = std::function<void()>;
   using HandleMessage = std::function<void(RedoMessage)>;
   using CancelMessage = std::function<void()>;
-  Message(HandleMessage handleMessage, RedoMessage redoMessage, CancelMessage cancelMessage);
+  TimerMessage(HandleMessage handleMessage, RedoMessage redoMessage, CancelMessage cancelMessage);
   void execute();
   void redo();
   void cancel();

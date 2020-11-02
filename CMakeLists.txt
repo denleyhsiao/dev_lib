@@ -25,7 +25,7 @@ add_library(${PROJECT_NAME}
   src/log/console_log.cpp
   src/comm/comm.cpp
   src/comm/mock_comm.cpp
-  src/message/message.cpp
+  src/message/timer_message.cpp
   src/message/boost_message_loop.cpp
   src/message/functor_message_loop.cpp
   src/message/message_loops.cpp
