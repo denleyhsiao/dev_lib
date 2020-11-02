@@ -20,7 +20,7 @@ BoostMessageLoop::~BoostMessageLoop()
   stop();
 }
 
-std::shared_ptr<TimerMessage> BoostMessageLoop::add(float delaySeconds, HandleMessage handleMessage)
+std::shared_ptr<TimerMessage> BoostMessageLoop::addTimer(float delaySeconds, HandleMessage handleMessage)
 {
   boost::posix_time::time_duration delay = boost::posix_time::milliseconds(toMilliseconds(delaySeconds));
   auto timer = std::make_shared<deadline_timer>(io, delay);

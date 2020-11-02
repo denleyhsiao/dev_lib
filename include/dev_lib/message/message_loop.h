@@ -13,7 +13,7 @@ public:
   MessageLoop(bool isMaster = false) : thisIsMaster(isMaster) {}
   bool isMaster() const { return thisIsMaster; }
   virtual ~MessageLoop() {}
-  virtual std::shared_ptr<TimerMessage> add(float delaySeconds, HandleMessage handleMessage) = 0;
+  virtual std::shared_ptr<TimerMessage> addTimer(float delaySeconds, HandleMessage handleMessage) = 0;
   virtual void run() = 0;
 
 private:

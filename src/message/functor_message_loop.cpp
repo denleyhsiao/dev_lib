@@ -7,7 +7,7 @@ FunctorMessageLoop::FunctorMessageLoop(HandleCallback callback, bool isMaster /*
 
 }
 
-std::shared_ptr<TimerMessage> FunctorMessageLoop::add(float delaySeconds, HandleMessage handleMessage)
+std::shared_ptr<TimerMessage> FunctorMessageLoop::addTimer(float delaySeconds, HandleMessage handleMessage)
 {
   assert(false);
   return nullptr;
