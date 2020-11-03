@@ -4,13 +4,8 @@
 #include <boost/system/error_code.hpp>
 #include <cassert>
 
-long BoostMessageLoop::toMilliseconds(float seconds)
-{
-  return std::ceil(seconds * 1000);
-}
-
 BoostMessageLoop::BoostMessageLoop(quit_t quit, bool isMaster /* = false */)
-  : MessageLoop(isMaster), quit(quit)
+  : MessageLoop(isMaster), timers(io), quit(quit)
 {
 
 }
@@ -22,31 +17,7 @@ BoostMessageLoop::~BoostMessageLoop()
 
 std::shared_ptr<TimerMessage> BoostMessageLoop::addTimer(float delaySeconds, HandleMessage handleMessage)
 {
-  boost::posix_time::time_duration delay = boost::posix_time::milliseconds(toMilliseconds(delaySeconds));
-  auto timer = std::make_shared<deadline_timer>(io, delay);
-  asyncWait(timer, handleMessage);
-  timers[timer] = delay;
-  return std::make_shared<TimerMessage>(handleMessage,
-    std::bind(&BoostMessageLoop::redo, this, timer, handleMessage),
-    [timer]() {
-      timer->cancel();
-    });
-}
-
-void BoostMessageLoop::asyncWait(std::shared_ptr<deadline_timer> timer, HandleMessage handleMessage)
-{
-  timer->async_wait([timer, handleMessage, this](const boost::system::error_code& ec) {
-    if (ec)
-      return ;
-
-    handleMessage(std::bind(&BoostMessageLoop::redo, this, timer, handleMessage));
-  });
-}
-
-void BoostMessageLoop::redo(std::shared_ptr<deadline_timer> timer, HandleMessage handleMessage)
-{
-  timer->expires_from_now(timers[timer]);
-  asyncWait(timer, handleMessage);
+  return timers.addTimer(delaySeconds, handleMessage);
 }
 
 void BoostMessageLoop::run()

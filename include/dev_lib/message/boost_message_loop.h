@@ -2,11 +2,8 @@
 #define __DEV_LIB_MESSAGE_BOOST_MESSAGE_LOOP_H__
 
 #include "dev_lib/message/message_loop.h"
+#include "dev_lib/message/boost_timers.h"
 #include <boost/asio/io_service.hpp>
-#include <boost/asio/deadline_timer.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
-#include <map>
-using namespace boost::asio;
 
 class BoostMessageLoop : public MessageLoop
 {
@@ -19,12 +16,9 @@ public:
   virtual void stop() override;
 
 private:
-  void redo(std::shared_ptr<deadline_timer> timer, HandleMessage handleMessage);
-  void asyncWait(std::shared_ptr<deadline_timer> timer, HandleMessage handleMessage);
   void doStop();
-  static long toMilliseconds(float seconds);
-  io_service io;
-  std::map<std::shared_ptr<deadline_timer>, boost::posix_time::time_duration> timers;
+  boost::asio::io_service io;
+  BoostTimers timers;
   quit_t quit;
 };
 
