@@ -10,6 +10,7 @@ public:
   MessageLoopThread(std::shared_ptr<MessageLoop> messageLoop);
   ~MessageLoopThread();
   virtual std::shared_ptr<TimerMessage> addTimer(float delaySeconds, HandleMessage handleMessage) override;
+  virtual std::shared_ptr<SerialPortMessage> addSerialPort(const char* port, unsigned int baudrate) override;
   virtual void run() override;
   virtual void stop() override;
 

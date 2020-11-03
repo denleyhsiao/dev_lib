@@ -9,6 +9,7 @@ public:
   using HandleCallback = std::function<void()>;
   FunctorMessageLoop(HandleCallback callback, bool isMaster = false);
   virtual std::shared_ptr<TimerMessage> addTimer(float delaySeconds, HandleMessage handleMessage) override;
+  virtual std::shared_ptr<SerialPortMessage> addSerialPort(const char* port, unsigned int baudrate) override;
   virtual void run() override;
   virtual void stop() override;
 

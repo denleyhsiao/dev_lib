@@ -17,6 +17,11 @@ std::shared_ptr<TimerMessage> MessageLoopThread::addTimer(float delaySeconds, Ha
   return messageLoop->addTimer(delaySeconds, handleMessage);
 }
 
+std::shared_ptr<SerialPortMessage> MessageLoopThread::addSerialPort(const char* port, unsigned int baudrate)
+{
+  return messageLoop->addSerialPort(port, baudrate);
+}
+
 void MessageLoopThread::run()
 {
   thread = std::make_shared<boost::thread>(&MessageLoop::run, messageLoop);

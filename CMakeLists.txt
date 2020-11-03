@@ -26,7 +26,10 @@ add_library(${PROJECT_NAME}
   src/comm/comm.cpp
   src/comm/mock_comm.cpp
   src/message/timer_message.cpp
+  src/message/serial_port_message.cpp
   src/message/boost_timers.cpp
+  src/message/boost_serial_ports.cpp
+  src/message/boost_serial_port.cpp
   src/message/boost_message_loop.cpp
   src/message/functor_message_loop.cpp
   src/message/message_loop_thread.cpp

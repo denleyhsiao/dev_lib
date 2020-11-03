@@ -4,8 +4,8 @@
 #include <boost/system/error_code.hpp>
 #include <cassert>
 
-BoostMessageLoop::BoostMessageLoop(quit_t quit, bool isMaster /* = false */)
-  : MessageLoop(isMaster), timers(io), quit(quit)
+BoostMessageLoop::BoostMessageLoop(std::shared_ptr<Log> log, quit_t quit, bool isMaster /* = false */)
+  : MessageLoop(isMaster), timers(io), serialPorts(io, log), quit(quit)
 {
 
 }
@@ -18,6 +18,11 @@ BoostMessageLoop::~BoostMessageLoop()
 std::shared_ptr<TimerMessage> BoostMessageLoop::addTimer(float delaySeconds, HandleMessage handleMessage)
 {
   return timers.addTimer(delaySeconds, handleMessage);
+}
+
+std::shared_ptr<SerialPortMessage> BoostMessageLoop::addSerialPort(const char* port, unsigned int baudrate)
+{
+  return serialPorts.addSerialPort(port, baudrate);
 }
 
 void BoostMessageLoop::run()

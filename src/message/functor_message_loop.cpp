@@ -13,6 +13,12 @@ std::shared_ptr<TimerMessage> FunctorMessageLoop::addTimer(float delaySeconds, H
   return nullptr;
 }
 
+std::shared_ptr<SerialPortMessage> FunctorMessageLoop::addSerialPort(const char* port, unsigned int baudrate)
+{
+  assert(false);
+  return nullptr;
+}
+
 void FunctorMessageLoop::run()
 {
   callback();

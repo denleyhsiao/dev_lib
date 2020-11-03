@@ -42,6 +42,11 @@ std::shared_ptr<TimerMessage> MessageLoops::addTimer(const char* tip, float dela
   return messageLoops[isAddOnMaster]->addTimer(delaySeconds, handleMessage);
 }
 
+std::shared_ptr<SerialPortMessage> MessageLoops::addSerialPort(const char* port, unsigned int baudrate)
+{
+  return messageLoops[isAddOnMaster]->addSerialPort(port, baudrate);
+}
+
 void MessageLoops::run(const char* appName)
 {
   assert(hasInit());
