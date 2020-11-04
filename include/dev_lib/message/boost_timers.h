@@ -11,15 +11,15 @@ using namespace boost::asio;
 class BoostTimers
 {
 public:
-  using RedoMessage = TimerMessage::RedoMessage;
-  using HandleMessage = TimerMessage::HandleMessage;
+  using RedoTimerCallback = TimerMessage::RedoTimerCallback;
+  using HandleTimerCallback = TimerMessage::HandleTimerCallback;
   BoostTimers(io_service& io);
-  std::shared_ptr<TimerMessage> addTimer(float delaySeconds, HandleMessage handleMessage);
+  std::shared_ptr<TimerMessage> addTimer(float delaySeconds, HandleTimerCallback lpfnHandleTimer);
 
 private:
   static long toMilliseconds(float seconds);
-  void redo(std::shared_ptr<deadline_timer> timer, HandleMessage handleMessage);
-  void asyncWait(std::shared_ptr<deadline_timer> timer, HandleMessage handleMessage);
+  void redo(std::shared_ptr<deadline_timer> timer, HandleTimerCallback lpfnHandleTimer);
+  void asyncWait(std::shared_ptr<deadline_timer> timer, HandleTimerCallback lpfnHandleTimer);
   std::map<std::shared_ptr<deadline_timer>, boost::posix_time::time_duration> timers;
   io_service& io;
 };

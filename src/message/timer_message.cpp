@@ -1,25 +1,25 @@
 #include "dev_lib/message/timer_message.h"
 
-TimerMessage::TimerMessage(HandleMessage handleMessage, RedoMessage redoMessage, CancelMessage cancelMessage)
-  : handleMessage(handleMessage), redoMessage(redoMessage), cancelMessage(cancelMessage)
+TimerMessage::TimerMessage(HandleTimerCallback lpfnHandleTimer, RedoTimerCallback lpfnRedoTimer, CancelTimerCallback lpfnCancelTimer)
+  : lpfnHandleTimer(lpfnHandleTimer), lpfnRedoTimer(lpfnRedoTimer), lpfnCancelTimer(lpfnCancelTimer)
 {
 
 }
 
 void TimerMessage::execute()
 {
-  if (handleMessage)
-    handleMessage(std::bind(&TimerMessage::redo, this));
+  if (lpfnHandleTimer)
+    lpfnHandleTimer(std::bind(&TimerMessage::redo, this));
 }
 
 void TimerMessage::redo()
 {
-  if (redoMessage)
-    redoMessage();
+  if (lpfnRedoTimer)
+    lpfnRedoTimer();
 }
 
 void TimerMessage::cancel()
 {
-  if (cancelMessage)
-    cancelMessage();
+  if (lpfnCancelTimer)
+    lpfnCancelTimer();
 }

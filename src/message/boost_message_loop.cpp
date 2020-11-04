@@ -15,9 +15,9 @@ BoostMessageLoop::~BoostMessageLoop()
   stop();
 }
 
-std::shared_ptr<TimerMessage> BoostMessageLoop::addTimer(float delaySeconds, HandleMessage handleMessage)
+std::shared_ptr<TimerMessage> BoostMessageLoop::addTimer(float delaySeconds, HandleTimerCallback lpfnHandleTimer)
 {
-  return timers.addTimer(delaySeconds, handleMessage);
+  return timers.addTimer(delaySeconds, lpfnHandleTimer);
 }
 
 std::shared_ptr<SerialPortMessage> BoostMessageLoop::addSerialPort(const char* port, unsigned int baudrate)

@@ -12,9 +12,9 @@ MessageLoopThread::~MessageLoopThread()
   join();
 }
 
-std::shared_ptr<TimerMessage> MessageLoopThread::addTimer(float delaySeconds, HandleMessage handleMessage)
+std::shared_ptr<TimerMessage> MessageLoopThread::addTimer(float delaySeconds, HandleTimerCallback lpfnHandleTimer)
 {
-  return messageLoop->addTimer(delaySeconds, handleMessage);
+  return messageLoop->addTimer(delaySeconds, lpfnHandleTimer);
 }
 
 std::shared_ptr<SerialPortMessage> MessageLoopThread::addSerialPort(const char* port, unsigned int baudrate)

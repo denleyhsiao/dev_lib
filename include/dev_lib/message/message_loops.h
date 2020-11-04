@@ -9,12 +9,12 @@ class Log;
 class MessageLoops
 {
 public:
-  using RedoMessage = MessageLoop::RedoMessage;
-  using HandleMessage = MessageLoop::HandleMessage;
+  using RedoTimerCallback = MessageLoop::RedoTimerCallback;
+  using HandleTimerCallback = MessageLoop::HandleTimerCallback;
   MessageLoops();
   void init(std::shared_ptr<Log> log, std::shared_ptr<MessageLoop> first, std::shared_ptr<MessageLoop> second);
   bool hasInit() const;
-  std::shared_ptr<TimerMessage> addTimer(const char* tip, float delaySeconds, HandleMessage handleMessage);
+  std::shared_ptr<TimerMessage> addTimer(const char* tip, float delaySeconds, HandleTimerCallback lpfnHandleTimer);
   std::shared_ptr<SerialPortMessage> addSerialPort(const char* port, unsigned int baudrate);
   void run(const char* appName);
 

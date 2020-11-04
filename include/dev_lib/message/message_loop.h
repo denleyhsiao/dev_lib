@@ -9,12 +9,12 @@ class SerialPortMessage;
 class MessageLoop
 {
 public:
-  using RedoMessage = TimerMessage::RedoMessage;
-  using HandleMessage = TimerMessage::HandleMessage;
+  using RedoTimerCallback = TimerMessage::RedoTimerCallback;
+  using HandleTimerCallback = TimerMessage::HandleTimerCallback;
   MessageLoop(bool isMaster = false) : thisIsMaster(isMaster) {}
   bool isMaster() const { return thisIsMaster; }
   virtual ~MessageLoop() {}
-  virtual std::shared_ptr<TimerMessage> addTimer(float delaySeconds, HandleMessage handleMessage) = 0;
+  virtual std::shared_ptr<TimerMessage> addTimer(float delaySeconds, HandleTimerCallback lpfnHandleTimer) = 0;
   virtual std::shared_ptr<SerialPortMessage> addSerialPort(const char* port, unsigned int baudrate) = 0;
   virtual void run() = 0;
   virtual void stop() = 0;

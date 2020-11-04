@@ -36,10 +36,10 @@ bool MessageLoops::hasOnlyOne() const
   return (messageLoops.size() == 1);
 }
 
-std::shared_ptr<TimerMessage> MessageLoops::addTimer(const char* tip, float delaySeconds, HandleMessage handleMessage)
+std::shared_ptr<TimerMessage> MessageLoops::addTimer(const char* tip, float delaySeconds, HandleTimerCallback lpfnHandleTimer)
 {
   log->info(DevHelper::format("Add message of %s: %.3f second(s)", tip, delaySeconds));
-  return messageLoops[isAddOnMaster]->addTimer(delaySeconds, handleMessage);
+  return messageLoops[isAddOnMaster]->addTimer(delaySeconds, lpfnHandleTimer);
 }
 
 std::shared_ptr<SerialPortMessage> MessageLoops::addSerialPort(const char* port, unsigned int baudrate)

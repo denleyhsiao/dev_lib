@@ -6,18 +6,18 @@
 class TimerMessage
 {
 public:
-  using RedoMessage = std::function<void()>;
-  using HandleMessage = std::function<void(RedoMessage)>;
-  using CancelMessage = std::function<void()>;
-  TimerMessage(HandleMessage handleMessage, RedoMessage redoMessage, CancelMessage cancelMessage);
+  using RedoTimerCallback = std::function<void()>;
+  using HandleTimerCallback = std::function<void(RedoTimerCallback)>;
+  using CancelTimerCallback = std::function<void()>;
+  TimerMessage(HandleTimerCallback lpfnHandleTimer, RedoTimerCallback lpfnRedoTimer, CancelTimerCallback lpfnCancelTimer);
   void execute();
   void redo();
   void cancel();
 
 private:
-  HandleMessage handleMessage;
-  RedoMessage redoMessage;
-  CancelMessage cancelMessage;
+  HandleTimerCallback lpfnHandleTimer;
+  RedoTimerCallback   lpfnRedoTimer;
+  CancelTimerCallback lpfnCancelTimer;
 };
 
 #endif
