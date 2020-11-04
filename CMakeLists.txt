@@ -17,7 +17,6 @@ include_directories(
 
 add_library(${PROJECT_NAME}
   src/decimal_comparer.cpp
-  src/deadline_timer.cpp
   src/dev_helper.cpp
   src/boost_helper.cpp
   src/math_helper.cpp
