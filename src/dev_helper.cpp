@@ -52,19 +52,6 @@ size_t DevHelper::count(const floats_type& source, float value, size_t start, si
   return std::count(std::next(source.begin(), start), std::next(source.begin(), end), value);
 }
 
-std::tuple<bool, size_t> DevHelper::find(const floats_type& source, float value, size_t start /* = 0*/)
-{
-  auto pos = std::find(std::next(source.begin(), start), source.end(), value);
-  bool hasFind = (pos != source.end());
-  size_t result = hasFind ? std::distance(source.begin(), pos) : 0;
-  return std::make_tuple(hasFind, result);
-}
-
-DevHelper::const_iterator DevHelper::find(const uints_type& source, const uints_type& child)
-{
-  return std::search(source.begin(), source.end(), child.begin(), child.end());
-}
-
 DevHelper::uints_type& DevHelper::append(const uints_type& source, uints_type& target)
 {
   target.reserve(target.size() + source.size());
