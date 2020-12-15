@@ -51,3 +51,6 @@ target_link_libraries(${PROJECT_NAME}-test
   ${PROJECT_NAME}
   ${GTEST_BOTH_LIBRARIES}
 )
+
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+install(TARGETS ${PROJECT_NAME}-test DESTINATION test)
