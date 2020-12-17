@@ -50,7 +50,7 @@ std::shared_ptr<SerialPortMessage> MessageLoops::addSerialPort(const char* port,
 void MessageLoops::run(const char* appName)
 {
   assert(hasInit());
-  log->info(DevHelper::format("%s is running......", appName));
+  log->info(DevHelper::format("%s is running ......", appName));
   messageLoops[isAddOnMaster]->run();
   if (!hasOnlyOne())
     messageLoops[!isAddOnMaster]->run();
