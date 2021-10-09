@@ -7,7 +7,7 @@ add_compile_options(-std=c++17)
 
 enable_testing()
 find_package(GTest REQUIRED)
-find_package(Boost REQUIRED COMPONENTS system thread date_time)
+find_package(Boost REQUIRED COMPONENTS filesystem thread date_time)
 
 add_library(${PROJECT_NAME})
 

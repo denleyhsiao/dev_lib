@@ -15,6 +15,7 @@ public:
   static bool readFile(const char* fileName, std::string& target);
   static floats_type splitToFloat(const char* value, const char delimiter = ',');
   static void sleep(float seconds);
+  static std::string getFileName(const char* lastFileName);
   static std::string currentDateTime(const char* format = "%Y-%m-%d %H:%M:%S");
   static std::string currentTime();
   static std::string currentTimestamp();

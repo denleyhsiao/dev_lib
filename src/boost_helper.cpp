@@ -1,8 +1,10 @@
 #include "dev_lib/boost_helper.h"
 #include "dev_lib/dev_helper.h"
+#include "dev_lib/os_helper.h"
 #include <boost/crc.hpp>
 #include <boost/thread.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/filesystem.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_generators.hpp>
@@ -29,6 +31,12 @@ bool BoostHelper::readFile(const char* fileName, std::string& target)
     target.assign(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>());
 }
   return result;
+}
+
+std::string BoostHelper::getFileName(const char* lastFileName)
+{
+  std::string moduleFileName = OSHelper::getModuleFileName();
+  return (boost::filesystem::path(moduleFileName.c_str()).parent_path()/lastFileName).string();
 }
 
 std::string BoostHelper::toString(const boost::posix_time::time_duration& time)
