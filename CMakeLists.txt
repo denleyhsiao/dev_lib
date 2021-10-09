@@ -1,23 +1,19 @@
 cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 project(dev_lib)
 
-SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -O0 -Wall -g -ggdb")
-SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -O3 -Wall")
-add_compile_options(-std=c++17)
-
-enable_testing()
-find_package(GTest REQUIRED)
+option(DEVLIB_BUILD_TESTS "Build DevLib's unit tests" ON)
 find_package(Boost REQUIRED COMPONENTS filesystem thread date_time)
 
 add_library(${PROJECT_NAME})
-
+target_compile_features(${PROJECT_NAME}
+  PUBLIC
+    cxx_std_11
+)
 target_include_directories(${PROJECT_NAME}
   PUBLIC
     include
     ${Boost_INCLUDE_DIRS}
-    ${GTEST_INCLUDE_DIR}
 )
-
 target_sources(${PROJECT_NAME}
   PRIVATE
     src/decimal_comparer.cpp
@@ -38,23 +34,29 @@ target_sources(${PROJECT_NAME}
     src/message/message_loop_thread.cpp
     src/message/message_loops.cpp
 )
-
 target_link_libraries(${PROJECT_NAME}
   ${Boost_LIBRARIES}
 )
-
-add_executable(${PROJECT_NAME}-test
-  test/test_decimal_comparer.cpp
-  test/test_dev_helper.cpp
-  test/test_boost_helper.cpp
-  test/main.cpp
-)
-
-target_link_libraries(${PROJECT_NAME}-test
-  PRIVATE
-  ${PROJECT_NAME}
-  ${GTEST_BOTH_LIBRARIES}
-)
-
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
-install(TARGETS ${PROJECT_NAME}-test DESTINATION test)
+
+if(DEVLIB_BUILD_TESTS)
+  set(PROJECT_TEST_NAME "${PROJECT_NAME}-test")
+  find_package(GTest REQUIRED)
+  add_executable(${PROJECT_TEST_NAME}
+    test/test_decimal_comparer.cpp
+    test/test_dev_helper.cpp
+    test/test_boost_helper.cpp
+    test/main.cpp
+  )
+  target_link_libraries(${PROJECT_TEST_NAME}
+    PRIVATE
+    ${PROJECT_NAME}
+    ${GTEST_BOTH_LIBRARIES}
+  )
+  enable_testing()
+  add_test(
+    NAME ${PROJECT_TEST_NAME}
+    COMMAND $<TARGET_FILE:${PROJECT_TEST_NAME}>
+  )
+  install(TARGETS ${PROJECT_TEST_NAME} DESTINATION test)
+endif()
