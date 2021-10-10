@@ -175,6 +175,17 @@ std::string DevHelper::convertToHex(const std::string& source)
   return result;
 }
 
+DevHelper::value_type DevHelper::crc(const value_type& cmd, const uints_type& data)
+{
+  value_type result = cmd;
+  result ^= data.size();
+  std::for_each(data.begin(), data.end(), [&result](value_type value){
+    result ^= value;
+  });
+  result &= 0x7F;
+  return result;
+}
+
 DevHelper::value_type DevHelper::getHigh(value_type value)
 {
   return value >> 4;

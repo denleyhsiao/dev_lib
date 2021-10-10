@@ -41,6 +41,7 @@ public:
   static strings_type split(const char* value, const char delimiter = ',');
   static std::string merge(const char* begin, const char* end, const char delimiter = '~');
 
+  static value_type crc(const value_type& cmd, const uints_type& data);
   static value_type getHigh(value_type value);
   static value_type getLow(value_type value);
   static value_type getHigh(uint16_t value);

@@ -67,6 +67,11 @@ TEST(DevHelperTest, stringConvertToHex)
   ASSERT_EQ("343139", DevHelper::convertToHex("419"));
 }
 
+TEST(DevHelperTest, crc)
+{
+  ASSERT_EQ(7, DevHelper::crc(1, {2,3,4}));
+}
+
 TEST(DevHelperTest, mergeTo16)
 {
   static const uint8_t low = 0x56;
