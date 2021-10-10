@@ -1,6 +1,7 @@
 #include "dev_lib/dev_helper.h"
 #include <gtest/gtest.h>
 
+typedef DevHelper::uints_type   uints_type;
 typedef DevHelper::strings_type strings_type;
 
 TEST(DevHelperTest, format)
@@ -27,6 +28,12 @@ TEST(DevHelperTest, floatToString)
   ASSERT_EQ("13.14", DevHelper::toString(source, 2));
   ASSERT_EQ("13.142", DevHelper::toString(source, 3));
   ASSERT_EQ("13.1416", DevHelper::toString(source, 4));
+}
+
+TEST(DevHelperTest, increase)
+{
+  uints_type source = {1,3,5};
+  ASSERT_EQ(uints_type({3,5,7}), DevHelper::increase(source, 2));
 }
 
 TEST(DevHelperTest, intsToString)

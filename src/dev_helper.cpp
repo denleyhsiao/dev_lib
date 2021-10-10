@@ -65,7 +65,12 @@ DevHelper::uints_type& DevHelper::sort(uints_type& values)
   return values;
 }
 
+DevHelper::uints_type& DevHelper::increase(uints_type& source, size_type index)
+{
+  std::for_each(source.begin(), source.end(), [index](value_type& value) { value += index; });
   return source;
+}
+
 DevHelper::uints_type& DevHelper::removeSame(uints_type& values)
 {
   sort(values);

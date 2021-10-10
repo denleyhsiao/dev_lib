@@ -25,6 +25,7 @@ public:
   static size_t count(const floats_type& source, float value, size_t start, size_t end);
   static uints_type& append(const uints_type& source, uints_type& target);
   static uints_type& sort(uints_type& values);
+  static uints_type& increase(uints_type& source, size_type index);
   static uints_type& removeSame(uints_type& values);
   static uints_type getChild(const uints_type& source, size_type start, size_type length);
 
