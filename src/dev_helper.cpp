@@ -65,6 +65,7 @@ DevHelper::uints_type& DevHelper::sort(uints_type& values)
   return values;
 }
 
+  return source;
 DevHelper::uints_type& DevHelper::removeSame(uints_type& values)
 {
   sort(values);
@@ -109,7 +110,7 @@ std::string DevHelper::toString(const uints_type& value, char flag /* = ',' */)
   assert(!value.empty());
   return std::accumulate(std::next(value.begin()), value.end(),
                                   std::to_string(value[0]), // 以首元素开始
-                                  [flag](std::string a, uint8_t b) {
+                                  [flag](std::string a, value_type b) {
                                     return a + std::string(1, flag) + std::to_string(b);
                                   });
 }
@@ -169,33 +170,33 @@ std::string DevHelper::convertToHex(const std::string& source)
   return result;
 }
 
-uint8_t DevHelper::getHigh(uint8_t value)
+DevHelper::value_type DevHelper::getHigh(value_type value)
 {
   return value >> 4;
 }
 
-uint8_t DevHelper::getLow(uint8_t value)
+DevHelper::value_type DevHelper::getLow(value_type value)
 {
   return value & 0x0F;
 }
 
-uint8_t DevHelper::getHigh(uint16_t value)
+DevHelper::value_type DevHelper::getHigh(uint16_t value)
 {
-   return static_cast<uint8_t>(value >> 8);
+   return static_cast<value_type>(value >> 8);
 }
 
-uint8_t DevHelper::getLow(uint16_t value)
+DevHelper::value_type DevHelper::getLow(uint16_t value)
 {
-  return static_cast<uint8_t>(value & 0xFF);
+  return static_cast<value_type>(value & 0xFF);
 }
 
-uint8_t DevHelper::mergeTo8(uint8_t high, uint8_t low)
+DevHelper::value_type DevHelper::mergeTo8(value_type high, value_type low)
 {
   assert(high < 0x10 && low < 0x10);
-  return doMerge<uint8_t>(high, low, 4);
+  return doMerge<value_type>(high, low, 4);
 }
 
-uint16_t DevHelper::mergeTo16(uint8_t high, uint8_t low)
+uint16_t DevHelper::mergeTo16(value_type high, value_type low)
 {
   return doMerge<uint16_t>(high, low, 8);
 }

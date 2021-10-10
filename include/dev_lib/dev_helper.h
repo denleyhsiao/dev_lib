@@ -15,6 +15,7 @@ public:
   typedef std::vector<uint8_t>        uints_type;
   typedef std::vector<float>          floats_type;
   typedef std::vector<std::string>    strings_type;
+  typedef uints_type::value_type      value_type;
   typedef uints_type::size_type       size_type;
 
   static std::string format(const char* fmt, ...);
@@ -39,12 +40,12 @@ public:
   static strings_type split(const char* value, const char delimiter = ',');
   static std::string merge(const char* begin, const char* end, const char delimiter = '~');
 
-  static uint8_t getHigh(uint8_t value);
-  static uint8_t getLow(uint8_t value);
-  static uint8_t getHigh(uint16_t value);
-  static uint8_t getLow(uint16_t value);
-  static uint8_t mergeTo8(uint8_t high, uint8_t low);
-  static uint16_t mergeTo16(uint8_t high, uint8_t low);
+  static value_type getHigh(value_type value);
+  static value_type getLow(value_type value);
+  static value_type getHigh(uint16_t value);
+  static value_type getLow(uint16_t value);
+  static value_type mergeTo8(value_type high, value_type low);
+  static uint16_t mergeTo16(value_type high, value_type low);
 
   template <typename T>
   static std::string getType(const T& value);
@@ -56,7 +57,7 @@ public:
 private:
   static unsigned int getLength(const char * fmt, va_list& args);
   template <typename T>
-  static T doMerge(uint8_t high, uint8_t low, uint8_t bitNum);
+  static T doMerge(value_type high, value_type low, value_type bitNum);
 };
 
 template <typename T>
@@ -67,7 +68,7 @@ inline std::string DevHelper::getType(const T& value)
 }
 
 template <typename T>
-inline T DevHelper::doMerge(uint8_t high, uint8_t low, uint8_t bitNum)
+inline T DevHelper::doMerge(value_type high, value_type low, value_type bitNum)
 {
   return (high << bitNum) | low ;
 }
