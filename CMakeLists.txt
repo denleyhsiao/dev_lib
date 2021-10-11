@@ -20,7 +20,6 @@ target_sources(${PROJECT_NAME}
     src/dev_helper.cpp
     src/boost_helper.cpp
     src/math_helper.cpp
-    src/linux_os_helper.cpp
     src/log/console_log.cpp
     src/comm/comm.cpp
     src/comm/mock_comm.cpp
@@ -34,6 +33,17 @@ target_sources(${PROJECT_NAME}
     src/message/message_loop_thread.cpp
     src/message/message_loops.cpp
 )
+if(WIN32)
+  target_sources(${PROJECT_NAME}
+    PRIVATE
+      src/platform/win32/os_helper.cpp
+  )
+else()
+  target_sources(${PROJECT_NAME}
+    PRIVATE
+      src/platform/posix/os_helper.cpp
+  )
+endif()
 target_link_libraries(${PROJECT_NAME}
   ${Boost_LIBRARIES}
 )

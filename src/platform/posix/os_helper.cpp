@@ -6,7 +6,7 @@
 
 std::string OSHelper::getModuleFileName()
 {
-  char result[PATH_MAX + 1] = {0};
+  char result[PATH_MAX + 1] = "\0";
   int retValue = readlink(DevHelper::format("/proc/%d/exe", getpid()).c_str(), result, PATH_MAX);
   assert(retValue != -1);
   return result;
