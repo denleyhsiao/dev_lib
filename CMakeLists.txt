@@ -63,6 +63,7 @@ if(DEVLIB_BUILD_TESTS)
     ${PROJECT_NAME}
     ${GTEST_BOTH_LIBRARIES}
   )
+  include(CTest)
   enable_testing()
   add_test(
     NAME ${PROJECT_TEST_NAME}
