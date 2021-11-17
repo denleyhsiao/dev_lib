@@ -24,6 +24,8 @@ target_sources(${PROJECT_NAME}
     src/comm/comm.cpp
     src/comm/serial_port.cpp
     src/comm/mock_comm.cpp
+    src/gpio/gpio.cpp
+    src/gpio/mock_gpio.cpp
     src/message/timer_message.cpp
     src/message/serial_port_message.cpp
     src/message/boost_timers.cpp
