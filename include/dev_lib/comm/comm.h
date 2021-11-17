@@ -8,14 +8,16 @@
 #include <functional>
 
 class Log;
+class SerialPortMessage;
 class Comm
 {
 public:
   typedef std::vector<uint8_t> data_type;
   using HandleAfterReadCallback = std::function<void (const data_type&)>;
+  using HandleInitCallback = std::function<std::shared_ptr<SerialPortMessage> (const char*, unsigned int)>;
   virtual ~Comm() {}
   virtual bool hasInit() const = 0;
-  virtual bool init(const char* serialPort, unsigned int serialBaudrate) = 0;
+  virtual bool init(const char* serialPort, unsigned int serialBaudrate, HandleInitCallback lpfnHandleInit) = 0;
   virtual void reopen() = 0;
   virtual data_type read(size_t size) const = 0;
   virtual void asyncRead(HandleAfterReadCallback lpfnHandleAfterRead, const data_type& delim) = 0;

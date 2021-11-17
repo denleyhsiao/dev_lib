@@ -8,10 +8,9 @@ class MockComm : public Comm
 {
 public:
   typedef Comm::data_type data_type;
-  typedef Comm::HandleAfterReadCallback lpfnHandleAfterRead;
   MockComm(std::shared_ptr<Log> log) : Comm(log) { }
   virtual bool hasInit() const { return true; }
-  virtual bool init(const char* serialPort, unsigned int serialBaudrate);
+  virtual bool init(const char* serialPort, unsigned int serialBaudrate, HandleInitCallback lpfnHandleInit);
   virtual void reopen() { }
   virtual data_type read(size_t size) const;
   virtual void asyncRead(HandleAfterReadCallback lpfnHandleAfterRead, const data_type& delim) { }
