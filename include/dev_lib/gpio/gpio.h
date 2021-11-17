@@ -3,11 +3,15 @@
 
 #include <stdint.h>
 #include <vector>
+#include <memory>
+#include <functional>
 
+class SerialPortMessage;
 class GPIO
 {
 public:
   typedef std::vector<uint8_t>  data_type;
+  using HandleInitCallback = std::function<std::shared_ptr<SerialPortMessage> (const char*, unsigned int)>;
   virtual ~GPIO();
   virtual unsigned int number() const = 0;
   virtual bool read() const = 0;

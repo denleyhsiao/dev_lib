@@ -1,6 +1,6 @@
 #include "dev_lib/gpio/mock_gpio.h"
 
-std::shared_ptr<GPIO> MockGPIO::create(std::shared_ptr<Log> log, unsigned int number, unsigned int count, const char* port, unsigned int baudrate)
+std::shared_ptr<GPIO> MockGPIO::create(std::shared_ptr<Log> log, unsigned int number, unsigned int count, const char* port, unsigned int baudrate, HandleInitCallback lpfnHandleInit)
 {
   return std::make_shared<MockGPIO>(number);
 }
