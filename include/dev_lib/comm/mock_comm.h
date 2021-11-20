@@ -8,7 +8,6 @@ class MockComm : public Comm
 {
 public:
   typedef Comm::data_type data_type;
-  MockComm(std::shared_ptr<Log> log) : Comm(log) { }
   virtual bool hasInit() const { return true; }
   virtual bool init(const char* serialPort, unsigned int serialBaudrate, HandleInitCallback lpfnHandleInit);
   virtual void reopen() { }

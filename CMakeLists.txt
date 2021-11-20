@@ -20,6 +20,7 @@ target_sources(${PROJECT_NAME}
     src/dev_helper.cpp
     src/boost_helper.cpp
     src/math_helper.cpp
+    src/log/log_harness.cpp
     src/log/console_log.cpp
     src/comm/comm.cpp
     src/comm/serial_port.cpp

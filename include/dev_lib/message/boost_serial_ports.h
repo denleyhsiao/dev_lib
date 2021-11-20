@@ -6,19 +6,17 @@
 #include <memory>
 using namespace boost::asio;
 
-class Log;
 class SerialPortMessage;
 class BoostSerialPort;
 class BoostSerialPorts
 {
 public:
-  BoostSerialPorts(io_service& io, std::shared_ptr<Log> log);
+  BoostSerialPorts(io_service& io);
   std::shared_ptr<SerialPortMessage> addSerialPort(const char* port, unsigned int baudrate);
 
 private:
   std::vector<std::shared_ptr<BoostSerialPort> > serialPorts;
   io_service& io;
-  std::shared_ptr<Log> log;
 };
 
 #endif

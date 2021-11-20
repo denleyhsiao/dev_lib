@@ -5,14 +5,13 @@
 #include <map>
 #include <memory>
 
-class Log;
 class MessageLoops
 {
 public:
   using RedoTimerCallback = MessageLoop::RedoTimerCallback;
   using HandleTimerCallback = MessageLoop::HandleTimerCallback;
   MessageLoops();
-  void init(std::shared_ptr<Log> log, std::shared_ptr<MessageLoop> first, std::shared_ptr<MessageLoop> second);
+  void init(std::shared_ptr<MessageLoop> first, std::shared_ptr<MessageLoop> second);
   bool hasInit() const;
   std::shared_ptr<TimerMessage> addTimer(const char* tip, float delaySeconds, HandleTimerCallback lpfnHandleTimer);
   std::shared_ptr<SerialPortMessage> addSerialPort(const char* port, unsigned int baudrate);
@@ -22,7 +21,6 @@ private:
   bool hasOnlyOne() const;
   void set(std::shared_ptr<MessageLoop> value);
   std::map<bool, std::shared_ptr<MessageLoop> > messageLoops;
-  std::shared_ptr<Log> log;
   bool isAddOnMaster;
 };
 

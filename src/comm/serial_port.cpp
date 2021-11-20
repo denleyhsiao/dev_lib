@@ -1,9 +1,9 @@
 #include "dev_lib/comm/serial_port.h"
 #include "dev_lib/dev_helper.h"
-#include "dev_lib/log/log.h"
+#include "dev_lib/log/log_harness.h"
 #include "dev_lib/message/serial_port_message.h"
 
-SerialPort::SerialPort(std::shared_ptr<Log> log) : Comm(log), message(nullptr)
+SerialPort::SerialPort() : message(nullptr)
 {
 }
 
@@ -12,7 +12,7 @@ bool SerialPort::init(const char* port, unsigned int baudrate, HandleInitCallbac
   if (system(DevHelper::format("sudo chmod 666 %s", port).c_str()) == 0)
     message = lpfnHandleInit(port, baudrate);
   else
-    log->error(DevHelper::format("Unable to sudo chmod 666 %s", port));
+    LOG_ERROR(DevHelper::format("Unable to sudo chmod 666 %s", port));
   return hasInit();
 }
 

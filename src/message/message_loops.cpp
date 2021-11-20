@@ -1,16 +1,15 @@
 #include "dev_lib/message/message_loops.h"
 #include "dev_lib/message/message_loop_thread.h"
-#include "dev_lib/log/log.h"
+#include "dev_lib/log/log_harness.h"
 #include "dev_lib/dev_helper.h"
 #include <cassert>
 
-MessageLoops::MessageLoops() : log(nullptr), isAddOnMaster(false)
+MessageLoops::MessageLoops() : isAddOnMaster(false)
 {
 }
 
-void MessageLoops::init(std::shared_ptr<Log> log, std::shared_ptr<MessageLoop> first, std::shared_ptr<MessageLoop> second)
+void MessageLoops::init(std::shared_ptr<MessageLoop> first, std::shared_ptr<MessageLoop> second)
 {
-  this->log = log;
   set(first);
   set(second);
   if (hasOnlyOne())
@@ -38,7 +37,7 @@ bool MessageLoops::hasOnlyOne() const
 
 std::shared_ptr<TimerMessage> MessageLoops::addTimer(const char* tip, float delaySeconds, HandleTimerCallback lpfnHandleTimer)
 {
-  log->info(DevHelper::format("Add message of %s: %.3f second(s)", tip, delaySeconds));
+  LOG_INFO(DevHelper::format("Add message of %s: %.3f second(s)", tip, delaySeconds));
   return messageLoops[isAddOnMaster]->addTimer(delaySeconds, lpfnHandleTimer);
 }
 
@@ -50,9 +49,9 @@ std::shared_ptr<SerialPortMessage> MessageLoops::addSerialPort(const char* port,
 void MessageLoops::run(const char* appName)
 {
   assert(hasInit());
-  log->info(DevHelper::format("%s is running ......", appName));
+  LOG_INFO(DevHelper::format("%s is running ......", appName));
   messageLoops[isAddOnMaster]->run();
   if (!hasOnlyOne())
     messageLoops[!isAddOnMaster]->run();
-  log->info(DevHelper::format("%s quit", appName));
+  LOG_INFO(DevHelper::format("%s quit", appName));
 }

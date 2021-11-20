@@ -3,11 +3,10 @@
 
 #include "dev_lib/gpio/gpio.h"
 
-class Log;
 class MockGPIO : public GPIO
 {
 public:
-  static std::shared_ptr<GPIO> create(std::shared_ptr<Log> log, unsigned int number, unsigned int count, const char* port, unsigned int baudrate, HandleInitCallback lpfnHandleInit);
+  static std::shared_ptr<GPIO> create(unsigned int number, unsigned int count, const char* port, unsigned int baudrate, HandleInitCallback lpfnHandleInit);
   MockGPIO(unsigned int number);
   virtual unsigned int number() const;
   virtual bool read() const;

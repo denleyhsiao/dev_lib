@@ -8,14 +8,13 @@
 #include <functional>
 using namespace boost::asio;
 
-class Log;
 class SerialPortMessage;
 class BoostSerialPort
 {
 public:
   typedef std::vector<uint8_t> data_type;
   using HandleAfterReadCallback = std::function<void (const data_type&)>;
-  BoostSerialPort(io_service& io, std::shared_ptr<Log> log);
+  BoostSerialPort(io_service& io);
   ~BoostSerialPort();
   std::shared_ptr<SerialPortMessage> init(const char* port, unsigned int baudrate);
 
@@ -36,7 +35,6 @@ private:
   mutable streambuf readContent;
   std::string port;
   unsigned int baudrate;
-  std::shared_ptr<Log> log;
 };
 
 #endif

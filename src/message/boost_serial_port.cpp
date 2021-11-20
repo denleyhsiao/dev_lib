@@ -1,11 +1,11 @@
 #include "dev_lib/message/boost_serial_port.h"
 #include "dev_lib/message/serial_port_message.h"
-#include "dev_lib/log/log.h"
+#include "dev_lib/log/log_harness.h"
 #include "dev_lib/dev_helper.h"
 #include <boost/asio/read.hpp>
 #include <boost/asio/read_until.hpp>
 
-BoostSerialPort::BoostSerialPort(io_service& io, std::shared_ptr<Log> log) : impl(io), log(log)
+BoostSerialPort::BoostSerialPort(io_service& io) : impl(io)
 {
 
 }
@@ -37,9 +37,9 @@ void BoostSerialPort::doInit()
 {
   open();
   if (hasInit())
-    log->info(DevHelper::format("Serial port initialized: %s(%d)", port.c_str(), baudrate));
+    LOG_INFO(DevHelper::format("Serial port initialized: %s(%d)", port.c_str(), baudrate));
   else
-    log->error(DevHelper::format("Serial port can't open: %s(%d)", port.c_str(), baudrate));
+    LOG_ERROR(DevHelper::format("Serial port can't open: %s(%d)", port.c_str(), baudrate));
 }
 
 void BoostSerialPort::open()
@@ -49,7 +49,7 @@ void BoostSerialPort::open()
   boost::system::error_code ec;
   impl.open(port.c_str(), ec);
   if (ec)
-    log->error(ec.message());
+    LOG_ERROR(ec.message());
   else
     setOption(8);
 }
@@ -91,7 +91,7 @@ void BoostSerialPort::write(const data_type& data)
   boost::system::error_code ec;
   impl.write_some(boost::asio::buffer(data), ec);
   if (ec)
-    log->error(ec.message());
+    LOG_ERROR(ec.message());
 }
 
 BoostSerialPort::data_type BoostSerialPort::read(size_t size) const
@@ -107,7 +107,7 @@ BoostSerialPort::data_type BoostSerialPort::read(size_t size) const
 
   data_type result = data_type();
   if(ec)
-    log->error(ec.message());
+    LOG_ERROR(ec.message());
   else
   {
     boost::asio::streambuf::const_buffers_type content = readContent.data();
@@ -127,7 +127,7 @@ void BoostSerialPort::asyncRead(HandleAfterReadCallback lpfnHandleAfterRead, con
 void BoostSerialPort::doRead(HandleAfterReadCallback lpfnHandleAfterRead, const data_type& delim, boost::system::error_code ec, std::size_t readSize)
 {
   if (ec)
-    log->error(ec.message());
+    LOG_ERROR(ec.message());
   else
   {
     boost::asio::streambuf::const_buffers_type content = readContent.data();

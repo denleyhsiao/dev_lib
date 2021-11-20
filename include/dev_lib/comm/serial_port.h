@@ -9,7 +9,7 @@ class SerialPort : public Comm
 {
 public:
   typedef Comm::data_type data_type;
-  SerialPort(std::shared_ptr<Log> log);
+  SerialPort();
   virtual void reopen();
   virtual bool hasInit() const;
   virtual bool init(const char* port, unsigned int baudrate, HandleInitCallback lpfnHandleInit);

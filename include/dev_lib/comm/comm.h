@@ -7,7 +7,6 @@
 #include <memory>
 #include <functional>
 
-class Log;
 class SerialPortMessage;
 class Comm
 {
@@ -22,10 +21,6 @@ public:
   virtual data_type read(size_t size) const = 0;
   virtual void asyncRead(HandleAfterReadCallback lpfnHandleAfterRead, const data_type& delim) = 0;
   void write(const data_type& data);
-
-protected:
-  Comm(std::shared_ptr<Log> log) : log(log) { }
-  std::shared_ptr<Log> log;
 
 private:
   virtual void doWrite(const data_type& data) = 0;

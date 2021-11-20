@@ -4,8 +4,8 @@
 #include <boost/system/error_code.hpp>
 #include <cassert>
 
-BoostMessageLoop::BoostMessageLoop(std::shared_ptr<Log> log, quit_t quit, bool isMaster /* = false */)
-  : MessageLoop(isMaster), timers(io), serialPorts(io, log), quit(quit)
+BoostMessageLoop::BoostMessageLoop(quit_t quit, bool isMaster /* = false */)
+  : MessageLoop(isMaster), timers(io), serialPorts(io), quit(quit)
 {
 
 }

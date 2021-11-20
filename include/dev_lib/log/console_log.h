@@ -9,11 +9,11 @@ class ConsoleLog : public Log
 public:
   static std::shared_ptr<Log> create();
   ConsoleLog() { }
-  virtual void debug(const std::string& message, const char* fileName = __FILE__, unsigned int line = __LINE__);
-  virtual void info(const std::string& message, const char* fileName = __FILE__, unsigned int line = __LINE__);
-  virtual void warn(const std::string& message, const char* fileName = __FILE__, unsigned int line = __LINE__);
-  virtual void error(const std::string& message, const char* fileName = __FILE__, unsigned int line = __LINE__);
-  virtual void fetal(const std::string& message, const char* fileName = __FILE__, unsigned int line = __LINE__);
+  virtual void debug(const std::string& message, const char* fileName, unsigned int line);
+  virtual void info(const std::string& message, const char* fileName, unsigned int line);
+  virtual void warn(const std::string& message, const char* fileName, unsigned int line);
+  virtual void error(const std::string& message, const char* fileName, unsigned int line);
+  virtual void fetal(const std::string& message, const char* fileName, unsigned int line);
 };
 
 #endif

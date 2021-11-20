@@ -6,12 +6,11 @@
 #include "dev_lib/message/boost_serial_ports.h"
 #include <boost/asio/io_service.hpp>
 
-class Log;
 class BoostMessageLoop : public MessageLoop
 {
 public:
   using quit_t = std::function<void(int number)>;
-  BoostMessageLoop(std::shared_ptr<Log> log, quit_t quit, bool isMaster = false);
+  BoostMessageLoop(quit_t quit, bool isMaster = false);
   ~BoostMessageLoop();
   virtual std::shared_ptr<TimerMessage> addTimer(float delaySeconds, HandleTimerCallback lpfnHandleTimer) override;
   virtual std::shared_ptr<SerialPortMessage> addSerialPort(const char* port, unsigned int baudrate) override;
@@ -20,7 +19,6 @@ public:
 
 private:
   void doStop();
-  std::shared_ptr<Log> log;
   boost::asio::io_service io;
   BoostTimers timers;
   BoostSerialPorts serialPorts;
