@@ -6,7 +6,7 @@
 class MockGPIO : public GPIO
 {
 public:
-  static std::shared_ptr<GPIO> create(unsigned int number, unsigned int count, const char* port, unsigned int baudrate, HandleInitCallback lpfnHandleInit);
+  static std::shared_ptr<GPIO> create(unsigned int number);
   MockGPIO(unsigned int number);
   virtual unsigned int number() const;
   virtual bool read() const;
