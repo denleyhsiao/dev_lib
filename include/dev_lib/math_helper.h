@@ -46,11 +46,11 @@ inline T MathHelper::yaw(T startX, T startY, T endX, T endY)
   if(DecimalComparer::isEqual(endX, startX))
     return (DecimalComparer::isGreat(endY, startY) ? PI2 : -PI2);
 
-  T result = atan((endY - startY) / (endX - startX));
+  T result = std::atan((endY - startY) / (endX - startX));
   if(DecimalComparer::isLess(endX, startX))
     result += PI;
   else if(DecimalComparer::isLess(endY, startY))
-    result += PI + PI;
+    result += PI2;
   return result;
 }
 
