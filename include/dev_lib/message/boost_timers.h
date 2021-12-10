@@ -6,11 +6,12 @@
 #include <boost/asio/deadline_timer.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <map>
-using namespace boost::asio;
 
 class BoostTimers
 {
 public:
+  using io_service = boost::asio::io_service;
+  using deadline_timer = boost::asio::deadline_timer;
   using RedoTimerCallback = TimerMessage::RedoTimerCallback;
   using HandleTimerCallback = TimerMessage::HandleTimerCallback;
   BoostTimers(io_service& io);

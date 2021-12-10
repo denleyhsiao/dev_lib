@@ -27,7 +27,7 @@ std::shared_ptr<SerialPortMessage> BoostMessageLoop::addSerialPort(const char* p
 
 void BoostMessageLoop::run()
 {
-  signal_set signal_set(io, SIGINT);
+  boost::asio::signal_set signal_set(io, SIGINT);
   signal_set.async_wait([this](const boost::system::error_code& ec, int number) {
     this->doStop();
     this->quit(number);

@@ -4,13 +4,13 @@
 #include <boost/asio/io_service.hpp>
 #include <vector>
 #include <memory>
-using namespace boost::asio;
 
 class SerialPortMessage;
 class BoostSerialPort;
 class BoostSerialPorts
 {
 public:
+  using io_service = boost::asio::io_service;
   BoostSerialPorts(io_service& io);
   std::shared_ptr<SerialPortMessage> addSerialPort(const char* port, unsigned int baudrate);
 

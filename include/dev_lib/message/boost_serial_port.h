@@ -6,13 +6,15 @@
 #include <boost/asio/serial_port.hpp>
 #include <memory>
 #include <functional>
-using namespace boost::asio;
 
 class SerialPortMessage;
-class BoostSerialPort
+class BoostSerialPort : public std::enable_shared_from_this<BoostSerialPort>
 {
 public:
   typedef std::vector<uint8_t> data_type;
+  using io_service = boost::asio::io_service;
+  using serial_port = boost::asio::serial_port;
+  using streambuf = boost::asio::streambuf;
   using HandleAfterReadCallback = std::function<void (const data_type&)>;
   BoostSerialPort(io_service& io);
   ~BoostSerialPort();
