@@ -37,7 +37,7 @@ bool MessageLoops::hasOnlyOne() const
 
 std::shared_ptr<TimerMessage> MessageLoops::addTimer(const char* tip, float delaySeconds, HandleTimerCallback lpfnHandleTimer)
 {
-  LOG_INFO(DevHelper::format("Add message of %s: %.3f second(s)", tip, delaySeconds));
+  LOG(INFO) << "Add message of " << tip << ": " << std::fixed << std::setprecision(3) << delaySeconds << " second(s)";
   return messageLoops[isAddOnMaster]->addTimer(delaySeconds, lpfnHandleTimer);
 }
 
@@ -49,9 +49,9 @@ std::shared_ptr<SerialPortMessage> MessageLoops::addSerialPort(const char* port,
 void MessageLoops::run(const char* appName)
 {
   assert(hasInit());
-  LOG_INFO(DevHelper::format("%s is running ......", appName));
+  LOG(INFO) << appName << " is running ......";
   messageLoops[isAddOnMaster]->run();
   if (!hasOnlyOne())
     messageLoops[!isAddOnMaster]->run();
-  LOG_INFO(DevHelper::format("%s quit", appName));
+  LOG(INFO) << appName << " quit";
 }

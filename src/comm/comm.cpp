@@ -4,6 +4,6 @@
 
 void Comm::write(const data_type& data)
 {
-  LOG_DEBUG(DevHelper::format("%s write %s", DevHelper::getType(*this).c_str(), DevHelper::convertToHex(data).c_str()));
+  DLOG(INFO) << DevHelper::getType(*this) << " write "<< DevHelper::convertToHex(data);
   doWrite(data);
 }

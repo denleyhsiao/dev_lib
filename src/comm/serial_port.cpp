@@ -12,7 +12,7 @@ bool SerialPort::init(const char* port, unsigned int baudrate, HandleInitCallbac
   if (system(DevHelper::format("sudo chmod 666 %s", port).c_str()) == 0)
     message = lpfnHandleInit(port, baudrate);
   else
-    LOG_ERROR(DevHelper::format("Unable to sudo chmod 666 %s", port));
+    LOG(ERROR) << "Unable to sudo chmod 666 " << port;
   return hasInit();
 }
 

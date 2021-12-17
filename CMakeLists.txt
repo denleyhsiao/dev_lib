@@ -4,6 +4,25 @@ project(dev_lib)
 option(DEVLIB_BUILD_TESTS "Build DevLib's unit tests" ON)
 find_package(Boost REQUIRED COMPONENTS filesystem thread date_time)
 
+include(${CMAKE_SOURCE_DIR}/cmake/dependency_manager.cmake)
+declare_dep_module(cmake
+  GIT_REPOSITORY  git@github.com:argusai/cmake.git
+  GIT_TAG         master
+  SOURCE_DIR      ${CMAKE_SOURCE_DIR}/cmake
+)
+
+include(${CMAKE_SOURCE_DIR}/cmake/FindGFlags.cmake)
+find_package(GFlags REQUIRED)
+if (NOT GFLAGS_FOUND)
+  message(FATAL "glog require gflags, but not found!")
+endif()
+
+include(${CMAKE_SOURCE_DIR}/cmake/FindGlog.cmake)
+find_package(Glog REQUIRED)
+if (NOT GLOG_FOUND)
+  message(FATAL "glog not found!")
+endif()
+
 add_library(${PROJECT_NAME})
 target_compile_features(${PROJECT_NAME}
   PUBLIC
@@ -13,6 +32,8 @@ target_include_directories(${PROJECT_NAME}
   PUBLIC
     include
     ${Boost_INCLUDE_DIRS}
+    ${GFLAGS_INCLUDE_DIR}
+    ${GLOG_INCLUDE_DIR}
 )
 target_sources(${PROJECT_NAME}
   PRIVATE
@@ -21,7 +42,6 @@ target_sources(${PROJECT_NAME}
     src/boost_helper.cpp
     src/math_helper.cpp
     src/log/log_harness.cpp
-    src/log/console_log.cpp
     src/comm/comm.cpp
     src/comm/serial_port.cpp
     src/comm/mock_comm.cpp
@@ -50,6 +70,8 @@ else()
 endif()
 target_link_libraries(${PROJECT_NAME}
   ${Boost_LIBRARIES}
+  ${GFLAGS_LIBRARIES}
+  ${GLOG_LIBRARIES}
 )
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 
