@@ -10,6 +10,9 @@ class LogHarness
 public:
   LogHarness(int argc, char** argv);
   ~LogHarness();
+
+private:
+  static void handleSingal(const char* data, size_t size);
 };
 
 #endif
