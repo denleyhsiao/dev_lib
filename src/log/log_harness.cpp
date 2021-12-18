@@ -15,7 +15,7 @@ LogHarness::~LogHarness()
   google::ShutdownGoogleLogging();
 }
 
-void LogHarness::handleSingal(const char* data, size_t size)
+void LogHarness::handleSingal(const char* data, int size)
 {
   LOG(FATAL) << std::string(data, size);
 }
