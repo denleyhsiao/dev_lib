@@ -37,7 +37,7 @@ bool MessageLoops::hasOnlyOne() const
 
 std::shared_ptr<TimerMessage> MessageLoops::addTimer(const char* tip, float delaySeconds, HandleTimerCallback lpfnHandleTimer)
 {
-  LOG(INFO) << "Add message of " << tip << ": " << std::fixed << std::setprecision(3) << delaySeconds << " second(s)";
+  LOG(INFO) << "Add message of " << tip << ": " << Precision(delaySeconds) << " second(s)";
   return messageLoops[isAddOnMaster]->addTimer(delaySeconds, lpfnHandleTimer);
 }
 

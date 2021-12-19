@@ -15,4 +15,21 @@ private:
   static void handleSingal(const char* data, int size);
 };
 
+struct Precision
+{
+  friend std::ostream& operator<<(std::ostream& out, const Precision& value);
+  Precision(float value, size_t precision = 3);
+  float value;
+  size_t precision;
+};
+
+struct Hex
+{
+  friend std::ostream& operator<<(std::ostream& out, const Hex& value);
+  Hex(uint8_t value);
+  uint8_t value;
+};
+
+std::ostream& operator<<(std::ostream& out, uint8_t value);
+
 #endif
