@@ -4,9 +4,21 @@
 #include <iomanip>
 #include <string>
 
+void CustomPrefix(std::ostream& s, const LogMessageInfo& l, void*)
+{
+   s << l.severity[0]
+   << std::setw(4) << 1900 + l.time.year()
+   << std::setw(2) << 1 + l.time.month()
+   << std::setw(2) << l.time.day()
+   << ' '
+   << std::setw(2) << l.time.hour() << ':'
+   << std::setw(2) << l.time.min()  << ':'
+   << std::setw(2) << l.time.sec();
+}
+
 LogHarness::LogHarness(int argc, char** argv)
 {
-  google::InitGoogleLogging(argv[0]);
+  google::InitGoogleLogging(argv[0], &CustomPrefix);
   gflags::ParseCommandLineFlags(&argc, &argv, true);
   google::InstallFailureSignalHandler();
   google::InstallFailureWriter(&LogHarness::handleSingal);
