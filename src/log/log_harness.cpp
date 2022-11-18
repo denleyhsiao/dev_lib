@@ -5,20 +5,17 @@
 
 LogHarness::LogHarness(int argc, char** argv)
 {
-  google::InitGoogleLogging(argv[0]);
   gflags::ParseCommandLineFlags(&argc, &argv, true);
+  google::InitGoogleLogging(argv[0]);
   google::InstallFailureSignalHandler();
-  google::InstallFailureWriter(&LogHarness::handleSingal);
+  google::InstallFailureWriter([](const char* data, size_t size) {
+    LOG(WARNING) << std::string(data, size);
+  });
 }
 
 LogHarness::~LogHarness()
 {
   google::ShutdownGoogleLogging();
-}
-
-void LogHarness::handleSingal(const char* data, size_t size)
-{
-  LOG(FATAL) << std::string(data, size);
 }
 
 Precision::Precision(float value, size_t precision /* = 3 */) : value(value), precision(precision)
