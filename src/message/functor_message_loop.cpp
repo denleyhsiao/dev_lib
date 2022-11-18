@@ -13,7 +13,13 @@ std::shared_ptr<TimerMessage> FunctorMessageLoop::addTimer(float delaySeconds, H
   return nullptr;
 }
 
-std::shared_ptr<SerialPortMessage> FunctorMessageLoop::addSerialPort(const char* port, unsigned int baudrate)
+std::shared_ptr<CommMessage> FunctorMessageLoop::addSerialComm(const char* port, unsigned int baudrate)
+{
+  assert(false);
+  return nullptr;
+}
+
+std::shared_ptr<CommMessage> FunctorMessageLoop::addTCPComm(const char* address, unsigned int port)
 {
   assert(false);
   return nullptr;

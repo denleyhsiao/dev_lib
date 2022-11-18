@@ -41,9 +41,14 @@ std::shared_ptr<TimerMessage> MessageLoops::addTimer(const char* tip, float dela
   return messageLoops[isAddOnMaster]->addTimer(delaySeconds, lpfnHandleTimer);
 }
 
-std::shared_ptr<SerialPortMessage> MessageLoops::addSerialPort(const char* port, unsigned int baudrate)
+std::shared_ptr<CommMessage> MessageLoops::addSerialComm(const char* port, unsigned int baudrate)
 {
-  return messageLoops[isAddOnMaster]->addSerialPort(port, baudrate);
+  return messageLoops[isAddOnMaster]->addSerialComm(port, baudrate);
+}
+
+std::shared_ptr<CommMessage> MessageLoops::addTCPComm(const char* address, unsigned int port)
+{
+  return messageLoops[isAddOnMaster]->addTCPComm(address, port);
 }
 
 void MessageLoops::run(const char* appName)

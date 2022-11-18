@@ -56,15 +56,15 @@ TEST(DevHelperTest, split)
   ASSERT_EQ(strings_type({"7:30", "8:30"}), DevHelper::split("7:30~8:30", '~'));
 }
 
-TEST(DevHelperTest, convertToHex)
+TEST(DevHelperTest, toHex)
 {
   DevHelper::uints_type source = {0xA0, 0x01, 0x03, 0x07};
-  ASSERT_EQ("A0010307", DevHelper::convertToHex(source));
+  ASSERT_EQ("A0010307", DevHelper::toHex(source));
 }
 
 TEST(DevHelperTest, stringConvertToHex)
 {
-  ASSERT_EQ("343139", DevHelper::convertToHex("419"));
+  ASSERT_EQ("343139", DevHelper::toHex("419"));
 }
 
 TEST(DevHelperTest, crc)

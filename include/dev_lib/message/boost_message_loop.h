@@ -3,9 +3,11 @@
 
 #include "dev_lib/message/message_loop.h"
 #include "dev_lib/message/boost_timers.h"
-#include "dev_lib/message/boost_serial_ports.h"
 #include <boost/asio/io_service.hpp>
+#include <vector>
 
+class BoostSerialComm;
+class BoostTCPComm;
 class BoostMessageLoop : public MessageLoop
 {
 public:
@@ -13,7 +15,8 @@ public:
   BoostMessageLoop(quit_t quit, bool isMaster = false);
   ~BoostMessageLoop();
   virtual std::shared_ptr<TimerMessage> addTimer(float delaySeconds, HandleTimerCallback lpfnHandleTimer) override;
-  virtual std::shared_ptr<SerialPortMessage> addSerialPort(const char* port, unsigned int baudrate) override;
+  virtual std::shared_ptr<CommMessage> addSerialComm(const char* port, unsigned int baudrate) override;
+  virtual std::shared_ptr<CommMessage> addTCPComm(const char* address, unsigned int port) override;
   virtual void run() override;
   virtual void stop() override;
 
@@ -21,7 +24,8 @@ private:
   void doStop();
   boost::asio::io_service io;
   BoostTimers timers;
-  BoostSerialPorts serialPorts;
+  std::vector<std::shared_ptr<BoostSerialComm> > serialComms;
+  std::vector<std::shared_ptr<BoostTCPComm> > tcpComms;
   quit_t quit;
 };
 

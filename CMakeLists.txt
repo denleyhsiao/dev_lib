@@ -43,15 +43,17 @@ target_sources(${PROJECT_NAME}
     src/math_helper.cpp
     src/log/log_harness.cpp
     src/comm/comm.cpp
-    src/comm/serial_port.cpp
     src/comm/mock_comm.cpp
+    src/comm/common_comm.cpp
+    src/comm/serial_comm.cpp
+    src/comm/tcp_comm.cpp
     src/gpio/gpio.cpp
     src/gpio/mock_gpio.cpp
     src/message/timer_message.cpp
-    src/message/serial_port_message.cpp
+    src/message/comm_message.cpp
     src/message/boost_timers.cpp
-    src/message/boost_serial_ports.cpp
-    src/message/boost_serial_port.cpp
+    src/message/boost_serial_comm.cpp
+    src/message/boost_tcp_comm.cpp
     src/message/boost_message_loop.cpp
     src/message/functor_message_loop.cpp
     src/message/message_loop_thread.cpp

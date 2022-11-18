@@ -1,11 +1,13 @@
 #include "dev_lib/message/boost_message_loop.h"
 #include "dev_lib/message/timer_message.h"
+#include "dev_lib/message/boost_serial_comm.h"
+#include "dev_lib/message/boost_tcp_comm.h"
 #include <boost/asio/signal_set.hpp>
 #include <boost/system/error_code.hpp>
 #include <cassert>
 
 BoostMessageLoop::BoostMessageLoop(quit_t quit, bool isMaster /* = false */)
-  : MessageLoop(isMaster), timers(io), serialPorts(io), quit(quit)
+  : MessageLoop(isMaster), timers(io), quit(quit)
 {
 
 }
@@ -20,9 +22,18 @@ std::shared_ptr<TimerMessage> BoostMessageLoop::addTimer(float delaySeconds, Han
   return timers.addTimer(delaySeconds, lpfnHandleTimer);
 }
 
-std::shared_ptr<SerialPortMessage> BoostMessageLoop::addSerialPort(const char* port, unsigned int baudrate)
+std::shared_ptr<CommMessage> BoostMessageLoop::addSerialComm(const char* port, unsigned int baudrate)
 {
-  return serialPorts.addSerialPort(port, baudrate);
+  auto serialComm = std::make_shared<BoostSerialComm>(io);
+  serialComms.push_back(serialComm);
+  return serialComm->init(port, baudrate);
+}
+
+std::shared_ptr<CommMessage> BoostMessageLoop::addTCPComm(const char* address, unsigned int port)
+{
+  auto tcpComm = std::make_shared<BoostTCPComm>(io);
+  tcpComms.push_back(tcpComm);
+  return tcpComm->init(address, port);
 }
 
 void BoostMessageLoop::run()

@@ -1,10 +1,11 @@
 #include "dev_lib/dev_helper.h"
+#include <string.h>
+#include <stdio.h>
 #include <iterator>
-#include <sstream>
 #include <numeric>
-#include <vector>
 #include <iomanip>
 #include <algorithm>
+#include <random>
 #include <cassert>
 
 const float DevHelper::inf = std::numeric_limits<float>::infinity();
@@ -47,9 +48,10 @@ unsigned int DevHelper::sum(const uints_type& value)
   return std::accumulate(value.begin(), value.end(), 0);
 }
 
-size_t DevHelper::count(const floats_type& source, float value, size_t start, size_t end)
+DevHelper::size_type DevHelper::count(const floats_type& source, float value, size_type startIndex, size_type endIndex)
 {
-  return std::count(std::next(source.begin(), start), std::next(source.begin(), end), value);
+  assert(startIndex <= endIndex);
+  return std::count(std::next(source.begin(), startIndex), std::next(source.begin(), endIndex), value);
 }
 
 DevHelper::uints_type& DevHelper::append(const uints_type& source, uints_type& target)
@@ -148,40 +150,25 @@ std::string DevHelper::merge(const char* begin, const char* end, const char deli
   return format("%s%c%s", begin, delimiter, end);
 }
 
-
-std::string DevHelper::convertToHex(const uints_type& source)
+std::string DevHelper::toHex(const uints_type& source)
 {
-  char result[128] = {0x00};
-  size_t size = source.size();
-  for (size_t index = 0; index < size; ++index)
-  {
-    sprintf(&result[2*index], "%02X", source[index]);
-  }
-  return result;
+  std::stringstream ss;
+  for (const auto& child : source)
+    doToHex(ss, child);
+  return ss.str();
 }
 
-std::string DevHelper::convertToHex(const std::string& source)
+std::string DevHelper::toHex(const char* source)
 {
-  static const char* const lut = "0123456789ABCDEF";
-  size_t len = source.length();
-  std::string result;
-  result.reserve(2 * len);
-  for (size_t index = 0; index < len; ++index)
-  {
-    const unsigned char c = source[index];
-    result.push_back(lut[c >> 4]);
-    result.push_back(lut[c & 15]);
-  }
-  return result;
+  return toHex(std::string(source, strlen(source)));
 }
 
 DevHelper::value_type DevHelper::crc(const value_type& cmd, const uints_type& data)
 {
   value_type result = cmd;
   result ^= data.size();
-  std::for_each(data.begin(), data.end(), [&result](value_type value){
-    result ^= value;
-  });
+  for (const auto& child : data)
+    result ^= child;
   result &= 0x7F;
   return result;
 }
@@ -215,4 +202,57 @@ DevHelper::value_type DevHelper::mergeTo8(value_type high, value_type low)
 uint16_t DevHelper::mergeTo16(value_type high, value_type low)
 {
   return doMerge<uint16_t>(high, low, 8);
+}
+
+DevHelper::BYTE* DevHelper::genRandom(BYTE* source, size_type length, BYTE minValue /* = 1*/, BYTE maxValue /* = 255*/)
+{
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_int_distribution<> dis(minValue, maxValue);
+
+  for(size_type index = 0; index < length; ++index)
+    source[index] = dis(gen);
+  return source;
+}
+
+bool DevHelper::saveBinFile(const char* name, void* source, size_type length)
+{
+  FILE*  file= fopen(name, "wb");
+  bool result = (file != nullptr);
+  if(result)
+  {
+    fwrite(source, length, 1, file);
+    fclose(file);
+  }
+  return result;
+}
+
+bool DevHelper::readBinFile(const char* name, void* source, size_type length)
+{
+  FILE* file = fopen(name, "rb");
+  bool result = (file != nullptr);
+  if(result)
+  {
+    fread(source, length, 1, file);
+    fclose(file);
+  }
+  return result;
+}
+
+std::string DevHelper::toHex(BYTE* source, size_type length, size_t lineCount /* = 16 */)
+{
+  std::stringstream ss;
+  for(size_type index = 0; index < length;)
+  {
+    doToHex(ss << "0x", source[index]);
+    if (++index == length)
+      ss << std::endl;
+    else
+    {
+      ss << ", ";
+      if (index % lineCount == 0)
+        ss << std::endl;
+    }
+  }
+  return ss.str();
 }

@@ -2,20 +2,18 @@
 #define __DEV_LIB_COMM_MOCK_COMM_H__
 
 #include "dev_lib/comm/comm.h"
-#include <memory>
 
 class MockComm : public Comm
 {
 public:
-  typedef Comm::data_type data_type;
-  virtual bool hasInit() const { return true; }
-  virtual bool init(const char* serialPort, unsigned int serialBaudrate, HandleInitCallback lpfnHandleInit);
-  virtual void reopen() { }
-  virtual data_type read(size_t size) const;
-  virtual void asyncRead(HandleAfterReadCallback lpfnHandleAfterRead, const data_type& delim) { }
+  virtual bool hasInit() const override { return true; }
+  virtual bool init(const char* argv1, unsigned int argv2, HandleInitCallback lpfnHandleInit) override;
+  virtual void reopen() override { }
+  virtual data_type read(size_t size) const override;
+  virtual void asyncRead(HandleAfterReadCallback lpfnHandleAfterRead) override { }
 
 private:
-  virtual void doWrite(const data_type& data) { }
+  virtual void doWrite(const data_type& data) override { }
 };
 
 #endif

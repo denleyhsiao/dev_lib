@@ -17,9 +17,14 @@ std::shared_ptr<TimerMessage> MessageLoopThread::addTimer(float delaySeconds, Ha
   return messageLoop->addTimer(delaySeconds, lpfnHandleTimer);
 }
 
-std::shared_ptr<SerialPortMessage> MessageLoopThread::addSerialPort(const char* port, unsigned int baudrate)
+std::shared_ptr<CommMessage> MessageLoopThread::addSerialComm(const char* port, unsigned int baudrate)
 {
-  return messageLoop->addSerialPort(port, baudrate);
+  return messageLoop->addSerialComm(port, baudrate);
+}
+
+std::shared_ptr<CommMessage> MessageLoopThread::addTCPComm(const char* address, unsigned int port)
+{
+  return messageLoop->addTCPComm(address, port);
 }
 
 void MessageLoopThread::run()

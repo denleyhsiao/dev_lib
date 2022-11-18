@@ -1,6 +1,6 @@
-#include "dev_lib/message/serial_port_message.h"
+#include "dev_lib/message/comm_message.h"
 
-SerialPortMessage::SerialPortMessage(HasInitCallback lpfnHasInit, ReInitCallback lpfnReInit,
+CommMessage::CommMessage(HasInitCallback lpfnHasInit, ReInitCallback lpfnReInit,
   WriteCallback lpfnWrite, AsyncReadCallback lpfnAsyncRead, ReadCallback lpfnRead)
   : lpfnHasInit(lpfnHasInit), lpfnReInit(lpfnReInit),
   lpfnWrite(lpfnWrite), lpfnAsyncRead(lpfnAsyncRead), lpfnRead(lpfnRead)
@@ -9,32 +9,32 @@ SerialPortMessage::SerialPortMessage(HasInitCallback lpfnHasInit, ReInitCallback
 }
 
 
-bool SerialPortMessage::hasInit() const
+bool CommMessage::hasInit() const
 {
   if (lpfnHasInit)
     return lpfnHasInit();
   return false;
 }
 
-void SerialPortMessage::reInit()
+void CommMessage::reInit()
 {
   if (lpfnReInit)
     lpfnReInit();
 }
 
-void SerialPortMessage::write(const data_type& data)
+void CommMessage::write(const data_type& data)
 {
   if (lpfnWrite)
     lpfnWrite(data);
 }
 
-void SerialPortMessage::asyncRead(HandleAfterReadCallback lpfnHandleAfterRead, const data_type& delim)
+void CommMessage::asyncRead(HandleAfterReadCallback lpfnHandleAfterRead)
 {
   if (lpfnAsyncRead)
-    lpfnAsyncRead(lpfnHandleAfterRead, delim);
+    lpfnAsyncRead(lpfnHandleAfterRead);
 }
 
-SerialPortMessage::data_type SerialPortMessage::read(size_t size) const
+CommMessage::data_type CommMessage::read(size_t size) const
 {
   data_type result = data_type();
   if (lpfnRead)

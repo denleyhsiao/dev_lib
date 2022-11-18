@@ -1,6 +1,6 @@
 #include "dev_lib/comm/mock_comm.h"
 
-bool MockComm::init(const char* serialPort, unsigned int serialBaudrate, HandleInitCallback lpfnHandleInit)
+bool MockComm::init(const char* argv1, unsigned int argv2, HandleInitCallback lpfnHandleInit)
 {
   return true;
 }

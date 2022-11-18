@@ -12,7 +12,7 @@ public:
   ~LogHarness();
 
 private:
-  static void handleSingal(const char* data, int size);
+  static void handleSingal(const char* data, size_t size);
 };
 
 struct Precision

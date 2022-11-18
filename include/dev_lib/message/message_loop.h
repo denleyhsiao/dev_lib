@@ -5,7 +5,7 @@
 #include <functional>
 #include <memory>
 
-class SerialPortMessage;
+class CommMessage;
 class MessageLoop
 {
 public:
@@ -15,7 +15,8 @@ public:
   bool isMaster() const { return thisIsMaster; }
   virtual ~MessageLoop() {}
   virtual std::shared_ptr<TimerMessage> addTimer(float delaySeconds, HandleTimerCallback lpfnHandleTimer) = 0;
-  virtual std::shared_ptr<SerialPortMessage> addSerialPort(const char* port, unsigned int baudrate) = 0;
+  virtual std::shared_ptr<CommMessage> addSerialComm(const char* port, unsigned int baudrate) = 0;
+  virtual std::shared_ptr<CommMessage> addTCPComm(const char* address, unsigned int port) = 0;
   virtual void run() = 0;
   virtual void stop() = 0;
 
